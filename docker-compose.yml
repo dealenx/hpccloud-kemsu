@@ -1,0 +1,148 @@
+# Go back to an older compose format version due to a bug
+# where 'runtime' is available in version 2.3 but not 3
+#   https://github.com/docker/compose/issues/6239
+version: '2.3'
+services:
+  mongodb:
+    image: mongo:3.6
+    networks:
+      - hc
+    volumes:
+      - mongodb.hc:/data/db
+
+  girder:
+    image: kitware/hpccloud:girder
+    build:
+      context: .
+      dockerfile: docker/girder/Dockerfile
+    volumes:
+      - assetstore.hc:/assetstore
+      - keys.hc:/keys
+      - pvw.hc:/pvw
+    networks:
+      - hc
+    ports:
+      - '8080:8080'
+    extra_hosts:
+      - 'girder:127.0.0.1'
+    depends_on:
+      - mongodb
+      - rabbitmq
+    environment:
+      - GIRDER_PORT=8080
+
+  command:
+    image: kitware/hpccloud:celery-pyfr
+    build:
+      context: .
+      dockerfile: docker/celery-pyfr/Dockerfile
+    hostname: command
+    networks:
+      - hc
+    volumes:
+      - keys.hc:/keys
+    command: celery worker --app=cumulus -b amqp://guest:guest@rabbitmq/ -n command --config=cumulus.celery.commandconfig --loglevel=INFO
+    depends_on:
+      - rabbitmq
+    environment:
+      - GIRDER_PORT=8080
+
+  monitor:
+    image: kitware/hpccloud:celery-pyfr
+    build:
+      context: .
+      dockerfile: docker/celery-pyfr/Dockerfile
+    hostname: monitor
+    volumes:
+      - keys.hc:/keys
+    networks:
+      - hc
+    command: celery worker --app=cumulus -b amqp://guest:guest@rabbitmq/ -n monitor -Q monitor --config=cumulus.celery.monitorconfig --loglevel=INFO
+    depends_on:
+      - rabbitmq
+    environment:
+      - GIRDER_PORT=8080
+
+  rabbitmq:
+    image: rabbitmq
+    networks:
+      - hc
+
+  nginx:
+    image: kitware/hpccloud:nginx
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    networks:
+      - hc
+    volumes:
+      - ./dist:/usr/share/nginx/html
+    ports:
+      - '8888:8888'
+    depends_on:
+      - girder
+      - apache
+
+  apache:
+    image: kitware/hpccloud:apache
+    build:
+      context: .
+      dockerfile: docker/apache/Dockerfile
+    volumes:
+      - pvw.hc:/pvw
+    networks:
+      - hc
+    ports:
+      - '9000:9000'
+
+  ansible:
+    image: kitware/hpccloud:ansible
+    build:
+      context: .
+      dockerfile: docker/ansible/Dockerfile
+    hostname: ansible
+    networks:
+      - hc
+    depends_on:
+      - girder
+      - command
+      - monitor
+      - compute
+      - visualize
+
+  compute:
+    image: kitware/hpccloud:compute-pyfr
+    build:
+      context: .
+      dockerfile: docker/compute-pyfr/Dockerfile
+    hostname: compute
+    volumes:
+      - scratch.hc:/scratch
+    networks:
+      - hc
+    ports:
+      - '2201:22'
+
+  visualize:
+    image: kitware/hpccloud:visualize-osmesa
+    build:
+      context: .
+      dockerfile: docker/visualize-osmesa/Dockerfile
+    hostname: visualize
+    volumes:
+      - scratch.hc:/scratch
+    networks:
+      - hc
+    ports:
+      - '2202:22'
+      - '9090:9090'
+
+networks:
+  hc:
+
+volumes:
+  pvw.hc:
+  assetstore.hc:
+  keys.hc:
+  mongodb.hc:
+  scratch.hc:
