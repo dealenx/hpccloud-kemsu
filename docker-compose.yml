@@ -75,6 +75,7 @@ services:
       dockerfile: docker/nginx/Dockerfile
     networks:
       - hc
+    working_dir: /usr/share/nginx/html
     volumes:
       - ./dist:/usr/share/nginx/html
     ports:
