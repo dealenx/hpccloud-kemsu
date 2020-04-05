@@ -14,8 +14,8 @@ HPCCloud web-based interface that can run OpenFoam simulation
 
 ## Official Kitware's repositories
 
-Source: https://github.com/Kitware/hpccloud
-Docker compose infrastructure for HPCCloud: https://github.com/Kitware/hpccloud-services
+- Source: https://github.com/Kitware/hpccloud
+- Docker compose infrastructure for HPCCloud: https://github.com/Kitware/hpccloud-services
 
 ### Running it
 
