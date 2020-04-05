@@ -35,6 +35,7 @@ from cumulus.transport.files.download import download_path_from_cluster
 
 from hpccloud.taskflow.utility import *
 
+
 class OpenFOAMTaskFlow(cumulus.taskflow.cluster.ClusterProvisioningTaskFlow):
     """
     // Payload from (Line ~74) workflows/openfoam/components/steps/Simulation/Start/index.js
@@ -69,6 +70,7 @@ class OpenFOAMTaskFlow(cumulus.taskflow.cluster.ClusterProvisioningTaskFlow):
 
         super(OpenFOAMTaskFlow, self).start(self, *args, **kwargs)
 
+
 @cumulus.taskflow.task
 def create_openfoam_job(task, *args, **kwargs):
     # Girder client
@@ -91,18 +93,18 @@ def create_openfoam_job(task, *args, **kwargs):
         ],
         'input': [
             {
-              'folderId': kwargs['input']['folder']['id'],
-              'path': '.'
+                'folderId': kwargs['input']['folder']['id'],
+                'path': '.'
             }
         ],
         'output': [
-            { 'path': 'simulation/log.blockMesh' },
-            { 'path': 'simulation/log.patchSummary' },
-            { 'path': 'simulation/log.potentialFoam' },
-            { 'path': 'simulation/log.reconstructParMesh' },
-            { 'path': 'simulation/log.surfaceFeatureExtract' },
-            { 'path': 'simulation/log.snappyHexMesh' },
-            { 'path': 'simulation/log.simpleFoam' }
+            {'path': 'simulation/log.blockMesh'},
+            {'path': 'simulation/log.patchSummary'},
+            {'path': 'simulation/log.potentialFoam'},
+            {'path': 'simulation/log.reconstructParMesh'},
+            {'path': 'simulation/log.surfaceFeatureExtract'},
+            {'path': 'simulation/log.snappyHexMesh'},
+            {'path': 'simulation/log.simpleFoam'}
         ]
     }
 
@@ -125,35 +127,34 @@ def submit_open_foam_job(task, cluster, job, *args, **kwargs):
     # Now download job inputs
     task.logger.info('Uploading input files to cluster.')
     download_job_input_folders(cluster, job,
-        log_write_url=None,
-        girder_token=task.taskflow.girder_token,
-        submit=False)
+                               log_write_url=None,
+                               girder_token=task.taskflow.girder_token,
+                               submit=False)
     task.logger.info('Uploading complete.')
 
     # Setup job parameters
     task.taskflow.logger.info('Submitting job to cluster.')
     job['params'] = {}
 
-    ## parallel_environment
+    # parallel_environment
     parallel_environment = parse('config.parallelEnvironment').find(cluster)
     if parallel_environment:
         parallel_environment = parallel_environment[0].value
         job['params']['parallelEnvironment'] = parallel_environment
 
-    ## slots
+    # slots
     job['params']['numberOfSlots'] = 1
 
-    ## output dir
+    # output dir
     job_output_dir = get_cluster_job_output_dir(cluster)
     if job_output_dir:
         job['params']['jobOutputDir'] = job_output_dir
 
-
     # Submit job to the queue
     submit_job(cluster, job,
-        log_write_url=None,
-        girder_token=task.taskflow.girder_token,
-        monitor=False)
+               log_write_url=None,
+               girder_token=task.taskflow.girder_token,
+               monitor=False)
 
     # Move to the next task
     monitor_open_foam_job.delay(cluster, job, *args, **kwargs)
@@ -171,6 +172,7 @@ def monitor_open_foam_job(task, cluster, job, *args, **kwargs):
     # Monitor job in a loop manner
     task.taskflow.run_task(
         monitor_job.s(cluster, job, girder_token=task.taskflow.girder_token))
+
 
 @cumulus.taskflow.task
 def upload_output(task, cluster, job, *args, **kwargs):
@@ -196,9 +198,9 @@ def upload_output(task, cluster, job, *args, **kwargs):
 
     # Upload files metadata
     upload_job_output_to_folder(cluster, job,
-        log_write_url=None,
-        job_dir=None,
-        girder_token=task.taskflow.girder_token)
+                                log_write_url=None,
+                                job_dir=None,
+                                girder_token=task.taskflow.girder_token)
 
     # Done...
     task.taskflow.logger.info('Upload complete.')

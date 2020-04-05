@@ -9,3 +9,5 @@ npm-debug.log
 .pydevproject
 .settings/
 coverage/
+**/*.egg-info
+**/*.egg

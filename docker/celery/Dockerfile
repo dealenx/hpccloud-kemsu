@@ -2,7 +2,7 @@ ARG BASE_IMAGE=kitware/hpccloud:bionic-python
 FROM ${BASE_IMAGE}
 
 LABEL maintainer="patrick.oleary@kitware.com" \
-      version="1.0"
+  version="1.0"
 
 RUN adduser --system celery
 
@@ -32,9 +32,8 @@ COPY ./docker/celery/config.json /cumulus/cumulus/conf/config.json
 
 RUN chown -R celery  /cumulus
 
-RUN git clone https://github.com/Kitware/HPCCloud.git /hpccloud && \
-  cd /hpccloud && \
-  git checkout master
+RUN rm -rf /hpccloud
+COPY . /hpccloud
 
 # Change ownership
 RUN chown -R celery  /hpccloud
