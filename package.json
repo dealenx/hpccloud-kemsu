@@ -1,12 +1,12 @@
 {
-  "name": "hpc-cloud",
+  "name": "hpccloud-kemsu",
   "description": "Virtual platform for running simulations and visualization",
   "license": "Apache-2.0",
   "version": "0.9.0",
   "main": "./lib/app.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Kitware/HPCCloud.git"
+    "url": "https://github.com/dealenx/hpccloud-kemsu"
   },
   "engines": {
     "node": ">= 8",
