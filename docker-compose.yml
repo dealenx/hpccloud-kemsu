@@ -43,6 +43,7 @@ services:
     networks:
       - hc
     volumes:
+      - .:/hpccloud
       - keys.hc:/keys
     command: celery worker --app=cumulus -b amqp://guest:guest@rabbitmq/ -n command --config=cumulus.celery.commandconfig --loglevel=INFO
     depends_on:
@@ -57,6 +58,7 @@ services:
       dockerfile: docker/celery-pyfr/Dockerfile
     hostname: monitor
     volumes:
+      - .:/hpccloud
       - keys.hc:/keys
     networks:
       - hc

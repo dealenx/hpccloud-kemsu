@@ -86,10 +86,12 @@ def create_openfoam_job(task, *args, **kwargs):
     body = {
         'name': 'openfoam_run',
         'commands': [
+            # TODO: Setting command for Visualizer's access
             'chmod +x $PWD/run.sh',
-            'xhost +local:of_v1612_plus',
-            'docker start of_v1612_plus',
-            'docker exec -t of_v1612_plus $PWD/run.sh $PWD'
+            # NOTE: idk what the command below
+            #'xhost +local:of_v1612_plus',
+            #'docker start of_v1612_plus',
+            '$PWD/run.sh $PWD'
         ],
         'input': [
             {

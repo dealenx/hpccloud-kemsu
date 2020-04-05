@@ -32,8 +32,8 @@ COPY ./docker/celery/config.json /cumulus/cumulus/conf/config.json
 
 RUN chown -R celery  /cumulus
 
-RUN rm -rf /hpccloud
-COPY . /hpccloud
+# RUN rm -rf /hpccloud
+# COPY . /hpccloud
 
 # Change ownership
-RUN chown -R celery  /hpccloud
+# RUN chown -R celery  /hpccloud
