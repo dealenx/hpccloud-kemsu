@@ -50,3 +50,11 @@ If you want to stop the services you can run the command
 ```
 docker-compose down
 ```
+
+### Development
+
+SOON
+
+### Documentation
+
+Soon, but you can read official Kitware's docs [here](https://kitware.github.io/HPCCloud/)

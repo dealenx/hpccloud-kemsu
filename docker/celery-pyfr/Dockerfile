@@ -43,3 +43,4 @@ RUN wget -q -O PyFR-1.8.0.zip https://github.com/PyFR/PyFR/archive/v1.8.0.zip &&
     cd /
 
 RUN chown -R celery  /PyFR-1.8.0
+# RUN chown -R celery  /hpccloud
