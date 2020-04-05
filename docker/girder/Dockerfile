@@ -1,6 +1,6 @@
 FROM girder/girder:latest-py3
 LABEL maintainer="patrick.oleary@kitware.com" \
-      version="1.0"
+  version="1.0"
 
 # Install cumulus
 RUN git clone https://github.com/Kitware/cumulus.git /cumulus && \
@@ -21,18 +21,14 @@ COPY ./docker/girder/config.json /cumulus/cumulus/conf/config.json
 # Enable proxy support
 COPY ./docker/girder/girder.local.conf /etc/girder.cfg
 
-# temp cache- buster when repo is changed.
-RUN echo 'test1' > testx && rm testx && \
-  git clone https://github.com/Kitware/HPCCloud.git /hpccloud && \
-  cd /hpccloud && \
-  git checkout master
-
-# Install hpccloud - girder server
-RUN pip3 install --no-cache-dir -r /hpccloud/requirements.txt && \
-    pip3 install --no-cache-dir -e /hpccloud/server/hpccloud && \
-    pip3 install --no-cache-dir -e /hpccloud/server/pvwproxy
+COPY ./requirements.txt /requirements.txt
 
 COPY ./docker/girder/entrypoint.sh /entrypoint.sh
 COPY ./docker/girder/wait-for-it.sh /wait-for-it.sh
+
+
+# Install hpccloud - girder server
+RUN pip3 install  -r /requirements.txt
+
 
 ENTRYPOINT ["/wait-for-it.sh", "-t", "30", "rabbitmq:5672",  "--", "/entrypoint.sh"]
