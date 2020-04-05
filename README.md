@@ -1,59 +1,52 @@
-# HPCCloud
+# HPCCloud-KemSU
 
-[![codecov.io](https://codecov.io/github/Kitware/HPCCloud/coverage.svg?branch=master)](https://codecov.io/github/Kitware/HPCCloud?branch=master)
-[![Build Status](https://travis-ci.org/Kitware/HPCCloud.svg?branch=master)](https://travis-ci.org/Kitware/HPCCloud)
-[![Dependency Status](https://david-dm.org/kitware/hpc-cloud.svg)](https://david-dm.org/kitware/hpc-cloud)
-[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
-![npm-download](https://img.shields.io/npm/dm/hpc-cloud.svg)
-![npm-version-requirement](https://img.shields.io/badge/npm-5-brightgreen.svg)
-![node-version-requirement](https://img.shields.io/badge/node-8-brightgreen.svg)
+## Introduction
 
-### Goal
+This project is a fork of Kitware's repositories. The infrastruture of the repository for development. A word 'kemsu' in the title means that the development is directed for research at Kemerovo State University
 
-Web interface to the HPCCloud infrastructure that abstract simulation
-environment and resources on which you can run those simulations.
+## The main Goal of HPCCloud
 
-## Installation
+Web interface to the HPCCloud infrastructure that abstract simulation environment and resources on which you can run those simulations.
 
-Observe the instructions for [HPCCloud deploy](https://github.com/Kitware/HPCCloud-deploy);
+## Our Goal
 
-## Development
+HPCCloud web-based interface that can run OpenFoam simulation
 
-```sh
-$ git clone https://github.com/Kitware/HPCCloud.git
-$ cd HPCCloud
-$ npm install
-$ npm start
+## Official Kitware's repositories
+
+Source: https://github.com/Kitware/hpccloud
+Docker compose infrastructure for HPCCloud: https://github.com/Kitware/hpccloud-services
+
+### Running it
+
+```
+git clone https://github.com/dealenx/hpccloud-kemsu.git
+cd hpccloud-kemsu
 ```
 
-## Troubleshooting
+If you have run the system before, you may need to re-pull the stack of images:
 
-(With the vm running from HPCCloud-Deploy)
-```sh
-$ vagrant ssh
-$ sudo -iu hpccloud
+```
+docker-compose pull
 ```
 
-### Fixing celery Girder URL
+And then you can bring the system up with:
 
-```sh
-$ vi /opt/hpccloud/cumulus/cumulus/conf/config.json
-  +-> Fix host to be localhost
-  +-> baseUrl: "http://localhost:8080/api/v1",
-$ sudo service celeryd restart
+```
+docker-compose up -d
 ```
 
-## Documentation
+Once done, make sure ansible is done configuring the various bits by looking at the following log
 
-See the [documentation](docs/README.md) in this repository for a
-getting started guide, advanced documentation, and workflow descriptions.
+```
+docker logs -f hpccloud-services_ansible_1
+```
 
-## Licensing
+At that point you should be able to connect to http://localhost:8888 and login as demo/letmein <br/>
+or hpccloud/letmein
 
-**HPCCloud** is licensed under [Apache 2](LICENSE).
+If you want to stop the services you can run the command
 
-## Getting Involved
-
-Fork our repository and do great things. At [Kitware](http://www.kitware.com),
-we've been contributing to open-source software for 15 years and counting, and we
-want to make **hpc-cloud** useful to as many people as possible.
+```
+docker-compose down
+```
