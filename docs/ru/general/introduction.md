@@ -1,6 +1,10 @@
-<img src="../logo.png" width="250px"> 
+---
+title: Introduction
+---
 
-HPCCloud is a web-based simulation environment platform that utilizes web technologies to deliver an innovative, interactive SaaS advanced modeling and simulation environment.
+<img src="/logo.png" width="250px">
+
+HPCCloud RU is a web-based simulation environment platform that utilizes web technologies to deliver an innovative, interactive SaaS advanced modeling and simulation environment.
 
 It allows simulation workflows to be developed that leverage HPC resources. The workflows are presented through a simple intuitive UI, shielding the user from much of the complexity associated with using a HPC resource.
 

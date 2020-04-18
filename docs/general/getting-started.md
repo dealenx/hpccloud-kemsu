@@ -1,19 +1,23 @@
+---
+title: Getting Started
+---
+
 # Getting Started
 
 The HPCCloud stack is deployed using [Ansible](https://www.ansible.com/). Our [deployment](https://github.com/Kitware/HPCCloud-deploy) repository contains the playbooks for the deployment. The repository also contains support for Vagrant which allows the full stack to be deployed to a virtual machine. This is quickest way to get up and running with HPCCloud. The deployment is perfect for evaluation or testing, however, this is not recommended in production as everything is deployed to a single machine.
 
 The Vagrant deployment has the following prerequistes:
 
-* [VirtualBox  >= 5.0](https://www.virtualbox.org/wiki/Downloads)
-* [Ansible  >= 2.1](http://docs.ansible.com/ansible/intro_installation.html)
-* [Vagrant >= 1.8](https://www.vagrantup.com/docs/installation/)
+- [VirtualBox >= 5.0](https://www.virtualbox.org/wiki/Downloads)
+- [Ansible >= 2.1](http://docs.ansible.com/ansible/intro_installation.html)
+- [Vagrant >= 1.8](https://www.vagrantup.com/docs/installation/)
 
 Once the prerequistes have been installed follow the following steps to set up the virtual machine.
 
 1: Clone the deployment repository.
 
 ```sh
-git clone git@github.com:Kitware/HPCCloud-deploy.git 
+git clone git@github.com:Kitware/HPCCloud-deploy.git
 ```
 
 2: Move into the repository directory.

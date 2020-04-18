@@ -6,7 +6,7 @@ Panels are React components which are used in more than one place. These are as 
 
 With the reusability of panels they can get very nested. The image below illustrates panel nesting within a workflow step component.
 
-![form panels](development__images/form-panels.png)
+![form panels](/development__images/form-panels.png)
 
 Each panel here is a form, the data in each subform is passed to it by the parent component and bubbles up on a change though an onChange function.
 
@@ -38,27 +38,27 @@ This panel presents backend settings for CUDA, OpenCL, and OpenMP. For CUDA it s
 
 ### `SchedulerConfig`
 
-For each scheduler PBS, SGE, and SLURM it renders a set of form fields that the scheduler requires. The default of these forms is: 
+For each scheduler PBS, SGE, and SLURM it renders a set of form fields that the scheduler requires. The default of these forms is:
 
 ```json
 {
-  type: 'sge',
-  maxWallTime: { hours: 0, minutes: 0, seconds: 0 },
-  defaultQueue: '',
-  sge: {
-    numberOfGpusPerNode: 0,
-    numberOfSlots: 1,
+  "type": "sge",
+  "maxWallTime": { "hours": 0, "minutes": 0, "seconds": 0 },
+  "defaultQueue": "",
+  "sge": {
+    "numberOfGpusPerNode": 0,
+    "numberOfSlots": 1
   },
-  slurm: {
-    numberOfGpusPerNode: 0,
-    numberOfCoresPerNode: 1,
-    numberOfNodes: 1,
+  "slurm": {
+    "numberOfGpusPerNode": 0,
+    "numberOfCoresPerNode": 1,
+    "numberOfNodes": 1
   },
-  pbs: {
-    numberOfGpusPerNode: 0,
-    numberOfCoresPerNode: 1,
-    numberOfNodes: 1,
-  },
+  "pbs": {
+    "numberOfGpusPerNode": 0,
+    "numberOfCoresPerNode": 1,
+    "numberOfNodes": 1
+  }
 }
 ```
 

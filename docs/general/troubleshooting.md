@@ -1,14 +1,18 @@
+---
+title: Troubleshooting
+---
+
 # Troubleshooting
 
 ## Development
 
 ### A front-end feature I added is not showing up
 
-Make sure that `npm start` is running and are you visiting the right address: `localhost:9999`. `localhost:8888` is the server version on the VM. 
+Make sure that `npm start` is running and are you visiting the right address: `localhost:9999`. `localhost:8888` is the server version on the VM.
 
 ### A workflow I added is not showing up in the project options
 
-Make sure that you're importing your workflow description to `src/workflows/index.js` and exporting as a property of the variable `Workflows`. If this has not fixed it, make sure that the environment variable `NODE_ENV` is __not__ set to `test` the workflows directory will be ignored if it is.
+Make sure that you're importing your workflow description to `src/workflows/index.js` and exporting as a property of the variable `Workflows`. If this has not fixed it, make sure that the environment variable `NODE_ENV` is **not** set to `test` the workflows directory will be ignored if it is.
 
 ### Cannot login
 
