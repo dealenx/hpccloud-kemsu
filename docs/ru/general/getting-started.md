@@ -1,8 +1,8 @@
 ---
-title: Начало работы
+title: Getting Started
 ---
 
-# Начало работы
+# Getting Started
 
 The HPCCloud stack is deployed using [Ansible](https://www.ansible.com/). Our [deployment](https://github.com/Kitware/HPCCloud-deploy) repository contains the playbooks for the deployment. The repository also contains support for Vagrant which allows the full stack to be deployed to a virtual machine. This is quickest way to get up and running with HPCCloud. The deployment is perfect for evaluation or testing, however, this is not recommended in production as everything is deployed to a single machine.
 

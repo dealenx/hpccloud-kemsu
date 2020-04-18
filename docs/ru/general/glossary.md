@@ -1,8 +1,8 @@
 ---
-title: Терминалогия
+title: Glossary
 ---
 
-# Терминалогия
+# Terminology
 
 ### Jobs
 

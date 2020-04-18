@@ -1,5 +1,7 @@
 module.exports = {
+  base: '/hpccloud-kemsu/',
   head: [['link', { rel: 'icon', href: '/icon/favicon-196x196.png' }]],
+
   locales: {
     // The key is the path for the locale to be nested under.
     // As a special case, the default locale can use '/' as its path.
@@ -14,6 +16,7 @@ module.exports = {
       description: 'Документация по веб-платформе HPCCloud',
     },
   },
+
   themeConfig: {
     locales: {
       '/': {
@@ -25,6 +28,7 @@ module.exports = {
         // Aria Label for locale in the dropdown
         ariaLabel: 'Languages',
         lastUpdated: 'Last updated', // string | boolean
+
         nav: [
           { text: 'Documentation', link: '/general/introduction' },
           {
@@ -71,9 +75,9 @@ module.exports = {
             title: 'Workflow',
             collapsable: false,
             children: [
-              '/workflow/introduction',
-              '/workflow/adding',
-              '/workflow/pages',
+              '/workflows/introduction',
+              '/workflows/adding',
+              '/workflows/pages',
             ],
           },
         ],
@@ -98,7 +102,12 @@ module.exports = {
           {
             title: 'Basics',
             collapsable: false,
-            children: ['/ru/general/introduction'],
+            children: [
+              '/ru/general/introduction',
+              '/ru/general/getting-started',
+              '/ru/general/troubleshooting',
+              '/ru/general/glossary',
+            ],
           },
         ],
       },

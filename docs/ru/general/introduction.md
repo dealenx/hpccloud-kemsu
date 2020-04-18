@@ -2,9 +2,9 @@
 title: Introduction
 ---
 
-<img src="/logo.png" width="250px">
+<img :src="$withBase('/logo.png')" style="width:250px">
 
-HPCCloud RU is a web-based simulation environment platform that utilizes web technologies to deliver an innovative, interactive SaaS advanced modeling and simulation environment.
+HPCCloud is a web-based simulation environment platform that utilizes web technologies to deliver an innovative, interactive SaaS advanced modeling and simulation environment.
 
 It allows simulation workflows to be developed that leverage HPC resources. The workflows are presented through a simple intuitive UI, shielding the user from much of the complexity associated with using a HPC resource.
 
@@ -12,5 +12,5 @@ HPCCloud supports both "traditional" HPC resources (that can be accessed using s
 
 We currently have support for a couple of workflows:
 
-- [PyFR](http://www.pyfr.org) is an open-source simulation code for solving advection-diffusion type problems. Our workflow includes input desk generation, executing PyFR and post-processing using [ParaViewWeb](http://www.paraview.org/web/). See [Running simulation workflows](usage__running.html) for same usage using PyFR.
+- [PyFR](http://www.pyfr.org) is an open-source simulation code for solving advection-diffusion type problems. Our workflow includes input desk generation, executing PyFR and post-processing using [ParaViewWeb](http://www.paraview.org/web/). See <a :href="$withBase('/usage/running')" >Running simulation workflows </a> for same usage using PyFR.
 - [ParaViewWeb](http://www.paraview.org/web/) is an open-source visualization application. ParaView can be used to quickly build visualizations using qualitative and quantitative techniques. ParaView can be exposed to the Web using ParaViewWeb. Our worflow allows a data file to be uploaded and then visualized using the full power of ParaView.
