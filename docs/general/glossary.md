@@ -1,6 +1,10 @@
+---
+title: Glossary
+---
+
 # Terminology
 
-### Jobs 
+### Jobs
 
 Jobs, or Primary Jobs, are special types of tasks running on an HPC resource.
 
