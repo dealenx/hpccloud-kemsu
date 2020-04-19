@@ -1,12 +1,12 @@
 {
-  "name": "hpc-cloud",
+  "name": "hpccloud-kemsu",
   "description": "Virtual platform for running simulations and visualization",
   "license": "Apache-2.0",
   "version": "0.9.0",
   "main": "./lib/app.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Kitware/HPCCloud.git"
+    "url": "https://github.com/dealenx/hpccloud-kemsu.git"
   },
   "engines": {
     "node": ">= 8",
@@ -68,9 +68,9 @@
     "install:pyfr": "cp ./node_modules/simput/dist/types/pyfr.js ./dist/simput-pyfr.js",
     "install:nwchem": "cp ./node_modules/simput/dist/types/nwchem.js ./dist/simput-nwchem.js",
     "install:nwchem-neb": "cp ./node_modules/simput/dist/types/nwchem-neb.js ./dist/simput-nwchem-neb.js",
-    "install:openfoam": "cp ../simput/dist/types/openfoam_tutorials.js ./dist/simput-openfoam-tutorials.js",
+    "install:openfoam": "cp ../simput-kemsu/dist/types/openfoam_tutorials.js ./dist/simput-openfoam-tutorials.js",
     "install:openfoamw": "cp ./node_modules/simput/dist/types/openfoam-windtunnel.js ./dist/simput-openfoam-windtunnel.js",
-    "postinstall": "npm run install:pyfr && npm run install:nwchem && npm run install:nwchem-neb && npm run install:openfoam && npm run install:openfoamw",
+    "install:simput": "npm run install:pyfr && npm run install:nwchem && npm run install:nwchem-neb && npm run install:openfoam && npm run install:openfoamw",
     "check": "node bin/version-check.js",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
