@@ -2,7 +2,7 @@
 # where 'runtime' is available in version 2.3 but not 3
 #   https://github.com/docker/compose/issues/6239
 # version: '2.3'
-version: '3.7'
+version: '3.3'
 services:
   mongodb:
     image: mongo:3.6
