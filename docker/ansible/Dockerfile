@@ -2,13 +2,13 @@ FROM python:3.6-slim
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        git \
-        openssh-client \
-        sshpass && \
+    git \
+    openssh-client \
+    sshpass && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN pip3 install ansible==2.8.2 \
-                 girder_client
+    girder_client
 
 COPY ./ansible /ansible
 

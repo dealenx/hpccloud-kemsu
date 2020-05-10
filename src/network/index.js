@@ -47,6 +47,8 @@ if (process.env.NODE_ENV === 'test') {
   };
 } else {
   url = window.location;
+  console.log('url', url);
+  console.log('endpoints', endpoints);
 }
 
 const girderClient = ClientBuilder.build(url, endpoints);
