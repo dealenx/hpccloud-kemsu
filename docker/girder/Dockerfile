@@ -28,7 +28,7 @@ COPY ./docker/girder/wait-for-it.sh /wait-for-it.sh
 
 
 # Install hpccloud - girder server
-RUN pip3 install  -r /requirements.txt
+RUN pip install  -r /requirements.txt
 
 
 ENTRYPOINT ["/wait-for-it.sh", "-t", "30", "rabbitmq:5672",  "--", "/entrypoint.sh"]
