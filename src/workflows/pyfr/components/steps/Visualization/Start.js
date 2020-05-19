@@ -24,6 +24,10 @@ function getTaskflowMetaData(props) {
   const dataDir = props.simulation.steps.Visualization.metadata.dataDir;
   const fileName = props.simulation.steps.Visualization.metadata.fileName;
 
+  console.log('=============== NOTE getTaskflowMetaData');
+
+  console.log('props.simulation.steps.Visualization.metadata.dataDir', dataDir);
+
   return {
     dataDir,
     fileName,

@@ -70,7 +70,7 @@ class ProxyTestCase(base.TestCase):
 
     def test_add_entry(self):
         host = 'some.com'
-        port = 8081
+        port = 8080
         key = 'mykey'
         body = {
             'key': key,

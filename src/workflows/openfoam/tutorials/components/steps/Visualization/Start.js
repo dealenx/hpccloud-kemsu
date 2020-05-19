@@ -22,6 +22,11 @@ function clusterFilter(cluster) {
 
 function getTaskflowMetaData(props) {
   const dataDir = props.simulation.steps.Visualization.metadata.dataDir;
+
+  console.log('=============== NOTE getTaskflowMetaData');
+
+  console.log('props.simulation.steps.Visualization.metadata.dataDir', dataDir);
+
   const fileName = props.simulation.steps.Visualization.metadata.fileName;
   return {
     dataDir,
