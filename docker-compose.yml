@@ -25,14 +25,14 @@ services:
     networks:
       - hc
     ports:
-      - '8081:8081'
+      - '8080:8080'
     extra_hosts:
       - 'girder:127.0.0.1'
     depends_on:
       - mongodb
       - rabbitmq
     environment:
-      - GIRDER_PORT=8081
+      - GIRDER_PORT=8080
 
   command:
     image: kitware/hpccloud:celery-pyfr
@@ -49,7 +49,7 @@ services:
     depends_on:
       - rabbitmq
     environment:
-      - GIRDER_PORT=8081
+      - GIRDER_PORT=8080
 
   monitor:
     image: kitware/hpccloud:celery-pyfr
@@ -66,7 +66,7 @@ services:
     depends_on:
       - rabbitmq
     environment:
-      - GIRDER_PORT=8081
+      - GIRDER_PORT=8080
 
   rabbitmq:
     image: rabbitmq

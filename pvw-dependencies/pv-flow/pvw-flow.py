@@ -9,7 +9,7 @@ r"""
 
     Any ParaViewWeb executable script comes with a set of standard arguments that can be overriden if need be::
 
-        --port 8081
+        --port 8080
              Port number on which the HTTP server will listen.
 
         --content /path-to-web-content/
