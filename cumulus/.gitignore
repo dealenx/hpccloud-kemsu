@@ -1,0 +1,13 @@
+*.py[cod]
+.project
+.pydevproject
+.coverage
+build/
+cumulus.egg-info/
+dist/
+*~
+*.retry
+.dir-locals.el
+.cache
+.pytest_cache
+

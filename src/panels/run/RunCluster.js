@@ -95,10 +95,17 @@ export default class RunCluster extends React.Component {
     const runtime = Object.assign({}, config);
     Object.assign(runtime, runtime[runtime.type]);
     runtime.queue = runtime.defaultQueue;
+    console.log('==== updateRuntimeConfig ====');
+    console.log('runtime.queue', runtime.queue);
 
     ['sge', 'slurm', 'pbs', 'type', 'defaultQueue'].forEach((keyToDelete) => {
       delete runtime[keyToDelete];
     });
+    console.log(
+      '==== updateRuntimeConfig after  delete runtime[keyToDelete];  ===='
+    );
+    console.log('runtime.queue', runtime.queue);
+
     if (isEmptyWallTime(runtime.maxWallTime)) {
       delete runtime.maxWallTime;
     }

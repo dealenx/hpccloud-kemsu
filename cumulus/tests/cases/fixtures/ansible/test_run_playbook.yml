@@ -1,0 +1,7 @@
+- name: Test Playbook
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: false
+  tasks:
+    - debug: msg="Works!"

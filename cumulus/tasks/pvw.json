@@ -1,0 +1,186 @@
+{
+    "name": "Run cluster job",
+
+    "steps": [
+              {
+                  "name": "createcluster",
+                  "type": "http",
+                  "params": {
+                      "url": "/clusters",
+                      "method": "POST",
+                      "output": "cluster",
+                      "body": {
+                          "config": [
+                                     {
+                                        "cluster": [
+                                            {
+                                                "pvw_cluster": {
+                                                    "cluster_size": "{{ cluster.size if cluster and cluster.size}}",
+                                                    "master_instance_type": "{{ cluster.type if cluster and cluster.type }}",
+                                                    "node_instance_type": "{{ cluster.type if cluster and cluster.type }}",
+                                                    "node_image_id": "{{ amis.get('pvw-4.2-gpu') if cluster and cluster.gpu }}",
+                                                    "master_image_id": "{{ amis.get('pvw-4.2-gpu-master') if cluster and cluster.gpu }}"
+                                                }
+                                            }
+                                        ],
+                                        "plugin": [
+                                            {
+                                                "sge": {
+                                                    "slots_per_host": "{{cluster.cores if cluster and cluster.cores}}"
+                                                }
+                                            }
+                                        ]
+                                     },
+                                     {
+                                         "_id": "{{defaults.config.id}}"
+                                     }
+                                     ],
+                          "name": "{{ cluster.name if cluster and cluster.name else 'pvw_cluster'}}",
+                          "template": "pvw_cluster"
+                      }
+                  }
+              },
+              {
+                  "name": "start cluster",
+                  "type": "http",
+                  "params": {
+                      "url": "/clusters/{{cluster._id}}/start",
+                      "method": "PUT"
+                  },
+                  "log": "/clusters/{{cluster._id}}/log",
+                  "terminate": "/clusters/{{cluster._id}}/terminate",
+                  "delete": "/clusters/{{cluster._id}}"
+              },
+              {
+                  "name": "Wait for cluster",
+                  "type": "status",
+                  "timeout": 600,
+                  "params": {
+                      "url": "/clusters/{{cluster._id}}/status",
+                      "selector": "status",
+                      "success": ["running"],
+                      "failure": ["error"]
+                  }
+              },
+              {
+                  "name": "create pvw job",
+                  "type": "http",
+                  "params": {
+                       "url": "/jobs",
+                       "method": "POST",
+                       "body": {
+                          "name": "pvw",
+                          "scriptId": "{{defaults.pvw.script.id}}",
+                          "output": [{
+                            "itemId": "{{output.item.id}}",
+                            "path": "."
+                          }],
+                          "input": [
+                            {
+                              "itemId": "{{defaults.pvw.proxyItem}}",
+                              "path": "config"
+                            },
+                            {
+                              "itemId": "{{input.item.id}}",
+                              "path": "data"
+                            }
+                          ]
+                        },
+                        "output": "pvw_job"
+                  }
+              },
+              {
+                  "name": "submit pvw job",
+                  "type": "http",
+                  "params": {
+                       "url": "/clusters/{{cluster._id}}/job/{{pvw_job._id}}/submit",
+                      "method": "PUT",
+                      "body": {
+                            "numberOfSlots": "{{ cluster.config.numberOfSlots if cluster.config.numberOfSlots }}",
+                            "parallelEnvironment": "{{ cluster.config.parallelEnvironment if cluster.config.parallelEnvironment }}",
+                            "jobOutputDir": "{{ cluster.config.jobOutputDir if cluster.config.jobOutputDir }}",
+                            "simulationJobId": "{{ simulationJobId if simulationJobId }}"
+                        }
+                  },
+                  "log": "/jobs/{{pvw_job._id}}/log",
+                  "terminate": "/jobs/{{pvw_job._id}}/terminate",
+                  "delete": "/jobs/{{pvw_job._id}}"
+              },
+              {
+                  "name": "Wait for job to be running",
+                  "type": "status",
+                  "timeout": 300,
+                  "params": {
+                      "url": "/jobs/{{pvw_job._id}}/status",
+                      "selector": "status",
+
+                      "success": ["running"],
+                      "failure": ["error", "terminated"]
+                  }
+              },
+              {
+                  "name": "create pvserver job",
+                  "type": "http",
+                  "params": {
+                       "url": "/jobs",
+                       "method": "POST",
+                       "body": {
+                          "name": "pvserver",
+                          "scriptId": "{{defaults.pvserver.script.id}}",
+                          "output": [{
+                            "itemId": "{{output.item.id}}",
+                            "path": "."
+                          }]
+                        },
+                        "output": "pvserver_job"
+                  }
+              },
+              {
+                  "name": "submit pvserver job",
+                  "type": "http",
+                  "params": {
+                       "url": "/clusters/{{cluster._id}}/job/{{pvserver_job._id}}/submit",
+                        "method": "PUT",
+                        "body": {
+                            "numberOfSlots": "{{ cluster.config.numberOfSlots if cluster.config.numberOfSlots }}",
+                            "parallelEnvironment": "{{ cluster.config.parallelEnvironment if cluster.config.parallelEnvironment}}",
+                            "jobOutputDir": "{{ cluster.config.jobOutputDir if  cluster.config.jobOutputDir}}",
+                            "pvwJobId": "{{ pvw_job._id }}"
+                        }
+                  },
+                  "log": "/jobs/{{pvserver_job._id}}/log",
+                  "terminate": "/jobs/{{pvserver_job._id}}/terminate",
+                  "delete": "/jobs/{{pvserver_job._id}}"
+              },
+              {
+                  "name": "Wait for job to be running",
+                  "type": "status",
+                  "timeout": 300,
+                  "params": {
+                      "url": "/jobs/{{pvserver_job._id}}/status",
+                      "selector": "status",
+
+                      "success": ["running"],
+                      "failure": ["error", "terminated"]
+                  }
+              },
+              {
+                  "name": "Wait until we are terminated",
+                  "type": "status",
+                  "params": {
+                      "url": "/jobs/{{pvw_job._id}}/status",
+                      "selector": "status",
+                      "success": ["terminated"],
+                      "failure": ["error"]
+                  }
+              },
+              {
+                  "name": "Clean up proxy entry",
+                  "type": "http",
+                  "params": {
+                      "url": "/proxy/{{ cluster._id }}%2F{{ simulationJobId }}",
+                      "method": "DELETE"
+                  }
+              }
+              ]
+}

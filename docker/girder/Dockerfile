@@ -2,10 +2,9 @@ FROM girder/girder:latest-py3
 LABEL maintainer="patrick.oleary@kitware.com" \
   version="1.0"
 
-# Install cumulus
-RUN git clone https://github.com/Kitware/cumulus.git /cumulus && \
-  cd /cumulus && \
-  git checkout master && \
+COPY ./cumulus /cumulus
+
+RUN cd /cumulus && \
   cd / && \
   pip3 install --no-cache-dir -r /cumulus/requirements.txt && \
   pip3 install --no-cache-dir -e /cumulus && \

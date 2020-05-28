@@ -1,0 +1,16 @@
+{
+    "girder": {
+        "baseUrl": "http://localhost:8080/api/v1",
+        "user": "cumulus",
+        "group": "cumulus",
+        "password": "cumulus"
+    },
+    "ssh": {
+        "keyStore": "/tmp"
+    },
+     "moabReader": {
+            "pluginPath": "/test"
+    },
+    "amis": {}
+}
+
