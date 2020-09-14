@@ -1,21 +1,29 @@
-# Traditional Clusters
+---
+title: Традиционные кластеры
+---
 
-Traditional clusters, or simply "clusters" in this document typically involve physical hardware dedicated to running simulations within the host operating system. To get to the page for Traditional Clusters go to the preferences page -by clicking on the username in the top right- and click "Cluster."
+# Традиционные кластеры
 
-## Creating
+Традиционные кластеры или просто «кластер» обычно включают физическое оборудование, предназначенное для выполнения моделирования в операционной системе сервера. Чтобы перейти на страницу кластеров, то зайдите на страницу настроек, щелкнув имя пользователя в правом верхнем углу, и нажмите "Cluster".
 
-Click the "+" icon in the toolbar. You'll be presented a blank form in which you can fill out details of your cluster. A cluster name, username and hostname of the machine is required. When you have the necessary fields filled out click "Save." A "Test" button and a form field with an shell command containing an ssh key will soon appear.
+## Создание «кластера»
 
-![traditional cluster page](/usage__images/prefs-trad.png)
+Щелкните значок «+» на панели инструментов. Вам будет представлена пустая форма, в которой вы можете заполнить детали вашего кластера. Требуется имя кластера, имя пользователя и имя хоста машины. Когда все необходимые поля будут заполнены, нажмите "Save.". Скоро появятся кнопка "Test" и textarea-поле, содержащей ssh-ключ.
 
-### Testing
+![traditional cluster page](/hpccloud-kemsu/usage__images/prefs-trad.png)
 
-Copy the shell command from the form field and paste it in a terminal. The command tries to connect to your cluster and if successful adds an ssh key to the cluster's key chain. This permits HPC-Cloud's backend (Cumulus) to connect to your cluster and run jobs and simulations. Click the "Test" button when the command is run and the key is saved on your cluster. If the test is successful cluster is ready to use in simulations.
+### Тест подключения к кластеру
 
-## Editing
+Скопируйте команду оболочки из поля формы и вставьте ее в терминал. Это позволяет серверной части HPC-Cloud (Cumulus) подключаться к вашему кластеру и запускать моделирование. Нажмите кнопку "Test", когда команда будет запущена и ключ будет сохранен на вашем кластере. Если тест прошел успешно, кластер готов к использованию.
 
-You can only edit the name of a cluster. If you need to change another detail delete and recreate the cluster.
+![traditional cluster page](/hpccloud-kemsu/usage__images/public-ssh-key.png)
 
-## Deleting
+## Редактирование
 
-You cannot delete clusters which are running simulations. With the cluster you want to delete selected, click "Delete cluster." You will be prompted before the cluster is deleted. You can always re-add a deleted cluster, however the files generated from simulations will not be available through HPC-Cloud.
+Вы можете редактировать только имя кластера. Если вам нужно изменить другую деталь, удалите и заново создайте кластер.
+
+## Удаление
+
+Для удаление добавленного кластера нажмите "Delete cluster.".
+
+Вы не можете удалить кластеры, в которых выполняется моделирование, вы получите уведомление об этом. Вы всегда можете повторно добавить удаленный кластер, однако файлы, созданные в результате моделирования, не будут доступны через HPCCloud.

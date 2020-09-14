@@ -1,32 +1,39 @@
-# Creating Projects and Simulations
+---
+title: Создание проектов и моделирования
+---
 
-## Projects
+# Создание проектов и моделирования
 
-Projects contain simulations of a certain type. Go to `/` or click on the HPC-Cloud logo to go to the projects page. 
+## Проекты
 
-### Creating 
+Проекты содержат моделирование определенного типа (OpenFoam, ParaView и т.д.). Получить список проектов можно на главной странице, перейти туда можно, нажав на логотип HPCCloud.
 
-Click on the "+" icon on the top right in the toolbar, this will take you to a new page. Name and describe your project on this page. Depending on the project type, you may also need to upload some files required for simulations. Name your project and add a description if desired. Click "Create Project" and after your file(s) upload you'll be taken to the simulations page for your new project. 
+### Создание
 
-### Editing 
-If you named or described your project incorrectly click on the pen icon on the homepage and modify these attributes. You cannot reupload files if the project required any.
+Щелкните значок «+» в правом верхнем углу панели инструментов, это перенесет вас на страницу добавления. Назовите и опишите свой проект на этой странице. В зависимости от типа проекта вам также может потребоваться загрузить некоторые файлы, необходимые для моделирования. Назовите свой проект и при желании добавьте описание. Нажмите «Create Project», и после загрузки файлов вы попадете на страницу моделирования вашего нового проекта.
 
-### Deleting
- 
-You can only delete projects which have no simulations associated with them. Click on the pen icon for a project and you'll be taken to the edit page. Clicking the "Delete project" button will delete the project, you will be prompted beforehand. 
+![creating project](/hpccloud-kemsu/usage__images/creating-project.png)
 
-## Simulations
+### Редактирование
 
-Simulations represent collections of taskflows depending on the type of parent project.
+Если вы неправильно назвали или описали свой проект, щелкните значок «Редактирования» на главной странице и измените данные проекта. Вы не можете повторно загружать файлы, если они требуются проекту.
 
-### Creating  
+### Удаление
 
-Again click on the "+" icon in the toolbar, it's in the same place as the "+" you clicked to create a project. As with projects, you'll be taken to a new page where you can name and describe your simulation as well as upload any files that may be required. Click "Create Simulation" and you'll be taken to your simulation's introduction page. 
+Вы можете удалять только те проекты, где до сих пор запущено моделирование. Щелкните значок «Редактирования» для проекта, и вы попадете на страницу редактирования. При нажатии на кнопку «Delete project» проект будет удален.
 
-### Editing 
+## Моделирование
 
-If you named or described your simulation incorrectly click on the pen icon on the `view/projects/{projectId}` page and modify these attributes. You cannot reupload files if the simulation required any.
+Моделирование представляет собой набор потоков задач в зависимости от типа родительского проекта.
 
-### Deleting
+### Создание
 
-You can only delete simulations which are not running. On `view/projects/{projectId}` page, the click on the pen icon for a simulation and you'll be taken to the edit page. Clicking on the "Delete simulation" will delete the simulation, you will be prompted beforehand.
+Перейдите на станицу нужного вам проекта, Снова щелкните значок «+» на панели инструментов. Как и в случае с проектами, вы попадете на новую страницу, где сможете назвать и вести описание моделирования, а также загрузить любые файлы, которые могут потребоваться. Нажмите «Create Simulation», и вы попадете на страницу подготовки начальных данных моделирования.
+
+### Редактирование
+
+Если вы неправильно назвали или описали свое моделирование, щелкните значок пера на странице `view / projects / {projectId}` и измените данные. Вы не можете повторно загружать файлы при уже запущенном моделировании.
+
+### Удаление
+
+Вы можете удалять только то моделирование, которое не выполняется. На странице `view / projects / {projectId}` щелкните значок «Редактирования» для моделирования, и вы попадете на страницу редактирования. Нажмите на «Delete Simulation» для удаления моделирования.

@@ -1,17 +1,18 @@
-# Groups and Project Sharing
+# Группы и Общий доступ
 
 ## Groups
 
-Groups are collections of users that can have their own permissions assigned. Only admin users can create and manage groups. This is done through the Groups panel on the Preferences page.
+Права доступа для определенных прав можно настраивать в группах пользоватателей. Создать и настраивать группы могут только администраторы.Это делается через панель «Группы» на странице «Настройки».
 
-![groups sharing page](/usage__images/sharing_groups.png)
+![groups sharing page](/hpccloud-kemsu/usage__images/sharing_groups.png)
 
-## Project Sharing
+## Общий доступ
 
 Only a project owner can share projects and the corresponding simulations with groups and individual users. The sharing panel can be reached by going to the Edit panel for each project or simulation.
+Только владелец проекта может делиться проектами и соответствующим моделированием с группами и отдельными пользователями. Настроить это можно на странице редактирования проекта или моделирования.
 
-![project sharing page](/usage__images/sharing_project.png)
+![project sharing page](/hpccloud-kemsu/usage__images/sharing_project.png)
 
-Sharing a project with users or groups also shares the simulations and the corresponding taskflows within. You can share individual simulations with users and groups as well, doing so will share the parent project but only the shared simulation will be visible to the sharees.
+Совместное использование проекта с пользователями или группами также позволяет использовать управление моделированием. Вы также можете поделиться рабочим проектом с пользователями и группами, при этом будет предоставлен общий доступ к ко всем моделированиям проекта.
 
-Level of access per project and simulation can also be set. The possible values are Read, Write, and Admin. Beware setting admin permissions to groups and users on the project level as they will have access to all containing simulations and files.
+Также можно установить уровень доступа для каждого проекта и моделирования. Возможные значения: чтение, запись и "для администратор". Остерегайтесь установки разрешений доступа для администратора на уровне проекта, так как они будут иметь доступ ко всем содержащимся в них моделированиям и файлам.

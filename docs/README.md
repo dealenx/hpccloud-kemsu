@@ -1,7 +1,7 @@
 ---
 home: true
 heroImage: /logo.png
-actionText: 'GET STARTED →'
+actionText: 'Начать изучение →'
 actionLink: /general/introduction
-footer: KemSU  2020
+footer: КемГУ Институт Фундаментальных Наук  2020
 ---
