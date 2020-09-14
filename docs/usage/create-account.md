@@ -1,25 +1,25 @@
 ---
-title: Account Creation & Login
+title: Создание аккаунта и авторизация
 ---
 
-# Account Creation & Login
+# Создание аккаунта и авторизация
 
-## Registration
+## Регистрация
 
-With HPCCloud up and running:
+Когда HPCCloud запущен:
 
-1. Click on 'Register' link in the top right.
-2. Fill out the form. If you wish, you can change your first name, last name, and password on the preferences page.
-3. Click the register button, if successful you'll be redirected to the login page.
+1. Нажмите на 'Register', ссылка в правом верхнем углу.
+2. Заполните форму. При желании вы можете изменить свое имя, фамилию и пароль на странице настроек..
+3. Нажмите кнопку регистрации, при успешной обработке данных вы будете перенаправлены на страницу входа.
 
-## Login
+## Авторизация
 
-1. Click on the 'Login' link on the top right.
-2. Fill in your credentials
-3. Click login, if successful you'll be redirected to the projects page.
+1. Нажмите на ссылку 'Login' в правом верхнем углу.
+2. Введите свои учетные данные
+3. Нажмите login, при успешной обработке данных вы будете перенаправлены на страницу входа.
 
-## Logout
+## Выход
 
-When logged in, from any page:
+При входе в систему с любой страницы:
 
-1. Click on the Logout icon on the top right of the page.
+1. Щелкните на иконку Logout в правом верхнем углу страницы.

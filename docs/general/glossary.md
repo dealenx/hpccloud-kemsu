@@ -1,57 +1,63 @@
 ---
-title: Glossary
+title: Терминология
 ---
 
-# Terminology
+# Терминология
 
-### Jobs
+### Вычислительная задача (Jobs, or Primary Jobs)
 
-Jobs, or Primary Jobs, are special types of tasks running on an HPC resource.
+Это специальный тип задания, запуск которой происходит на вычислительном кластере.
 
-### Tasks
+### Задания (Tasks)
 
-Tasks are any thing run within simulations.
+Это процессы, которые запускаются в рамках моделирования.
 
-### Taskflow
+### Рабочий процесс (Workflow)
 
-Taskflows are collections of tasks run to orchestrate a given simulation workflow.
+это наборы шагов, которые определяют инструкции для выполнения моделирования.
 
-### Workflow
+Эти инструкции можно отнести к действиям, которые больше направлены на работу с вычислительным кластером.
 
-Workflows are collections of steps which define some pattern for executing a process.
+### Поток задач (Taskflow)
 
-### Projects
+Потоки задач - это наборы заданий, выполняемые для управления заданными `рабочими процессами` (workflows).
 
-Projects are collections of simulations.
+Допустим, запустить расчетную задачу на вычислительном кластере - дело непростое, вы должны создать и подготовить доступ к кластеру, загрузить туда данные, получить данные в правильном формате, отслеживать выполнение задания, проверять статус, когда оно завершится, выгружать результаты, преобразовывать данные в правильный формат для постобработки, а затем визуализировать вывод.
 
-### Simulations
+Для сравнения, поток задач (taskflow) является "дирижером" над "оркестром" рабочих процессов (workflows).
 
-Simulations are collections of taskflows.
+### Проекты (Projects)
 
-### Clusters
+Проекты содержат набор задач моделирования (simulations).
 
-Clusters are any machine that you can run jobs on.
+### Моделирование (Simulations)
+
+Моделирования содержат набор потоков задач (taskflows).
+
+### Кластеры (Clusters)
+
+Кластеры это вычислительные ресурсы, на которых вы можете запускать вычислительные задачи.
 
 ### Traditional Clusters
 
-Traditional cluster are dedicated HPC resources, usually based on physical hardware.
+Традиционный кластер - это вычислительные ресурсы, доступ к которым можно получить с помощью аутентификации на основе ключей ssh.
 
-### AWS Profile
+### AWS Профиль (AWS Profile)
 
-AWS (Amazon Web Services) profiles consist of a Access key and a Secret key with which a user can provision EC2 instances.
+Профили AWS (Amazon Web Services) содержат ключи доступа, с помощью которых пользователь может взаимодействовать с `инстансами EC2`.
 
-### EC2 Instances
+### EC2 Инстанст (EC2 Instances)
 
-EC2 Instances are virtual machines running on [Amazon's EC2](https://aws.amazon.com/ec2/).
+Это виртуальные машины, запускаемые на [Amazon's EC2](https://aws.amazon.com/ec2/).
 
 ### ParaViewWeb
 
-ParaViewWeb is a tool in Paraview which allows a user to use ParaView through a web browser.
+ParaViewWeb - это инструмент визуализации, который позволяет пользователю использовать [ParaView](https://www.paraview.org) через веб-браузер.
 
 ### Simput
 
-A simulation deck input tool. Consult the [Simput GitHub repository](https://github.com/Kitware/simput) for more.
+Обеспечивает простой способ подготовки файлов кейса моделирования через пользовательский интерфейс, подробнее в [официальной документации](http://kitware.github.io/simput/docs/).
 
 ### Simulation step
 
-Simulation steps symbolize different taskflows within a simulation. They can have different states aswell. For example many steps have the substeps "Start" which starts a taskflow and "View" which views logs and statuses for the taskflow.
+Шаги моделирования символизируют различные `потоки задач` (taskflows) в рамках моделирования. Они также могут иметь разные состояния. Например, у многих шагов есть подшаги «Пуск», запускающие поток задач, и «Просмотр», которые мониторят логи и статусы активного `потока задачи` (taskflow).
