@@ -61,6 +61,16 @@ module.exports = {
               '/usage/sharing',
             ],
           },
+          {
+            title: 'Научно-исследовательский раздел',
+            collapsable: false,
+            children: [
+              '/research/introduction',
+              '/research/cloud-computing',
+              '/research/web-platform',
+              '/research/reference',
+            ],
+          },
         ],
       },
       '/en/': {
