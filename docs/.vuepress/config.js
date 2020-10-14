@@ -62,6 +62,15 @@ module.exports = {
             ],
           },
           {
+            title: 'Разработка кейсов Simput',
+            collapsable: false,
+            children: [
+              '/dev-simput/introduction',
+              '/dev-simput/getting-started',
+              '/dev-simput/simput-cavity',
+            ],
+          },
+          {
             title: 'Научно-исследовательский раздел',
             collapsable: false,
             children: [
