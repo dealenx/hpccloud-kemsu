@@ -1,6 +1,6 @@
 import { transformRequest } from './utils';
 
-export default function({
+export default function ({
   client,
   filterQuery,
   mustContain,

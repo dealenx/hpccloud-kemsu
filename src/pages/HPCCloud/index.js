@@ -163,16 +163,14 @@ export default withRouter(
         const file = state.network.progress[key];
         return (
           prev +
-          file.current /
-            file.total *
-            100 /
+          ((file.current / file.total) * 100) /
             Object.keys(state.network.progress).length
         );
       }, 0);
       progressReset = get(state, 'network.progressReset');
       resetProgress = (val) => dispatch(NetworkActions.resetProgress(val));
     } else {
-      progress = state.progress.current / state.progress.total * 100;
+      progress = (state.progress.current / state.progress.total) * 100;
       progressReset = state.progress.progressReset;
       resetProgress = (val) => dispatch(ProgressActions.resetProgress(val));
     }

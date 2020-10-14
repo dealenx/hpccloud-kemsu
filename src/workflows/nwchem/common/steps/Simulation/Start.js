@@ -13,7 +13,8 @@ function clusterFilter(cluster) {
   return (
     'config' in cluster &&
     'nwchem' in cluster.config &&
-    (cluster.config.nwchem && cluster.config.nwchem.enable)
+    cluster.config.nwchem &&
+    cluster.config.nwchem.enable
   );
 }
 

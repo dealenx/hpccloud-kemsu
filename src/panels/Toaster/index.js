@@ -62,9 +62,7 @@ export default connect(
       } else if (get(localState, `error.${id}.resp.data`)) {
         message = localState.error[id].resp.data;
       } else {
-        message = `${localState.error[id].resp.status}: ${
-          localState.error[id].resp.statusText
-        }`;
+        message = `${localState.error[id].resp.status}: ${localState.error[id].resp.statusText}`;
       }
       // the error doesn't necessarily get logged otherwise
       console.error(localState.error[id]);

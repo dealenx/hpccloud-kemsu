@@ -4,7 +4,7 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
-export default function({ client, filterQuery, mustContain, busy }) {
+export default function ({ client, filterQuery, mustContain, busy }) {
   return {
     getSimulation(id) {
       return busy(client._.get(`/simulations/${id}`));

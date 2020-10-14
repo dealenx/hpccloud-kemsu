@@ -4,7 +4,7 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
-export default function({ client, filterQuery, mustContain, busy }) {
+export default function ({ client, filterQuery, mustContain, busy }) {
   return {
     listProjects() {
       return busy(client._.get('/projects'));

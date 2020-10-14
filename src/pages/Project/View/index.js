@@ -88,7 +88,8 @@ class ProjectView extends React.Component {
           <EmptyPlaceholder
             phrase={
               <span>
-                There are no simulations for this project<br />
+                There are no simulations for this project
+                <br />
                 You can add some with the <i className={theme.addIcon} /> above.
               </span>
             }

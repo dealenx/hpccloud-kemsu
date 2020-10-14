@@ -73,9 +73,7 @@ class Visualization extends React.Component {
           : window.location.hostname;
         const port = window.location.port;
         const config = {
-          sessionURL: `ws://${hostname}:${port}/proxy?sessionId=${
-            resp.data.metadata.sessionId
-          }&path=ws`,
+          sessionURL: `ws://${hostname}:${port}/proxy?sessionId=${resp.data.metadata.sessionId}&path=ws`,
           retry: true,
         };
         network.connect(config);

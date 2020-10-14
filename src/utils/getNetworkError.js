@@ -17,9 +17,7 @@ function getNetworkErrorWithId(state, id) {
       // resp.message
       return get(state, `network.error.${id}.resp.message`);
     }
-    return `Error ${state.network.error[id].resp.status} (${
-      state.network.error[id].resp.statusText
-    })`; // status text
+    return `Error ${state.network.error[id].resp.status} (${state.network.error[id].resp.statusText})`; // status text
   }
   return '';
 }

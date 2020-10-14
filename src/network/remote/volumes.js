@@ -4,7 +4,7 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
-export default function({
+export default function ({
   client,
   filterQuery,
   mustContain,

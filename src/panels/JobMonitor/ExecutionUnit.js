@@ -122,8 +122,10 @@ export default class ExecutionUnit extends React.Component {
           this.log = c;
         }}
       >
-        {// reduce log array to a string with formatted entries
-        this.props.unit.log.map(logMapper)}
+        {
+          // reduce log array to a string with formatted entries
+          this.props.unit.log.map(logMapper)
+        }
       </pre>
     );
 

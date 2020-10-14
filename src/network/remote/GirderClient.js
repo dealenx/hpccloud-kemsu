@@ -106,10 +106,7 @@ export function build(config = window.location, ...extensions) {
 
   function extractLocalToken() {
     try {
-      return document.cookie
-        .split('girderToken=')[1]
-        .split(';')[0]
-        .trim();
+      return document.cookie.split('girderToken=')[1].split(';')[0].trim();
     } catch (e) {
       return undefined;
     }

@@ -1,4 +1,4 @@
-export default function({ client, filterQuery, mustContain, busy }) {
+export default function ({ client, filterQuery, mustContain, busy }) {
   return {
     // GET /jobs List all jobs for a given user
     getJobs(offset, limit) {

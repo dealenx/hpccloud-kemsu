@@ -16,7 +16,7 @@ function getUnauthenticatedPromise(client) {
   });
 }
 
-export default function({ client, filterQuery, mustContain, busy }) {
+export default function ({ client, filterQuery, mustContain, busy }) {
   return {
     listAWSProfiles() {
       return (

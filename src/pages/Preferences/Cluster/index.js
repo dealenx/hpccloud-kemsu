@@ -109,9 +109,7 @@ export class ClusterPrefs extends React.Component {
     const clusterSimulation = this.clusterHasSimulation(clusterToDelete._id);
     if (clusterSimulation && this.props.simulations[clusterSimulation]) {
       this.setState({
-        _error: `This cluster is associated with simulation "${
-          this.props.simulations[clusterSimulation].name
-        }"`,
+        _error: `This cluster is associated with simulation "${this.props.simulations[clusterSimulation].name}"`,
       });
       return;
     } else if (

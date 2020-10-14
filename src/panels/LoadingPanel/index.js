@@ -22,7 +22,8 @@ export default function LoadingPanel(props) {
       style={{ marginTop: props.large ? '2em' : 'auto' }}
     >
       <span style={{ margin: '15px' }}>
-        <i className={Theme.loadingIcon} />&nbsp; Loading...
+        <i className={Theme.loadingIcon} />
+        &nbsp; Loading...
       </span>
     </div>
   );

@@ -131,7 +131,7 @@ function generateExternal(state) {
   const refineBox = [].concat(state.tunnel);
   const idxToReplace = [
     'xyz'.indexOf(state.direction[0]) * 2 +
-      (state.direction[1] === '+' ? 1 : 0), // Inlet
+      (state.direction[1] === '+' ? 1 : 0),
   ];
   idxToReplace.forEach((idx) => {
     refineBox[idx] = state.object[idx];
@@ -325,8 +325,8 @@ export default class GeometryViewer extends React.Component {
     const mappingIndex = 'xyz'.indexOf(direction[0]);
     const delta = direction[1] === '+' ? 1 : -1;
     const focalPoint = camera.getFocalPoint();
-    const position = focalPoint.map(
-      (v, i) => (i === mappingIndex ? v + delta : v)
+    const position = focalPoint.map((v, i) =>
+      i === mappingIndex ? v + delta : v
     );
     const viewUp = [0, 0, 0];
     viewUp['xyz'.indexOf(orientation[0])] = orientation[1] === '+' ? 1 : -1;

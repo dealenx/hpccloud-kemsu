@@ -161,7 +161,8 @@ class ClusterPrefs extends React.Component {
               Create some under the{' '}
               <Link to="/Preferences/AWS">
                 <span>AWS Profiles preferences page</span>
-              </Link>.
+              </Link>
+              .
             </span>
           }
         />

@@ -1,4 +1,4 @@
-export default function({ client, filterQuery, mustContain, busy }) {
+export default function ({ client, filterQuery, mustContain, busy }) {
   return {
     // POST /taskflows Create the taskflow
     createTaskflow(taskFlowClass) {

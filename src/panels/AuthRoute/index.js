@@ -35,11 +35,7 @@ export default function AuthRoute({
       path={path}
       exact={exact}
       render={(props) =>
-        (admin ? (
-          isAdmin()
-        ) : (
-          isLoggedIn()
-        )) ? (
+        (admin ? isAdmin() : isLoggedIn()) ? (
           <Component {...props} />
         ) : (
           <Redirect to={redirectTo} />

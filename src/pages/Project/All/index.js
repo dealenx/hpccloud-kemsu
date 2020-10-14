@@ -77,7 +77,8 @@ class ProjectAll extends React.Component {
               <div>
                 <h3>Welcome to HPCCloud</h3>
                 <span>
-                  You haven&apos;t created any projects yet<br />
+                  You haven&apos;t created any projects yet
+                  <br />
                   Add one with the <i className={theme.addIcon} /> above.
                 </span>
               </div>

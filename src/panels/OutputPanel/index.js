@@ -32,7 +32,9 @@ export default class OutputPanel extends React.Component {
   tableMapper(el, i) {
     return (
       <tr key={el._id}>
-        {this.props.headers.map((h) => <td key={`${el._id}_${h}`}>{el[h]}</td>)}
+        {this.props.headers.map((h) => (
+          <td key={`${el._id}_${h}`}>{el[h]}</td>
+        ))}
       </tr>
     );
   }

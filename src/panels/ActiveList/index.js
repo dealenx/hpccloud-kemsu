@@ -40,7 +40,9 @@ export default class ActiveList extends React.Component {
         className={
           el.disabled
             ? style.unselectable
-            : this.props.active === index ? style.active : style.selectable
+            : this.props.active === index
+            ? style.active
+            : style.selectable
         }
         data-index={index}
         onClick={this.changeActive}

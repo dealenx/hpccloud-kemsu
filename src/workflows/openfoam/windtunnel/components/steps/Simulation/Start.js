@@ -13,7 +13,8 @@ function clusterFilter(cluster) {
   return (
     'config' in cluster &&
     'openfoam' in cluster.config &&
-    (cluster.config.openfoam && cluster.config.openfoam.enable)
+    cluster.config.openfoam &&
+    cluster.config.openfoam.enable
   );
 }
 
