@@ -1,23 +1,21 @@
 ---
-title: Troubleshooting
+title: Исправление проблем
 ---
 
-# Troubleshooting
+# Исправление проблем (Troubleshooting)
 
 ## Development
 
-### A front-end feature I added is not showing up
+### Проблемы с запуском визуализации
 
-Make sure that `npm start` is running and are you visiting the right address: `localhost:9999`. `localhost:8888` is the server version on the VM.
+Если происходят проблемы с визуализаций, то стоит попробовать перебилдить контейнеры, например:
 
-### A workflow I added is not showing up in the project options
+```
+docker-compose build visualize girder nginx command monitor
+```
 
-Make sure that you're importing your workflow description to `src/workflows/index.js` and exporting as a property of the variable `Workflows`. If this has not fixed it, make sure that the environment variable `NODE_ENV` is **not** set to `test` the workflows directory will be ignored if it is.
+### Проблемы с docker-сервисами monitor и command
 
-### Cannot login
+Если проблема с контейнерами monitor и command, которые связаны с контейнером selery, то возможно поможет ./rebuild-stack.sh, который находится в корне.
 
-Make sure that girder is running on the target server. If it is running and you still cannot login, try restarting girder with `sudo service girder restart`. If you still cannot login, make sure your login exists and the `vagrant up` in HPCCloud-deploy ran successfully.
-
-### Cannot connect to the Visualizer tool
-
-Make sure that in `cumulus/cumulus/conf/config.json` the parameter `girder.baseUrl` matches the IP of the machine you're accessing the task from. User and group should be "cumulus".
+Это может исправить проблему, но rebuild всех контейнеров занимается много времени.

@@ -6,20 +6,83 @@ module.exports = {
     // The key is the path for the locale to be nested under.
     // As a special case, the default locale can use '/' as its path.
     '/': {
-      lang: 'en-US', // this will be set as the lang attribute on <html>
-      title: 'HPCCloud Kemsu',
-      description: 'Simplify HPC workflows and infrastructure management',
-    },
-    '/ru/': {
       lang: 'ru-RU',
       title: 'HPCCloud Kemsu',
       description: 'Документация по веб-платформе HPCCloud',
+    },
+    '/en/': {
+      lang: 'en-US', // this will be set as the lang attribute on <html>
+      title: 'HPCCloud Kemsu',
+      description: 'Simplify HPC workflows and infrastructure management',
     },
   },
 
   themeConfig: {
     locales: {
       '/': {
+        // text for the language dropdown
+        selectText: 'Языки',
+        // label for this locale in the language dropdown
+        label: 'Русский',
+
+        // Aria Label for locale in the dropdown
+        ariaLabel: 'Языки',
+        lastUpdated: 'Последнее обновление', // string | boolean
+        nav: [
+          { text: 'Документация', link: '/general/introduction' },
+          {
+            text: 'Github',
+            link: 'https://github.com/dealenx/hpccloud-kemsu',
+          },
+        ],
+        sidebar: [
+          {
+            title: 'Основы',
+            collapsable: false,
+            children: [
+              '/general/introduction',
+              '/general/installation',
+              '/general/getting-started',
+              '/general/troubleshooting',
+              '/general/glossary',
+            ],
+          },
+          {
+            title: 'Руководство пользователя',
+            collapsable: false,
+            children: [
+              '/usage/create-account',
+              '/usage/trad-cluster',
+              /*'/usage/aws-profiles',*/
+              /*'/usage/ebs-volumes',*/
+              '/usage/creating',
+              /*'/usage/simput',*/
+              '/usage/running',
+              '/usage/sharing',
+            ],
+          },
+          {
+            title: 'Разработка кейсов Simput',
+            collapsable: false,
+            children: [
+              '/dev-simput/introduction',
+              '/dev-simput/getting-started',
+              '/dev-simput/simput-cavity',
+            ],
+          },
+          {
+            title: 'Научно-исследовательский раздел',
+            collapsable: false,
+            children: [
+              '/research/introduction',
+              '/research/cloud-computing',
+              '/research/web-platform',
+              '/research/reference',
+            ],
+          },
+        ],
+      },
+      '/en/': {
         // text for the language dropdown
         selectText: 'Languages',
         // label for this locale in the language dropdown
@@ -30,7 +93,7 @@ module.exports = {
         lastUpdated: 'Last updated', // string | boolean
 
         nav: [
-          { text: 'Documentation', link: '/general/introduction' },
+          { text: 'Documentation', link: '/en/general/introduction' },
           {
             text: 'Github',
             link: 'https://github.com/dealenx/hpccloud-kemsu',
@@ -41,74 +104,45 @@ module.exports = {
             title: 'Basics',
             collapsable: false,
             children: [
-              '/general/introduction',
-              '/general/getting-started',
-              '/general/troubleshooting',
-              '/general/glossary',
+              '/en/general/introduction',
+              '/en/general/getting-started',
+              '/en/general/troubleshooting',
+              '/en/general/glossary',
             ],
           },
           {
             title: 'Usage',
             collapsable: false,
             children: [
-              '/usage/create-account',
-              '/usage/trad-cluster',
-              '/usage/aws-profiles',
-              '/usage/ebs-volumes',
-              '/usage/creating',
-              '/usage/simput',
-              '/usage/running',
-              '/usage/sharing',
+              '/en/usage/create-account',
+              '/en/usage/trad-cluster',
+              '/en/usage/aws-profiles',
+              '/en/usage/ebs-volumes',
+              '/en/usage/creating',
+              '/en/usage/simput',
+              '/en/usage/running',
+              '/en/usage/sharing',
             ],
           },
-          {
+          /*{
             title: 'Development',
             collapsable: false,
             children: [
-              '/development/dev-intro',
-              '/development/panels',
-              '/development/redux',
-              '/development/tools',
+              '/en/development/dev-intro',
+              '/en/development/panels',
+              '/en/development/redux',
+              '/en/development/tools',
             ],
           },
           {
             title: 'Workflow',
             collapsable: false,
             children: [
-              '/workflows/introduction',
-              '/workflows/adding',
-              '/workflows/pages',
+              '/en/workflows/introduction',
+              '/en/workflows/adding',
+              '/en/workflows/pages',
             ],
-          },
-        ],
-      },
-      '/ru/': {
-        // text for the language dropdown
-        selectText: 'Языки',
-        // label for this locale in the language dropdown
-        label: 'Русский',
-
-        // Aria Label for locale in the dropdown
-        ariaLabel: 'Языки',
-        lastUpdated: 'Последнее обновление', // string | boolean
-        nav: [
-          { text: 'Документация', link: '/ru/general/introduction' },
-          {
-            text: 'Github',
-            link: 'https://github.com/dealenx/hpccloud-kemsu',
-          },
-        ],
-        sidebar: [
-          {
-            title: 'Basics',
-            collapsable: false,
-            children: [
-              '/ru/general/introduction',
-              '/ru/general/getting-started',
-              '/ru/general/troubleshooting',
-              '/ru/general/glossary',
-            ],
-          },
+          },*/
         ],
       },
     },

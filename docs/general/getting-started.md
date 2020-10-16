@@ -1,73 +1,176 @@
 ---
-title: Getting Started
+title: Начало работы
 ---
 
-# Getting Started
+# Начало работы
 
-The HPCCloud stack is deployed using [Ansible](https://www.ansible.com/). Our [deployment](https://github.com/Kitware/HPCCloud-deploy) repository contains the playbooks for the deployment. The repository also contains support for Vagrant which allows the full stack to be deployed to a virtual machine. This is quickest way to get up and running with HPCCloud. The deployment is perfect for evaluation or testing, however, this is not recommended in production as everything is deployed to a single machine.
+Платформа HPCCloud включает в себя множество различных компонентов. Качественный запуск всей платформы «вручную» - задача нетривиальная, так как каждый компонент зависит один от другого, поэтому развёртывание осуществляется через программное обеспечение Docker, которое синхронно запускает по конфигурации каждый компонент в отдельно взятых виртуальных контейнерах.
 
-The Vagrant deployment has the following prerequistes:
+Репозиторий содержит конфигурацию для развертывания. Это самый быстрый способ начать работу с HPCCloud. Развертывание подходит для тестирования и разработки, однако не рекомендуется для продакшена, поскольку все развертывается на одной машине.
 
-- [VirtualBox >= 5.0](https://www.virtualbox.org/wiki/Downloads)
-- [Ansible >= 2.1](http://docs.ansible.com/ansible/intro_installation.html)
-- [Vagrant >= 1.8](https://www.vagrantup.com/docs/installation/)
+Требуемые характеристики:
 
-Once the prerequistes have been installed follow the following steps to set up the virtual machine.
+- [docker-compose >= 1.17.0](https://docs.docker.com/compose/)
+- [docker >= 19.03.12](https://docs.docker.com/get-docker/)
 
-1: Clone the deployment repository.
+::: tip Стоит заметить
+Что развертывание проверялось на Ubuntu 18.04 и Linux Mint 19
+:::
+<br />
+<a style="background: #3eaf7c; padding: 12px; color: white;" href="installation.html#docker" >Установка Docker</a>
 
-```sh
-git clone git@github.com:Kitware/HPCCloud-deploy.git
+## Развертывание
+
+### Быстрый запуск
+
+```
+git clone https://github.com/dealenx/hpccloud-kemsu.git
+cd hpccloud-kemsu
 ```
 
-2: Move into the repository directory.
+Необходимо обновить образы и произвести `build` контейнеров:
 
-```sh
-cd HPCCloud-deploy
+```
+docker-compose pull
+docker-compose build
 ```
 
-3: Execute the command:
+И запустить контейнеры:
 
-```sh
-DEMO=1 vagrant up
+```
+docker-compose up -d
 ```
 
-Once the vagrant provisioning process it complete your VM will up and running.
+Необходимо проверить, что ansible завершил начальную конфигурацию платформы:
 
-You can then access the HPCCloud application by visiting [http://localhost:8888](http://localhost:8888) and logging in as user `hpccloud` with password `letmein`.
-
-(Note: you could also register as a new user, but then the preconfigurated "demo_cluster" wouldn't be available, which is provisioned within the Vagrant machine)
-
-## Development
-
-These steps have the same prerequistes as listed above.
-
-1: Clone the deployment repository.
-
-```sh
-git clone git@github.com:Kitware/HPCCloud-deploy.git
-cd HPCCloud-deploy
+```
+docker logs -f hpccloudkemsu_ansible_1
 ```
 
-2: Create the virtual machine
+После запуска контейнеров вы можете подключиться к http://localhost:8888 и авторизоваться под `demo/letmein` <br/>
+или `hpccloud/letmein`
 
-```sh
-vagrant up
+Если вам необходимо остановить контейнеры, то выполните:
+
+```
+docker-compose down
 ```
 
-3: Set the the environment variable `DEVELOPMENT=1`
-4: Clone the HPC-Cloud repository
+### Development
 
-```sh
-git clone git@github.com:Kitware/HPCCloud.git
-cd HPCCloud
+::: warning Внимание
+Перед началом разработки необходимо установить необходимое ПО. Помимо Node.js крайне рекомендуемо установить nvm и yarn.
+
+<a style="background: #3eaf7c; padding: 12px; color: white;" href="installation.html#node-js" >Установка Node.js, nvm и yarn</a>
+
+:::
+
+<br/>
+
+И так, начнем с создания общей папки `hpccloud-workflow`:
+
+```
+mkdir hpccloud-workflow
+cd hpccloud-workflow
 ```
 
-5: In the HPC-Cloud directory run:
+Необходимо будет настроить такую структуру папок:
 
-```sh
+```
+├── hpccloud-workflow
+│	├── hpccloud-kemsu
+│	├── simput-kemsu
+
+```
+
+Поэтому клонируем репозитории в папке `hpccloud-workflow`:
+
+```
+git clone https://github.com/dealenx/hpccloud-kemsu.git
+git clone https://github.com/dealenx/simput-kemsu.git
+```
+
+После того, как запустились Docker-контейнеры, можно приступать к разработке.
+
+Хочу заметить, что фронтенд HPCCloud стабильно запускается только на Node.js v10. Поэтому, если у вас, например, установлена Node.js версии 12, то важно иметь настроенный `nvm`, который удобно может сменить версию Nodejs на необходимую.
+
+Команды для разработки фронтенда:
+
+```
+cd hpccloud-kemsu
+nvm use 10
 npm install
-npm start
+npm run build:watch
 ```
 
-This will install the front-end dependencies and run a webpack-dev server on `localhost:9999` which will reflect local changes to HPC-Cloud as you make them.
+После запуска `build:watch` обновленный билд будет доступен в папке `dist` и Docker-контейнер монтирует эту папку, предоставляя доступ на `localhost:8888`
+
+Что касается бекенда, то внутри контейнера монтируются все исходные файлы, а также запуск Girder происходит в режиме разработчика `girder serve --mode development`.
+
+Поэтому измененные плагины в папке `./server` будут автоматически обновляться.
+
+Пример просматриваемых логов в контейнере girder после запуска и обновление исходных файлов:
+
+```
+Running in mode: development
+Connecting to MongoDB: mongodb://mongodb:27017/girder
+Loaded plugin "cumulus_plugin"
+Loaded plugin "sftp"
+Loaded plugin "taskflow"
+Loaded plugin "hpccloud_plugin"
+Loaded plugin "pvwproxy_plugin"
+[19/Apr/2020:13:26:15] ENGINE Bus STARTING
+Started asynchronous event manager thread.
+[19/Apr/2020:13:26:15] ENGINE Started monitor thread 'Autoreloader'.
+[19/Apr/2020:13:26:15] ENGINE Serving on http://0.0.0.0:8080
+[19/Apr/2020:13:26:15] ENGINE Bus STARTED
+```
+
+## Simput
+
+Руководство по подготовке Simput-кейсов не доделано, здесь приведены необходимые команды, но без пояснения.
+
+```
+$ cd simput-kemsu
+$ nvm use 10
+$ npm install
+$ npm run build
+$ npm link
+$ Simput
+
+  Usage: Simput [options]
+
+  Options:
+
+    -h, --help                    output usage information
+    -V, --version                 output the version number
+
+    -i, --input [file|directory]  Input file or directory
+    -o, --output [directory]      Output directory to output to
+    -t, --type [type]             Type of input
+
+    --no-gui                      Just generate output
+    -s, --silent                  Do not open the browser
+
+    -c, --compile [directory]     Directory to compile files
+    -m, --minify                  Minify compiled file
+    -a, --add [file]              Add model to list of available inputs
+    -l, --list                    List model types of available as inputs
+    -r, --remove [type]           Remove model to list of available inputs
+```
+
+```
+cd types/openfoam_tutorials
+Simput -c src/ -o versions/ -t openfoam_tutorials
+Simput -a versions/openfoam_tutorials.js
+cd ../../
+Simput -mc types/openfoam_tutorials/src/ -t openfoam_tutorials -o dist/types
+```
+
+Перейти в hpccloud-kemsu
+
+```
+$ cd ../hpccloud-kemsu
+$ npm run install:simput
+#or npm run install:openfoam
+```
