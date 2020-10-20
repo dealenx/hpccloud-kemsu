@@ -62,15 +62,6 @@ module.exports = {
             ],
           },
           {
-            title: 'Разработка кейсов Simput',
-            collapsable: false,
-            children: [
-              '/dev-simput/introduction',
-              '/dev-simput/getting-started',
-              '/dev-simput/simput-cavity',
-            ],
-          },
-          {
             title: 'Научно-исследовательский раздел',
             collapsable: false,
             children: [
@@ -78,6 +69,27 @@ module.exports = {
               '/research/cloud-computing',
               '/research/web-platform',
               '/research/reference',
+            ],
+          },
+          {
+            title: 'Разработка клиентской части',
+            collapsable: false,
+            children: [
+              '/dev/introduction',
+              '/dev/panels',
+              '/dev/redux',
+              '/dev/tools',
+            ],
+          },
+          {
+            title: 'Разработка рабочих процессов (Workflows)',
+            collapsable: false,
+            children: [
+              '/workflow/introduction',
+              '/workflow/defining',
+              '/workflow/pages',
+              '/workflow/getting-started',
+              '/workflow/simput-cavity',
             ],
           },
         ],
