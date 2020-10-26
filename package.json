@@ -72,6 +72,7 @@
     "install:nwchem-neb": "cp ./node_modules/simput/dist/types/nwchem-neb.js ./dist/simput-nwchem-neb.js",
     "install:openfoam": "cp ../simput-kemsu/dist/types/openfoam_tutorials.js ./dist/simput-openfoam-tutorials.js",
     "install:openfoam_cavity": "cp ../simput-kemsu/dist/types/openfoam_cavity.js ./dist/simput-openfoam_cavity.js",
+    "install:openfoam_cavity_test": "cp ../simput-kemsu/dist/types/openfoam_cavity_test.js ./dist/simput-openfoam_cavity_test.js",
     "install:openfoamw": "cp ./node_modules/simput/dist/types/openfoam-windtunnel.js ./dist/simput-openfoam-windtunnel.js",
     "install:simput": "npm run install:pyfr && npm run install:nwchem && npm run install:nwchem-neb && npm run install:openfoam && npm run install:openfoamw && npm run install:openfoam_cavity",
     "check": "node bin/version-check.js",

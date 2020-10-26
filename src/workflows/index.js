@@ -4,6 +4,7 @@ import NWChemNeb from './nwchem/nwchem-neb';
 import OpenFOAMTutorial from './openfoam/tutorials';
 import OpenFOAMWindTunnel from './openfoam/windtunnel';
 import OpenFOAMCavity from './openfoam/cavity';
+import OpenFOAMCavityTest from './openfoam/cavity_test';
 import PyFr from './pyfr';
 import Visualizer from './visualizer';
 
@@ -14,6 +15,7 @@ const Workflows = {
   OpenFOAMTutorial,
   OpenFOAMWindTunnel,
   OpenFOAMCavity,
+  OpenFOAMCavityTest,
   PyFr,
   Visualizer,
 };
