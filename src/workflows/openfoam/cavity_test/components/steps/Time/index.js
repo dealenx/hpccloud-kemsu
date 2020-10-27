@@ -35,12 +35,12 @@ class TimeComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    console.log('PROPS', props);
+    // console.log('PROPS', props);
 
-    console.log(
-      'extract(props.simulation.steps.Input.metadata.model)',
-      extract(props.simulation.steps.Input.metadata.model)
-    );
+    // console.log(
+    //   'extract(props.simulation.steps.Input.metadata.model)',
+    //   extract(props.simulation.steps.Input.metadata.model)
+    // );
 
     // this.state = extract(props.simulation.steps[props.step].metadata.model) || {
     //   direction: ['x', '-'],
@@ -56,19 +56,14 @@ class TimeComponent extends React.Component {
       type: 'openfoam_cavity_test',
       hideViews: [],
       external: {},
-      // CavityFields: [
-      //   {
-      //     attr1: {
-      //       deltaT: 0.0,
-      //     },
-      //   },
-      // ],
+      CavityFields: [
+        {
+          attr1: {
+            deltaT: 0.0,
+          },
+        },
+      ],
     };
-
-    console.log(
-      'this.inputModel.data.CavityFields[0].attr1.deltaT.value[0]',
-      this.inputModel.data.CavityFields[0].attr1.deltaT.value[0]
-    );
   }
 
   componentWillUnmount() {
@@ -76,20 +71,17 @@ class TimeComponent extends React.Component {
   }
 
   saveModel() {
-    this.inputModel.data.CavityFields[0].attr1.deltaT.value[0] = 0.8;
-    console.log(
-      'this.inputModel.data.CavityFields[0].attr1.deltaT.value[0]',
-      this.inputModel.data.CavityFields[0].attr1.deltaT.value[0]
-    );
+    this.inputModel.data.CavityFields[0].attr1.deltaT.value[0] = 0.4;
+
     const model = JSON.stringify(this.inputModel);
 
     // Push changes right away to prevent invalid data in next step
     const newSim = Object.assign({}, this.props.simulation);
-    newSim.steps[this.props.step].metadata.model = model;
+    newSim.steps.Input.metadata.model = model;
     this.props.saveSimulation(newSim);
 
     client
-      .updateSimulationStep(this.props.simulation._id, this.props.step, {
+      .updateSimulationStep(this.props.simulation._id, 'Input', {
         metadata: { model },
       })
       .catch((error) => {
