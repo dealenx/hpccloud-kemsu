@@ -67,11 +67,14 @@ class TimeComponent extends React.Component {
   }
 
   componentWillUnmount() {
+    console.log('componentWillUnmount');
+
     this.saveModel();
   }
 
   saveModel() {
-    this.inputModel.data.CavityFields[0].attr1.deltaT.value[0] = 0.4;
+    this.inputModel.data.CavityFields[0].attr1.deltaT.value[0] =
+      this.inputModel.data.CavityFields[0].attr1.deltaT.value[0] + 1;
 
     const model = JSON.stringify(this.inputModel);
 
@@ -87,6 +90,8 @@ class TimeComponent extends React.Component {
       .catch((error) => {
         console.error('problem saving model (a)', error);
       });
+
+    console.log('SaveModel()');
   }
 
   render() {
@@ -99,6 +104,7 @@ class TimeComponent extends React.Component {
               {/* {this.inputModel.data.CavityFields[0].attr1.deltaT} */}
               {/* <input type="number" value={this.state.deltaT} onChange={this.updateTunnelBounds} name="2" /> */}
             </div>
+            <a onClick={() => this.saveModel()}>On Click</a>
           </div>
         </div>
       </div>
