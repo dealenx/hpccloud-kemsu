@@ -1,7 +1,7 @@
 import rootViewSimulation from '../../generic/components/root/ViewSimulation';
 
 import stepIntroduction from './components/steps/Introduction';
-import stepTime from './components/steps/Time';
+// import stepTime from './components/steps/Time';
 import stepInput from './components/steps/Input';
 import stepSimulationStart from './components/steps/Simulation/Start';
 import stepSimulationView from './components/steps/Simulation/View';
@@ -30,7 +30,13 @@ export default {
     },
   },
   steps: {
-    _order: ['Introduction', 'Time', 'Input', 'Simulation', 'Visualization'],
+    _order: [
+      'Introduction',
+      // 'Time',
+      'Input',
+      'Simulation',
+      'Visualization',
+    ],
     _disabled: ['Visualization'],
     _initial_state: {
       Introduction: {
@@ -39,10 +45,10 @@ export default {
           alwaysAvailable: true,
         },
       },
-      Time: {
-        type: 'input',
-        metadata: {},
-      },
+      // Time: {
+      //   type: 'input',
+      //   metadata: {},
+      // },
       Input: {
         type: 'input',
         metadata: {},
@@ -59,9 +65,9 @@ export default {
     Introduction: {
       default: stepIntroduction,
     },
-    Time: {
-      default: stepTime,
-    },
+    // Time: {
+    //   default: stepTime,
+    // },
     Input: {
       default: stepInput,
     },
@@ -86,9 +92,9 @@ export default {
     Introduction: {
       default: 'Introduction',
     },
-    Time: {
-      default: 'Time Test',
-    },
+    // Time: {
+    //   default: 'Time Test',
+    // },
     Input: {
       default: 'Dataset selection',
     },
