@@ -34,49 +34,55 @@ function extract(model) {
 class TimeComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
-    // console.log('PROPS', props);
-
-    // console.log(
-    //   'extract(props.simulation.steps.Input.metadata.model)',
-    //   extract(props.simulation.steps.Input.metadata.model)
-    // );
-
-    // this.state = extract(props.simulation.steps[props.step].metadata.model) || {
-    //   direction: ['x', '-'],
-    //   orientation: ['z', '+'],
-    //   speed: 20,
-    //   object: [-1, 1, -1, 1, -1, 1],
-    //   tunnel: [MAX, -MAX, MAX, -MAX, MAX, -MAX],
+    // this.state = {
+    //   deltaT: 0,
     // };
 
+    this.handleChange = this.handleChange.bind(this);
+
     // Capture simput data model
-    this.inputModel = extract(props.simulation.steps.Input.metadata.model) || {
-      data: {},
+    this.state = extract(props.simulation.steps.Input.metadata.model) || {
+      data: {
+        CavityFields: [
+          {
+            attr1: {
+              deltaT: {
+                value: [0.1],
+              },
+            },
+          },
+        ],
+      },
       type: 'openfoam_cavity_test',
       hideViews: [],
       external: {},
-      CavityFields: [
-        {
-          attr1: {
-            deltaT: 0.0,
-          },
-        },
-      ],
     };
   }
 
   componentWillUnmount() {
     console.log('componentWillUnmount');
+  }
 
+  myTest() {
+    this.saveModel();
+  }
+
+  handleChange(event) {
+    const localState = this.state;
+    if (localState.data.CavityFields[0]) {
+      localState.data.CavityFields[0].attr1.deltaT.value[0] =
+        event.target.value;
+    }
+
+    this.setState({ date: localState.data });
     this.saveModel();
   }
 
   saveModel() {
-    this.inputModel.data.CavityFields[0].attr1.deltaT.value[0] =
-      this.inputModel.data.CavityFields[0].attr1.deltaT.value[0] + 1;
+    // this.state.data.CavityFields[0].attr1.deltaT.value[0] =
+    //   this.state.data.CavityFields[0].attr1.deltaT.value[0] + 1;
 
-    const model = JSON.stringify(this.inputModel);
+    const model = JSON.stringify(this.state);
 
     // Push changes right away to prevent invalid data in next step
     const newSim = Object.assign({}, this.props.simulation);
@@ -95,15 +101,25 @@ class TimeComponent extends React.Component {
   }
 
   render() {
+    console.log('this.state', this.state);
+
+    let inputDeltaT;
+
+    if (this.state.data.CavityFields[0]) {
+      inputDeltaT = (
+        <input
+          type="number"
+          value={this.state.data.CavityFields[0].attr1.deltaT.value[0]}
+          onChange={this.handleChange}
+        />
+      );
+    }
     return (
       <div>
         <div>
           <div>
             <label>Y</label>
-            <div>
-              {/* {this.inputModel.data.CavityFields[0].attr1.deltaT} */}
-              {/* <input type="number" value={this.state.deltaT} onChange={this.updateTunnelBounds} name="2" /> */}
-            </div>
+            <div>{inputDeltaT}</div>
             <a onClick={() => this.saveModel()}>On Click</a>
           </div>
         </div>
