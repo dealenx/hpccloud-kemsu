@@ -139,50 +139,77 @@ class InputComponent extends React.Component {
 
     if (this.state.data.CavityFields[0]) {
       inputDeltaT = (
-        <input
-          type="number"
-          value={this.state.data.CavityFields[0].attr1.deltaT.value[0]}
-          onChange={this.handleChangeDeltaT}
-        />
+        <div className="form-group">
+          <label htmlFor="inputDeltaT">DeltaT</label>
+
+          <div className="input-group input-group-lg">
+            <input
+              value={this.state.data.CavityFields[0].attr1.deltaT.value[0]}
+              onChange={this.handleChangeDeltaT}
+              type="number"
+              className="form-control"
+              id="inputDeltaT"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-lg"
+              min={0}
+            />
+          </div>
+          <small id="emailHelp" className="form-text text-muted">
+            Шаг по времени
+          </small>
+        </div>
       );
 
       inputNu = (
-        <input
-          type="number"
-          value={this.state.data.CavityFields[0].attr1.nu.value[0]}
-          onChange={this.handleChangeNu}
-        />
+        <div className="form-group">
+          <label htmlFor="inputNu">nu</label>
+
+          <div className="input-group input-group-lg">
+            <input
+              value={this.state.data.CavityFields[0].attr1.nu.value[0]}
+              onChange={this.handleChangeNu}
+              type="number"
+              className="form-control"
+              id="inputNu"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-lg"
+              min={0}
+            />
+          </div>
+          <small id="emailHelp" className="form-text text-muted">
+            Кинематическая вязкость
+          </small>
+        </div>
       );
     }
 
     return (
-      // <div
-      //   style={{
-      //     display: 'none',
-      //   }}
-      // >
       <div>
-        <div>
-          <p style={{ margin: '12px 0 4px 0' }}>deltaT:</p>
-          <div>{inputDeltaT}</div>
-
-          <p style={{ margin: '12px 0 4px 0' }}>nu:</p>
+        <div className="container" style={{ marginTop: '12px' }}>
+          {inputDeltaT}
+          {inputNu}
+          {/* <p style={{ margin: '12px 0 4px 0' }}>nu:</p>
           <div>{inputNu}</div>
-          <a onClick={() => this.saveModel()}>On Click</a>
+          <a onClick={() => this.saveModel()}>On Click</a> */}
         </div>
-        <SimputReact
-          {...this.localProps()}
-          isUpdableAndHide
-          simputType="openfoam_cavity_test"
-          inputFileKeys={[{ key: 'sh', name: 'run.sh', parse: false }]}
-          initialDataModel={{
-            data: {},
-            type: 'openfoam_cavity_test',
-            hideViews: [],
+        <div
+          style={{
+            display: 'none',
           }}
-        />
+        >
+          <SimputReact
+            {...this.localProps()}
+            isUpdableAndHide
+            simputType="openfoam_cavity_test"
+            inputFileKeys={[{ key: 'sh', name: 'run.sh', parse: false }]}
+            initialDataModel={{
+              data: {},
+              type: 'openfoam_cavity_test',
+              hideViews: [],
+            }}
+          />
+        </div>
       </div>
-      // </div>
     );
   }
 }
