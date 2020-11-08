@@ -39,6 +39,7 @@ class InputComponent extends React.Component {
     super(props);
 
     this.handleChangeDeltaT = this.handleChangeDeltaT.bind(this);
+    this.handleChangeEndTime = this.handleChangeEndTime.bind(this);
     this.handleChangeNu = this.handleChangeNu.bind(this);
 
     console.log('this.props', this.props);
@@ -50,6 +51,9 @@ class InputComponent extends React.Component {
             attr1: {
               deltaT: {
                 value: [0.1],
+              },
+              endTime: {
+                value: [10],
               },
               nu: {
                 value: [0.1],
@@ -123,6 +127,17 @@ class InputComponent extends React.Component {
     this.saveModel();
   }
 
+  handleChangeEndTime(event) {
+    const localState = this.state;
+    if (localState.data.CavityFields[0]) {
+      localState.data.CavityFields[0].attr1.endTime.value[0] =
+        event.target.value;
+    }
+
+    this.setState({ date: localState.data });
+    this.saveModel();
+  }
+
   handleChangeNu(event) {
     const localState = this.state;
     if (localState.data.CavityFields[0]) {
@@ -135,6 +150,7 @@ class InputComponent extends React.Component {
 
   render() {
     let inputDeltaT;
+    let inputEndTime;
     let inputNu;
 
     if (this.state.data.CavityFields[0]) {
@@ -156,6 +172,28 @@ class InputComponent extends React.Component {
           </div>
           <small id="emailHelp" className="form-text text-muted">
             Шаг по времени
+          </small>
+        </div>
+      );
+
+      inputEndTime = (
+        <div className="form-group">
+          <label htmlFor="inputDeltaT">endTime</label>
+
+          <div className="input-group input-group-lg">
+            <input
+              value={this.state.data.CavityFields[0].attr1.endTime.value[0]}
+              onChange={this.handleChangeEndTime}
+              type="number"
+              className="form-control"
+              id="inputDeltaT"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-lg"
+              min={0}
+            />
+          </div>
+          <small id="emailHelp" className="form-text text-muted">
+            Конечное время расчета
           </small>
         </div>
       );
@@ -186,7 +224,12 @@ class InputComponent extends React.Component {
     return (
       <div>
         <div className="container" style={{ marginTop: '12px' }}>
+          <h3>Настройка времени</h3>
           {inputDeltaT}
+          {inputEndTime}
+
+          <br />
+          <h3>Другие параметры</h3>
           {inputNu}
           {/* <p style={{ margin: '12px 0 4px 0' }}>nu:</p>
           <div>{inputNu}</div>
