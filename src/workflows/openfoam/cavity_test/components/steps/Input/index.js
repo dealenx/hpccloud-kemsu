@@ -242,7 +242,11 @@ class InputComponent extends React.Component {
           <div>{inputNu}</div>
           <a onClick={() => this.saveModel()}>On Click</a> */}
         </div>
-        <div>
+        <div
+          style={{
+            display: 'none',
+          }}
+        >
           <SimputReact
             {...this.localProps()}
             isUpdableAndHide
