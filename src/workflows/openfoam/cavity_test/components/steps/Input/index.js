@@ -66,6 +66,12 @@ class InputComponent extends React.Component {
       hideViews: [],
       external: {},
     };
+
+    this.simputKey = 0;
+  }
+
+  updateSimputKey() {
+    ++this.simputKey;
   }
 
   saveModel() {
@@ -99,6 +105,7 @@ class InputComponent extends React.Component {
       });
 
     console.log('SaveModel()');
+    // this.updateSimputKey();
   }
 
   localProps() {
@@ -235,14 +242,11 @@ class InputComponent extends React.Component {
           <div>{inputNu}</div>
           <a onClick={() => this.saveModel()}>On Click</a> */}
         </div>
-        <div
-          style={{
-            display: 'none',
-          }}
-        >
+        <div>
           <SimputReact
             {...this.localProps()}
             isUpdableAndHide
+            key={this.simputKey}
             simputType="openfoam_cavity_test"
             inputFileKeys={[{ key: 'sh', name: 'run.sh', parse: false }]}
             initialDataModel={{
