@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import 'antd/dist/antd.css';
 
-import { Button } from 'antd';
+import { Input } from 'antd';
 
 import SimputReact from '../../../../../generic/components/steps/SimputReact';
 
@@ -168,10 +168,9 @@ class InputComponent extends React.Component {
       inputDeltaT = (
         <div className="form-group">
           <label htmlFor="inputDeltaT">DeltaT</label>
-          <Button type="primary">Primary Button</Button>
 
           <div className="input-group input-group-lg">
-            <input
+            <Input
               value={this.state.data.CavityFields[0].attr1.deltaT.value[0]}
               onChange={this.handleChangeDeltaT}
               type="number"
@@ -193,7 +192,7 @@ class InputComponent extends React.Component {
           <label htmlFor="inputDeltaT">endTime</label>
 
           <div className="input-group input-group-lg">
-            <input
+            <Input
               value={this.state.data.CavityFields[0].attr1.endTime.value[0]}
               onChange={this.handleChangeEndTime}
               type="number"
@@ -215,7 +214,7 @@ class InputComponent extends React.Component {
           <label htmlFor="inputNu">nu</label>
 
           <div className="input-group input-group-lg">
-            <input
+            <Input
               value={this.state.data.CavityFields[0].attr1.nu.value[0]}
               onChange={this.handleChangeNu}
               type="number"
@@ -234,8 +233,11 @@ class InputComponent extends React.Component {
     }
 
     return (
-      <div>
-        <div className="container" style={{ marginTop: '12px' }}>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div
+          className="container"
+          style={{ marginTop: '12px', maxWidth: '700px', width: '100%' }}
+        >
           <h3>Настройка времени</h3>
           {inputDeltaT}
           {inputEndTime}

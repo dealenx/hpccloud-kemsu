@@ -92,6 +92,7 @@ module.exports = {
       '/api/*': 'http://localhost:8080',
       '/static/*': 'http://localhost:8080',
     },
+    hot: false,
     // hotOnly: true,
   },
 };

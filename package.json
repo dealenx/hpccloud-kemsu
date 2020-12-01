@@ -26,7 +26,7 @@
     "build": "webpack --progress --colors --mode development",
     "build:debug": "webpack --display-modules --mode development",
     "build:release": "webpack --progress --colors --mode production",
-    "build:watch": "webpack --progress --watch --watch-poll --mode development",
+    "build:watch": "webpack --progress --watch --watch-poll --no-inline --liveReload false --mode development",
     "start": "webpack-dev-server --progress --open",
     "test": "karma start test/karma.all.js",
     "test:redux": "karma start test/karma.redux.js",
