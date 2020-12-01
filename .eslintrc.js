@@ -4,6 +4,7 @@ module.exports = {
   extends: ['airbnb', 'prettier'],
   rules: {
     'prettier/prettier': ['error', prettierConf],
+    'import/no-unresolved': [2, { caseSensitive: false }],
 
     // But we want the following
     'no-multi-spaces': ['error', { exceptions: { ImportDeclaration: true } }],
@@ -19,6 +20,8 @@ module.exports = {
     ],
     'import/no-extraneous-dependencies': 0, // Needed for tests
     // 'no-mixed-operators': 'error', // Wish we can put it back with prettier
+
+    'react/prefer-stateless-function': 'off',
 
     // Not for us
     'jsx-a11y/label-has-for': 0,
@@ -55,7 +58,6 @@ module.exports = {
     'import/resolver': 'webpack',
   },
   env: {
-    es6: true,
     browser: true,
   },
 };

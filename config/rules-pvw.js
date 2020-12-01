@@ -1,4 +1,4 @@
-const autoprefixer = require('autoprefixer');
+// const autoprefixer = require('autoprefixer');
 
 module.exports = [
   {
@@ -8,7 +8,7 @@ module.exports = [
       {
         loader: 'babel-loader',
         options: {
-          presets: ['env', 'react'],
+          presets: ['@babel/env', '@babel/preset-react'],
         },
       },
     ],

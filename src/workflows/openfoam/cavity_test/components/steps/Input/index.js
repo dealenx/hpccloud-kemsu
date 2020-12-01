@@ -1,5 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import 'antd/dist/antd.css';
+
+import { Button } from 'antd';
+
 import SimputReact from '../../../../../generic/components/steps/SimputReact';
 
 import { dispatch } from '../../../../../../redux';
@@ -164,6 +168,7 @@ class InputComponent extends React.Component {
       inputDeltaT = (
         <div className="form-group">
           <label htmlFor="inputDeltaT">DeltaT</label>
+          <Button type="primary">Primary Button</Button>
 
           <div className="input-group input-group-lg">
             <input
@@ -200,7 +205,7 @@ class InputComponent extends React.Component {
             />
           </div>
           <small id="emailHelp" className="form-text text-muted">
-            Конечное время расчета
+            Конечное время расчета TEST
           </small>
         </div>
       );

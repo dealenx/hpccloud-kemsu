@@ -149,7 +149,7 @@ export default class SimputReact extends React.Component {
     this.handleSimputData();
   }
 
-  componentWillUnmount() {
+  async componentWillUnmount() {
     this.handleSimputData();
     this.saveModel();
   }

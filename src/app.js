@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 
 import 'normalize.css';
+/* eslint-disable eslintimport/no-unresolved */
 import 'HPCCloudStyle/global.mcss';
 
 import React from 'react';
