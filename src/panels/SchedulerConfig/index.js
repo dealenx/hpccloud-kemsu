@@ -20,7 +20,7 @@ function addDefaults(config) {
     {
       type: 'sge',
       maxWallTime: { hours: 0, minutes: 0, seconds: 0 },
-      defaultQueue: 'rail2',
+      defaultQueue: '',
       sge: {
         numberOfGpusPerNode: 0,
         numberOfSlots: 1,
@@ -43,14 +43,10 @@ function addDefaults(config) {
 export default class SchedulerConfig extends React.Component {
   constructor(props) {
     super(props);
-    console.log('============ SchedulerConfig =============');
-    console.log('props.config', props.config);
-
     this.state = {
       config: addDefaults(props.config),
     };
     this.updateConfig = this.updateConfig.bind(this);
-    console.log('props.config', props.config);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -89,10 +85,6 @@ export default class SchedulerConfig extends React.Component {
 
   render() {
     const SubConfig = typeMapping[this.state.config.type || 'sge'];
-    console.log('===== RENDER =====');
-    console.log('this.state.config', this.state.config);
-    console.log('this.state', this.state);
-
     return (
       <div>
         <section className={this.props.runtime ? style.hidden : style.group}>

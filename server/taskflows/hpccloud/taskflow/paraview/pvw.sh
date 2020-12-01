@@ -1,10 +1,5 @@
-module load compilers/gcc-7.3.0
-module load mpi/mpich3
-
-
 # Set up cluster-specific variables
-#PARAVIEW_DIR={{paraviewInstallDir if paraviewInstallDir else "/opt/paraview/install"}}
-PARAVIEW_DIR=/home/gorodilov/ParaView
+PARAVIEW_DIR={{paraviewInstallDir if paraviewInstallDir else "/opt/paraview/install"}}
 PV_BATCH="${PARAVIEW_DIR}/bin/pvbatch"
 VISUALIZER="pvw-visualizer.py"
 GET_PORT_PYTHON_CMD='import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()'
@@ -15,7 +10,7 @@ echo ${RC_PORT} > /tmp/{{job._id}}.rc_port
 export PV_ALLOW_BATCH_INTERACTION=1
 
 # Run in MPI mode
-MPIPROG="mpirun"
+MPIPROG="mpiexec"
 
 # Need to adjust paths for Mac application install
 case $PARAVIEW_DIR in
@@ -44,7 +39,7 @@ WEBSOCKET_PORT='9090'
 # Create proxy entry
 KEY="{{ sessionKey }}"
 BODY='{"host": "'$IPADDRESS'", "port": '${WEBSOCKET_PORT}', "key": "'$KEY'"}'
-curl --silent --show-error -o /dev/null -X POST -d "$BODY"  --header "Content-Type: application/json" http://hpccloud.dealenx.ru:8080/api/v1/proxy
+curl --silent --show-error -o /dev/null -X POST -d "$BODY"  --header "Content-Type: application/json" {{ baseUrl }}/proxy
 {% endif -%}
 
 # Replace Visualizer script
@@ -57,6 +52,5 @@ ${MPIPROG} {{ '-n %s' % numberOfSlots if numberOfSlots else '-n 1'}} ${PV_BATCH}
 
 {% if cluster.type == 'trad' -%}
 # Remove proxy entry
-curl --silent --show-error -o /dev/null -X DELETE "http://hpccloud.dealenx.ru:8080/api/v1/proxy/${KEY}"
+curl --silent --show-error -o /dev/null -X DELETE "{{ baseUrl }}/proxy/${KEY}"
 {% endif -%}
-
