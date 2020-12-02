@@ -11,3 +11,4 @@ npm-debug.log
 coverage/
 **/*.egg-info
 **/*.egg
+dist/hot

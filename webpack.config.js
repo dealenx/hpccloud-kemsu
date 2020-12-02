@@ -35,6 +35,8 @@ module.exports = {
   output: {
     path: path.join(__dirname, './dist'),
     filename: 'HPCCloud.js',
+    hotUpdateChunkFilename: 'hot/hot-update.js',
+    hotUpdateMainFilename: 'hot/hot-update.json',
   },
 
   module: {
