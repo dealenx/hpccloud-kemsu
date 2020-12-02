@@ -1,0 +1,18 @@
+{
+  "name": "hpccloud-kemsu-docs",
+  "description": "Документация по веб-платформе HPCCloud",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vuepress dev .",
+    "build": "vuepress build ."
+  },
+  "engines": {
+    "node": ">= 8",
+    "npm": ">= 5"
+  },
+  "keywords": [],
+  "author": "",
+  "devDependencies": {
+    "vuepress": "^1.7.1"
+  }
+}
