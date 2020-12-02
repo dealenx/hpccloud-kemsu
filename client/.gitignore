@@ -1,0 +1,14 @@
+.DS_Store
+.npmrc
+.sass-cache
+bundles
+node_modules/
+npm-debug.log
+*.pyc
+.project
+.pydevproject
+.settings/
+coverage/
+**/*.egg-info
+**/*.egg
+dist/hot

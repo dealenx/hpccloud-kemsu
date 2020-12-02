@@ -2,7 +2,7 @@
 # where 'runtime' is available in version 2.3 but not 3
 #   https://github.com/docker/compose/issues/6239
 # version: '2.3'
-version: '3.3'
+version: "3.3"
 services:
   mongodb:
     image: mongo:3.6
@@ -25,9 +25,9 @@ services:
     networks:
       - hc
     ports:
-      - '8080:8080'
+      - "8080:8080"
     extra_hosts:
-      - 'girder:127.0.0.1'
+      - "girder:127.0.0.1"
     depends_on:
       - mongodb
       - rabbitmq
@@ -82,9 +82,9 @@ services:
       - hc
     working_dir: /usr/share/nginx/html
     volumes:
-      - ./dist:/usr/share/nginx/html
+      - ./client/dist:/usr/share/nginx/html
     ports:
-      - '8888:8888'
+      - "8888:8888"
     depends_on:
       - girder
       - apache
@@ -99,7 +99,7 @@ services:
     networks:
       - hc
     ports:
-      - '9000:9000'
+      - "9000:9000"
 
   ansible:
     image: kitware/hpccloud:ansible
@@ -127,7 +127,7 @@ services:
     networks:
       - hc
     ports:
-      - '2201:22'
+      - "2201:22"
 
   visualize:
     image: kitware/hpccloud:visualize-osmesa
@@ -140,8 +140,8 @@ services:
     networks:
       - hc
     ports:
-      - '2202:22'
-      - '9090:9090'
+      - "2202:22"
+      - "9090:9090"
 
 networks:
   hc:
