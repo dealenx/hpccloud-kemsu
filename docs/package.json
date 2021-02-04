@@ -14,5 +14,9 @@
   "author": "",
   "devDependencies": {
     "vuepress": "^1.7.1"
+  },
+  "dependencies": {
+    "jquery": "^3.5.1",
+    "pdfvuer": "^1.7.5"
   }
 }
