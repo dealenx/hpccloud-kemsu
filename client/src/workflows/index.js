@@ -5,6 +5,8 @@ import OpenFOAMTutorial from './openfoam/tutorials';
 import OpenFOAMWindTunnel from './openfoam/windtunnel';
 import OpenFOAMCavity from './openfoam/cavity';
 import OpenFOAMCavityTest from './openfoam/cavity_test';
+
+import OpenFOAMHelmholtz from './openfoam/helmholtz';
 import PyFr from './pyfr';
 import Visualizer from './visualizer';
 
@@ -16,6 +18,8 @@ const Workflows = {
   OpenFOAMWindTunnel,
   OpenFOAMCavity,
   OpenFOAMCavityTest,
+  OpenFOAMHelmholtz,
+
   PyFr,
   Visualizer,
 };
