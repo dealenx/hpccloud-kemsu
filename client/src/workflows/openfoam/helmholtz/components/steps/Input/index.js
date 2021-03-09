@@ -62,6 +62,9 @@ class InputComponent extends React.Component {
               nu: {
                 value: [0.001],
               },
+              fieldLength: {
+                value: [12.0],
+              },
             },
           },
         ],
@@ -159,10 +162,21 @@ class InputComponent extends React.Component {
     this.saveModel();
   }
 
+  handleChangeFieldLength(event) {
+    const localState = this.state;
+    if (localState.data.CavityFields[0]) {
+      localState.data.CavityFields[0].attr1.nu.value[0] = event.target.value;
+    }
+
+    this.setState({ date: localState.data });
+    this.saveModel();
+  }
+
   render() {
     let inputDeltaT;
     let inputEndTime;
     let inputNu;
+    let inputFieldLength;
 
     if (this.state.data.CavityFields[0]) {
       inputDeltaT = (
@@ -230,6 +244,28 @@ class InputComponent extends React.Component {
           </small>
         </div>
       );
+
+      inputFieldLength = (
+        <div className="form-group">
+          <label htmlFor="inputNu">fieldLength</label>
+
+          <div className="input-group input-group-lg">
+            <Input
+              value={this.state.data.CavityFields[0].attr1.fieldLength.value[0]}
+              onChange={this.handleChangeFieldLength}
+              type="number"
+              className="form-control"
+              id="inputFieldLength"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-lg"
+              min={0}
+            />
+          </div>
+          <small id="emailHelp" className="form-text text-muted">
+            Длина геометрии
+          </small>
+        </div>
+      );
     }
 
     return (
@@ -245,6 +281,7 @@ class InputComponent extends React.Component {
           <br />
           <h3>Другие параметры</h3>
           {inputNu}
+          {inputFieldLength}
           {/* <p style={{ margin: '12px 0 4px 0' }}>nu:</p>
           <div>{inputNu}</div>
           <a onClick={() => this.saveModel()}>On Click</a> */}
