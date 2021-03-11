@@ -11,6 +11,8 @@ import * as Actions from '../../../../../../redux/actions/projects';
 
 import client from '../../../../../../network';
 
+import Viz from './viz';
+
 // ----------------------------------------------------------------------------
 
 function saveSimulation(simulation) {
@@ -45,6 +47,7 @@ class InputComponent extends React.Component {
     this.handleChangeDeltaT = this.handleChangeDeltaT.bind(this);
     this.handleChangeEndTime = this.handleChangeEndTime.bind(this);
     this.handleChangeNu = this.handleChangeNu.bind(this);
+    this.handleChangeFieldLength = this.handleChangeFieldLength.bind(this);
 
     console.log('this.props', this.props);
 
@@ -165,7 +168,8 @@ class InputComponent extends React.Component {
   handleChangeFieldLength(event) {
     const localState = this.state;
     if (localState.data.CavityFields[0]) {
-      localState.data.CavityFields[0].attr1.nu.value[0] = event.target.value;
+      localState.data.CavityFields[0].attr1.fieldLength.value[0] =
+        event.target.value;
     }
 
     this.setState({ date: localState.data });
@@ -274,6 +278,16 @@ class InputComponent extends React.Component {
           className="container"
           style={{ marginTop: '12px', maxWidth: '700px', width: '100%' }}
         >
+          <h3>Редактор сетки</h3>
+          <Viz
+            x={this.state.data.CavityFields[0].attr1.fieldLength.value[0]}
+            y={6}
+            z={0.1}
+          />
+          <br />
+          {inputFieldLength}
+
+          <br />
           <h3>Настройка времени</h3>
           {inputDeltaT}
           {inputEndTime}
@@ -281,7 +295,8 @@ class InputComponent extends React.Component {
           <br />
           <h3>Другие параметры</h3>
           {inputNu}
-          {inputFieldLength}
+          <br />
+
           {/* <p style={{ margin: '12px 0 4px 0' }}>nu:</p>
           <div>{inputNu}</div>
           <a onClick={() => this.saveModel()}>On Click</a> */}
