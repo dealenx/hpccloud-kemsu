@@ -7,7 +7,7 @@ import CollapsibleWidget from 'paraviewweb/src/React/Widgets/CollapsibleWidget';
 
 import style from 'HPCCloudStyle/ItemEditor.mcss';
 
-import Workflows from '../../../workflows';
+import { getAsyncWorkflows } from '../../../workflows';
 import FormPanel from '../../../panels/FormPanel';
 import SchedulerConfig from '../../../panels/SchedulerConfig';
 
@@ -16,22 +16,7 @@ const preventDefault = (e) => {
 };
 
 const allConfigs = {};
-const wfNames = [];
-
-Object.keys(Workflows).forEach((wfName) => {
-  const wf = Workflows[wfName];
-  allConfigs[wfName] = {};
-  let foundConfig = false;
-  if (wf.config && wf.config.cluster) {
-    Object.keys(wf.config.cluster).forEach((propKey) => {
-      allConfigs[wfName][propKey] = wf.config.cluster[propKey];
-      foundConfig = true;
-    });
-  }
-  if (foundConfig) {
-    wfNames.push(wfName);
-  }
-});
+// const wfNames = [];
 
 export default class ClusterForm extends React.Component {
   constructor(props) {
@@ -40,12 +25,47 @@ export default class ClusterForm extends React.Component {
     this.formChange = this.formChange.bind(this);
     this.updateConfig = this.updateConfig.bind(this);
     this.mergeData = this.mergeData.bind(this);
+
+    this.state = {
+      workflows: {},
+      wfNames: [],
+    };
+  }
+
+  async componentDidMount() {
+    await this.initWorkflows();
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.nameInput && nextProps.data && !nextProps.data._id) {
       this.nameInput.focus();
     }
+  }
+
+  async initWorkflows() {
+    const localWorkflows = await getAsyncWorkflows();
+
+    const wfNames = [];
+
+    Object.keys(localWorkflows).forEach((wfName) => {
+      const wf = localWorkflows[wfName];
+      allConfigs[wfName] = {};
+      let foundConfig = false;
+      if (wf.config && wf.config.cluster) {
+        Object.keys(wf.config.cluster).forEach((propKey) => {
+          allConfigs[wfName][propKey] = wf.config.cluster[propKey];
+          foundConfig = true;
+        });
+      }
+      if (foundConfig) {
+        wfNames.push(wfName);
+      }
+    });
+
+    await this.setState({
+      workflows: localWorkflows,
+      wfNames,
+    });
   }
 
   formChange(event) {
@@ -76,6 +96,8 @@ export default class ClusterForm extends React.Component {
     if (!this.props.data) {
       return null;
     }
+
+    const localWokrflows = this.state.workflows;
 
     const separator = <hr style={{ position: 'relative', top: '-2px' }} />;
 
@@ -161,9 +183,9 @@ ssh ${this.props.data.config.ssh.user}@${this.props.data.config.host} \
             />
           </section>
         ) : null}
-        {wfNames.map((name, index) => (
+        {this.state.wfNames.map((name, index) => (
           <CollapsibleWidget
-            title={Workflows[name].name}
+            title={localWokrflows[name].name}
             open={false}
             key={`${name}_${index}`}
             subtitle={separator}
