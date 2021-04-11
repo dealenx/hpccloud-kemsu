@@ -13,6 +13,12 @@ import client from '../../../../../../network';
 
 import Viz from './viz';
 
+import { RemoteComponent } from './RemoteComponent';
+
+const url = "https://raw.githubusercontent.com/Paciolan/remote-component/master/examples/remote-components/HelloWorld.js"; // prettier-ignore
+
+const HelloWorld = (props) => <RemoteComponent url={url} {...props} />;
+
 // ----------------------------------------------------------------------------
 
 function saveSimulation(simulation) {
@@ -185,7 +191,9 @@ class InputComponent extends React.Component {
     if (this.state.data.CavityFields[0]) {
       inputDeltaT = (
         <div className="form-group">
-          <label htmlFor="inputDeltaT">DeltaT</label>
+          <label htmlFor="inputDeltaT">
+            DeltaT <HelloWorld name="Paciolan" />
+          </label>
 
           <div className="input-group input-group-lg">
             <Input

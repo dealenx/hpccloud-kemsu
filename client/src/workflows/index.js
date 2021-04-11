@@ -10,6 +10,10 @@ import OpenFOAMHelmholtz from './openfoam/helmholtz';
 import PyFr from './pyfr';
 import Visualizer from './visualizer';
 
+
+
+let say = await import('./say.js');
+
 const Workflows = {
   NWChem,
   NWChemExec,
@@ -19,7 +23,6 @@ const Workflows = {
   OpenFOAMCavity,
   OpenFOAMCavityTest,
   OpenFOAMHelmholtz,
-
   PyFr,
   Visualizer,
 };
