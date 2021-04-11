@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import style from 'HPCCloudStyle/ItemEditor.mcss';
 
 import ItemEditor from '../../../panels/ItemEditor';
-import Workflows from '../../../workflows';
+import { getAsyncWorkflows } from '../../../workflows';
 import getNetworkError from '../../../utils/getNetworkError';
 
 import { dispatch } from '../../../redux';
@@ -17,6 +17,7 @@ class ProjectNew extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      workflows: {},
       _error: null,
       type: this.props.workflowNames[0].value,
     };
@@ -24,7 +25,7 @@ class ProjectNew extends React.Component {
     this.updateForm = this.updateForm.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.timeout = null;
   }
 
@@ -46,6 +47,14 @@ class ProjectNew extends React.Component {
     this[action](data, attachments);
   }
 
+  async initWorkflows() {
+    const localWorkflows = await getAsyncWorkflows();
+
+    await this.setState({
+      workflows: localWorkflows,
+    });
+  }
+
   updateForm(e) {
     const key = e.target.dataset.name;
     const value = e.target.value;
@@ -56,7 +65,7 @@ class ProjectNew extends React.Component {
   newProject(data, attachments) {
     const { name, description } = data;
     const type = this.state.type;
-    const orders = Workflows[type].steps._order;
+    const orders = this.state.workflows[type].steps._order;
     const steps = Array.isArray(orders) ? orders : orders.default;
     const metadata = data.metadata || {};
     const project = { name, description, type, steps, metadata };
@@ -67,12 +76,12 @@ class ProjectNew extends React.Component {
 
     // check for requiredAttachments.
     if (
-      Workflows[this.state.type].requiredAttachments &&
-      Workflows[this.state.type].requiredAttachments.project &&
-      Workflows[this.state.type].requiredAttachments.project.length
+      this.state.workflows[this.state.type].requiredAttachments &&
+      this.state.workflows[this.state.type].requiredAttachments.project &&
+      this.state.workflows[this.state.type].requiredAttachments.project.length
     ) {
-      const reqAttachments =
-        Workflows[this.state.type].requiredAttachments.project;
+      const reqAttachments = this.state.workflows[this.state.type]
+        .requiredAttachments.project;
       if (!attachments || !reqAttachments.every((el) => el in attachments)) {
         // ['this', 'that', 'other'] => '"this", "that" and "other"'
         const reqAttachmentsStr = reqAttachments
@@ -97,7 +106,7 @@ class ProjectNew extends React.Component {
 
   render() {
     const childComponent = this.state.type
-      ? Workflows[this.state.type].components.NewProject
+      ? this.state.workflows[this.state.type].components.NewProject
       : null;
     const workflowAddOn = childComponent
       ? React.createElement(childComponent, {

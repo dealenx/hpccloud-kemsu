@@ -8,7 +8,7 @@ import ItemEditor from '../../../panels/ItemEditor';
 import SharePanel from '../../../panels/SharePanel';
 import { userHasAccess } from '../../../utils/AccessHelper';
 
-import Workflows from '../../../workflows';
+import Workflows, { getAsyncWorkflows } from '../../../workflows';
 import getNetworkError from '../../../utils/getNetworkError';
 
 import { dispatch } from '../../../redux';
@@ -31,10 +31,30 @@ class ProjectEdit extends React.Component {
   constructor(props) {
     super(props);
     this.onAction = this.onAction.bind(this);
+
+    this.state = {
+      workflows: {},
+    };
+  }
+
+  async componentDidMount() {
+    await this.initWorkflows();
+  }
+
+  async componentWillUnmount() {
+    await this.initWorkflows();
   }
 
   onAction(action, data, attachment) {
     this[action](data, attachment);
+  }
+
+  async initWorkflows() {
+    // const localWorkflows = await getAsyncWorkflows();
+
+    await this.setState({
+      workflows: Workflows,
+    });
   }
 
   editProject(data, attachment) {
@@ -58,8 +78,14 @@ class ProjectEdit extends React.Component {
       return null;
     }
 
+    console.log('this.state.workflows', this.state.workflows);
+
+    if (this.state.workflows === {}) {
+      return null;
+    }
+
     const childComponent = project.type
-      ? Workflows[project.type].components.EditProject
+      ? this.state.workflows[project.type].components.EditProject
       : null;
     const workflowAddOn = childComponent
       ? React.createElement(childComponent, {
