@@ -41,10 +41,6 @@ class ProjectEdit extends React.Component {
     await this.initWorkflows();
   }
 
-  async componentWillUnmount() {
-    await this.initWorkflows();
-  }
-
   onAction(action, data, attachment) {
     this[action](data, attachment);
   }
@@ -78,9 +74,7 @@ class ProjectEdit extends React.Component {
       return null;
     }
 
-    console.log('this.state.workflows', this.state.workflows);
-
-    if (this.state.workflows === {}) {
+    if (Object.keys(this.state.workflows).length === 0) {
       return null;
     }
 
