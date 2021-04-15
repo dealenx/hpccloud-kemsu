@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import style from 'HPCCloudStyle/ItemEditor.mcss';
 
 import ItemEditor from '../../../panels/ItemEditor';
-import { getAsyncWorkflows } from '../../../workflows';
+import { workflowNames, getNamesFromWorkflows, getAsyncWorkflows } from '../../../workflows';
 import getNetworkError from '../../../utils/getNetworkError';
 
 import { dispatch } from '../../../redux';
@@ -18,8 +18,9 @@ class ProjectNew extends React.Component {
     super(props);
     this.state = {
       workflows: {},
+      workflowNames: [],
       _error: null,
-      type: this.props.workflowNames[0].value,
+      type: null,
     };
     this.onAction = this.onAction.bind(this);
     this.updateForm = this.updateForm.bind(this);
@@ -27,6 +28,7 @@ class ProjectNew extends React.Component {
 
   async componentDidMount() {
     this.timeout = null;
+    await this.initWorkflows()
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -52,6 +54,8 @@ class ProjectNew extends React.Component {
 
     await this.setState({
       workflows: localWorkflows,
+      type: workflowNames[0].value,
+      workflowNames: getNamesFromWorkflows(localWorkflows)
     });
   }
 
@@ -63,6 +67,9 @@ class ProjectNew extends React.Component {
   }
 
   newProject(data, attachments) {
+    if (Object.keys(this.state.workflows).length === 0) {
+      return;
+    }
     const { name, description } = data;
     const type = this.state.type;
     const orders = this.state.workflows[type].steps._order;
@@ -105,6 +112,10 @@ class ProjectNew extends React.Component {
   }
 
   render() {
+    if (Object.keys(this.state.workflows).length === 0) {
+      return null;
+    }
+
     const childComponent = this.state.type
       ? this.state.workflows[this.state.type].components.NewProject
       : null;
@@ -136,7 +147,7 @@ class ProjectNew extends React.Component {
             onChange={this.updateForm}
             value={this.state.type}
           >
-            {this.props.workflowNames.map((el, index) => (
+            {this.state.workflowNames.map((el, index) => (
               <option key={`${el.label}_${el.value}_${index}`} value={el.value}>
                 {el.label}
               </option>
@@ -150,7 +161,7 @@ class ProjectNew extends React.Component {
 }
 
 ProjectNew.propTypes = {
-  workflowNames: PropTypes.array.isRequired,
+  // workflowNames: PropTypes.array.isRequired,
   error: PropTypes.string.isRequired,
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
@@ -163,7 +174,7 @@ export default withRouter(
   connect(
     (state, props) => {
       return {
-        workflowNames: state.projects.workflowNames,
+        // workflowNames: state.projects.workflowNames,
         error: getNetworkError(state, 'save_project'),
         onCancel: () => props.history.replace('/'),
       };

@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import { workflowNames } from 'workflows'; // alias
+// import { workflowNames } from 'workflows'; // alias
 /* eslint-enable import/extensions */
 
 import * as Actions from '../actions/projects';
@@ -10,7 +10,7 @@ export const initialState = {
   active: null,
   mapById: {},
   simulations: {},
-  workflowNames,
+  // workflowNames: {},
 };
 
 export default function projectsReducer(state = initialState, action) {

@@ -7,7 +7,8 @@ import queryString from 'query-string';
 
 import style from 'HPCCloudStyle/PageWithMenu.mcss';
 
-import Workflows from '../../../workflows';
+
+import { getAsyncWorkflows } from '../../../workflows';
 import tools from '../../../tools';
 import LoadingPanel from '../../../panels/LoadingPanel';
 import Toolbar from '../../../panels/Toolbar';
@@ -20,11 +21,21 @@ import { fetchClusters } from '../../../redux/actions/clusters';
 import { fetchVolumes } from '../../../redux/actions/volumes';
 
 class SimulationView extends React.Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      workflows: {},
+    };
+  }
+
+  async componentDidMount() {
     if (this.props.simulation) {
       this.props.onMount(this.props.simulation);
       this.props.fetchClusters();
       this.props.fetchVolumes();
+      await this.initWorkflows();
+
     }
   }
 
@@ -45,12 +56,25 @@ class SimulationView extends React.Component {
     }
   }
 
+  async initWorkflows() {
+    const localWorkflows = await getAsyncWorkflows();
+
+    await this.setState({
+      workflows: localWorkflows,
+    });
+  }
+
   render() {
+    if (Object.keys(this.state.workflows).length === 0) {
+      return null;
+    }
+
     if (!this.props.simulation || !this.props.project) {
       return <LoadingPanel />;
     }
+    
     const { project, simulation, user, location } = this.props;
-    const wfModule = Workflows[project.type];
+    const wfModule = this.state.workflows[project.type];
     const query = queryString.parse(location.search);
     const step =
       this.props.match.params.step ||

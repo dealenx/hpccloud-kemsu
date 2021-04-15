@@ -8,7 +8,7 @@ import ItemEditor from '../../../panels/ItemEditor';
 import SharePanel from '../../../panels/SharePanel';
 import { userHasAccess } from '../../../utils/AccessHelper';
 
-import Workflows, { getAsyncWorkflows } from '../../../workflows';
+import { getAsyncWorkflows } from '../../../workflows';
 import getNetworkError from '../../../utils/getNetworkError';
 
 import { dispatch } from '../../../redux';
@@ -46,10 +46,10 @@ class ProjectEdit extends React.Component {
   }
 
   async initWorkflows() {
-    // const localWorkflows = await getAsyncWorkflows();
+    const localWorkflows = await getAsyncWorkflows();
 
     await this.setState({
-      workflows: Workflows,
+      workflows: localWorkflows,
     });
   }
 

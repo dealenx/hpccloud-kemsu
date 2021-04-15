@@ -9,7 +9,7 @@ import breadCrumbStyle from 'HPCCloudStyle/Theme.mcss';
 import ItemEditor from '../../../panels/ItemEditor';
 import SharePanel from '../../../panels/SharePanel';
 import { userHasAccess } from '../../../utils/AccessHelper';
-import Workflows from '../../../workflows';
+import  { getAsyncWorkflows } from '../../../workflows';
 
 import getNetworkError from '../../../utils/getNetworkError';
 
@@ -37,10 +37,26 @@ class SimulationEdit extends React.Component {
   constructor(props) {
     super(props);
     this.onAction = this.onAction.bind(this);
+
+    this.state = {
+      workflows: {},
+    };
+  }
+
+  async componentDidMount() {
+    await this.initWorkflows();
   }
 
   onAction(action, data, attachment) {
     this[action](data, attachment);
+  }
+
+  async initWorkflows() {
+    const localWorkflows = await getAsyncWorkflows();
+
+    await this.setState({
+      workflows: localWorkflows,
+    });
   }
 
   editSimulation(data, attachment) {
@@ -66,10 +82,14 @@ class SimulationEdit extends React.Component {
       return null;
     }
 
+    if (Object.keys(this.state.workflows).length === 0) {
+      return null;
+    }
+
     const { currentUser, simulation, project, error } = this.props;
     const projectId = simulation.projectId;
     const childComponent = project.type
-      ? Workflows[project.type].components.EditSimulation
+      ? this.state.workflows[project.type].components.EditSimulation
       : null;
     const workflowAddOn = childComponent
       ? React.createElement(childComponent, {

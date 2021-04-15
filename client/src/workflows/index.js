@@ -29,6 +29,12 @@ export const workflowNames = Object.keys(Workflows).map((value) => {
   return { value, label };
 });
 
+export const getNamesFromWorkflows = (Workflows) => {
+  return Object.keys(Workflows).map((value) => {
+    const label = Workflows[value].name;
+    return { value, label };
+  });
+}
 export const getAsyncWorkflows = async () => {
   console.log('WORKFLOWS ');
   return Workflows;

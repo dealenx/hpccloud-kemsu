@@ -93,11 +93,13 @@ export default class ClusterForm extends React.Component {
   }
 
   render() {
+    if (Object.keys(this.state.workflows).length === 0) {
+      return null;
+    }
+    
     if (!this.props.data) {
       return null;
     }
-
-    const localWokrflows = this.state.workflows;
 
     const separator = <hr style={{ position: 'relative', top: '-2px' }} />;
 
@@ -185,7 +187,7 @@ ssh ${this.props.data.config.ssh.user}@${this.props.data.config.host} \
         ) : null}
         {this.state.wfNames.map((name, index) => (
           <CollapsibleWidget
-            title={localWokrflows[name].name}
+            title={this.state.workflows[name].name}
             open={false}
             key={`${name}_${index}`}
             subtitle={separator}

@@ -8,7 +8,7 @@ import breadCrumbStyle from 'HPCCloudStyle/Theme.mcss';
 
 import ItemEditor from '../../../panels/ItemEditor';
 
-import Workflows from '../../../workflows';
+import { getAsyncWorkflows } from '../../../workflows';
 import getNetworkError from '../../../utils/getNetworkError';
 import get from '../../../utils/get';
 
@@ -27,23 +27,41 @@ class SimulationNew extends React.Component {
     super(props);
     this.state = {
       _error: null,
+      workflows: {},
     };
     this.onAction = this.onAction.bind(this);
+  }
+
+  async componentDidMount() {
+    this.initWorkflows()
   }
 
   onAction(action, data, attachments) {
     this[action](data, attachments);
   }
 
+  async initWorkflows() {
+    const localWorkflows = await getAsyncWorkflows();
+
+    await this.setState({
+      workflows: localWorkflows,
+    });
+  }
+
   newSimulation(data, attachments) {
+    
+    if (Object.keys(this.state.workflows).length === 0) {
+      return;
+    }
+
     const { name, description } = data;
     const projectId = this.props.match.params.projectId;
     const metadata = {};
-    const stepsInfo = Workflows[this.props.project.type].steps;
+    const stepsInfo = this.state.workflows[this.props.project.type].steps;
     const steps = stepsInfo._initial_state;
     const disabled = stepsInfo._disabled || [];
     const active = stepsInfo._active || stepsInfo._order[0];
-    const simulation = {
+    const simulation = { 
       name,
       description,
       steps,
@@ -59,15 +77,16 @@ class SimulationNew extends React.Component {
       return;
     }
 
+
     // check for requiredAttachments.
     if (
       get(
-        Workflows[this.props.project.type],
+        this.state.workflows[this.props.project.type],
         'requiredAttachments.simulation.length'
       )
     ) {
       const reqAttachments =
-        Workflows[this.props.project.type].requiredAttachments.simulation;
+      this.state.workflows[this.props.project.type].requiredAttachments.simulation;
       if (!attachments || !reqAttachments.every((el) => el in attachments)) {
         // ['this', 'that', 'other'] => '"this", "that" and "other"'
         const reqAttachmentsStr = reqAttachments
@@ -95,9 +114,13 @@ class SimulationNew extends React.Component {
       return null;
     }
 
+    if (Object.keys(this.state.workflows).length === 0) {
+      return null;
+    }
+
     const type = this.props.project.type;
     const childComponent = type
-      ? Workflows[type].components.NewSimulation
+      ? this.state.workflows[type].components.NewSimulation
       : null;
     const workflowAddOn = childComponent
       ? React.createElement(childComponent, {
