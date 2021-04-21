@@ -14,8 +14,6 @@ export default class Viz extends Component {
     super(props);
     this.state = { boxSizeX: props.x, boxSizeY: props.y, boxSizeZ: props.z };
 
-    this.handleInputChange = this.handleInputChange.bind(this);
-
     this.scene = new THREE.Scene();
   }
 
@@ -98,7 +96,8 @@ export default class Viz extends Component {
 
     camera.position.z = 10;
 
-    this.controls = new OrbitControls(camera, this.mount);
+    // Управление камерой
+    // this.controls = new OrbitControls(camera, this.mount);
 
     this.mount.appendChild(renderer.domElement);
 
@@ -112,10 +111,10 @@ export default class Viz extends Component {
 
     animate();
   }
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleWindowResize);
-    this.controls.dispose();
-  }
+  // componentWillUnmount() {
+  //   window.removeEventListener('resize', this.handleWindowResize);
+  //   this.controls.dispose();
+  // }
 
   componentWillReceiveProps(nextProps) {
     console.log('nextProps', nextProps);
@@ -126,34 +125,6 @@ export default class Viz extends Component {
     return (
       <div style={{ position: 'relative' }}>
         <div style={style} ref={(ref) => (this.mount = ref)} />
-        {/* <br />
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                <p>x ({this.state.boxSizeX}) </p>
-                <input
-                    value={this.state.boxSizeX}
-                    name="boxSizeX"
-                    type="number"
-                    onChange={this.handleInputChange}
-                />
-                </div>
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                <p>y ({this.state.boxSizeY}) </p>
-                <input
-                    value={this.state.boxSizeY}
-                    name="boxSizeY"
-                    type="number"
-                    onChange={this.handleInputChange}
-                />
-                </div>
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                <p>z ({this.state.boxSizeZ}) </p>
-                <input
-                    value={this.state.boxSizeZ}
-                    name="boxSizeZ"
-                    type="number"
-                    onChange={this.handleInputChange}
-                />
-                </div> */}
       </div>
     );
   }

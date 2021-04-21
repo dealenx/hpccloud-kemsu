@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import 'antd/dist/antd.css';
 
-import { Input } from 'antd';
+import { Input, Row, Col } from 'antd';
 
 import SimputReact from '../../../../../generic/components/steps/SimputReact';
 
@@ -171,14 +171,16 @@ class InputComponent extends React.Component {
     this.saveModel();
   }
 
-  handleChangeFieldLength(event) {
+  async handleChangeFieldLength(event) {
     const localState = this.state;
     if (localState.data.CavityFields[0]) {
       localState.data.CavityFields[0].attr1.fieldLength.value[0] =
         event.target.value;
     }
 
-    this.setState({ date: localState.data });
+    
+
+    await this.setState({ date: localState.data });
     this.saveModel();
   }
 
@@ -187,13 +189,19 @@ class InputComponent extends React.Component {
     let inputEndTime;
     let inputNu;
     let inputFieldLength;
+    let inputFieldHeight;
+    let inputFieldWidth;
+    let leftY1;
+    let leftY2;
+    let rightY1;
+    let rightY2;
 
     if (this.state.data.CavityFields[0]) {
       inputDeltaT = (
         <div className="form-group">
-          <label htmlFor="inputDeltaT">
+          {/* <label htmlFor="inputDeltaT">
             DeltaT <HelloWorld name="Paciolan" />
-          </label>
+          </label> */}
 
           <div className="input-group input-group-lg">
             <Input
@@ -204,6 +212,7 @@ class InputComponent extends React.Component {
               id="inputDeltaT"
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-lg"
+              step={0.05}
               min={0}
             />
           </div>
@@ -274,10 +283,145 @@ class InputComponent extends React.Component {
             />
           </div>
           <small id="emailHelp" className="form-text text-muted">
-            Длина геометрии
+            Длина 
           </small>
         </div>
       );
+      
+      inputFieldHeight = (
+        <div className="form-group">
+          <label htmlFor="inputNu">fieldHeight</label>
+
+          <div className="input-group input-group-lg">
+            <Input
+              value={0.1}
+             
+              type="number"
+              className="form-control"
+              id="inputFieldLength"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-lg"
+              min={0}
+            />
+          </div>
+          <small id="emailHelp" className="form-text text-muted">
+            Высота 
+          </small>
+        </div>
+      );
+
+      inputFieldWidth = (
+        <div className="form-group">
+          <label htmlFor="inputNu">fieldWidth</label>
+
+          <div className="input-group input-group-lg">
+            <Input
+              value={6}
+             
+              type="number"
+              className="form-control"
+              id="inputFieldLength"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-lg"
+              min={0}
+            />
+          </div>
+          <small id="emailHelp" className="form-text text-muted">
+            Ширина 
+          </small>
+        </div>
+      );
+
+      leftY1 = (
+        <div className="form-group">
+          <label htmlFor="inputNu">leftY1</label>
+
+          <div className="input-group input-group-lg">
+            <Input
+              value={1}
+             
+              type="number"
+              className="form-control"
+              id="inputFieldLength"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-lg"
+              min={0}
+            />
+          </div>
+          <small id="emailHelp" className="form-text text-muted">
+            left Y1
+          </small>
+        </div>
+      );
+
+      leftY2 = (
+        <div className="form-group">
+          <label htmlFor="inputNu">leftY2</label>
+
+          <div className="input-group input-group-lg">
+            <Input
+              value={2}
+             
+              type="number"
+              className="form-control"
+              id="inputFieldLength"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-lg"
+              min={0}
+            />
+          </div>
+          <small id="emailHelp" className="form-text text-muted">
+            left Y2
+          </small>
+        </div>
+      );
+
+      rightY1 = (
+        <div className="form-group">
+          <label htmlFor="inputNu">rightY1</label>
+
+          <div className="input-group input-group-lg">
+            <Input
+              value={3}
+             
+              type="number"
+              className="form-control"
+              id="inputFieldLength"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-lg"
+              min={0}
+            />
+          </div>
+          <small id="emailHelp" className="form-text text-muted">
+            right Y1
+          </small>
+        </div>
+      );
+
+      rightY2 = (
+        <div className="form-group">
+          <label htmlFor="inputNu">rightY2</label>
+
+          <div className="input-group input-group-lg">
+            <Input
+              value={4}
+             
+              type="number"
+              className="form-control"
+              id="inputFieldLength"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-lg"
+              min={0}
+            />
+          </div>
+          <small id="emailHelp" className="form-text text-muted">
+            right Y2
+          </small>
+        </div>
+      );
+
+      
+
     }
 
     return (
@@ -293,7 +437,38 @@ class InputComponent extends React.Component {
             z={0.1}
           />
           <br />
-          {inputFieldLength}
+          <Row justify="center" align="top">
+            <Col span={4}>
+              {inputFieldLength}
+            </Col>
+            <Col span={4}>
+              {inputFieldHeight}
+            </Col>
+            <Col span={4}>
+              {inputFieldWidth}
+            </Col>
+            <Col span={2}>
+              
+            </Col>
+
+            <Col span={4}>
+              {leftY1}
+            </Col>
+            <Col span={4}>
+              {leftY2}
+            </Col>
+          </Row>
+
+
+          <Row justify="center" align="top">
+            <Col span={4}>
+              {rightY1}
+            </Col>
+            <Col span={4}>
+              {rightY2}
+            </Col>
+          </Row>
+
 
           <br />
           <h3>Настройка времени</h3>
