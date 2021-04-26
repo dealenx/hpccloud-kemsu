@@ -5,10 +5,15 @@ import OpenFOAMTutorial from './openfoam/tutorials';
 import OpenFOAMWindTunnel from './openfoam/windtunnel';
 import OpenFOAMCavity from './openfoam/cavity';
 import OpenFOAMCavityTest from './openfoam/cavity_test';
-import OpenFOAMHelmholtz from './openfoam/helmholtz';
+// import OpenFOAMHelmholtz from './openfoam/helmholtz';
 
 import PyFr from './pyfr';
 import Visualizer from './visualizer';
+
+const getAsyncOpenFOAMHelmholtz = async () => {
+  const module = await import('./openfoam/helmholtz');
+  return module.default;
+};
 
 const Workflows = {
   NWChem,
@@ -18,8 +23,7 @@ const Workflows = {
   OpenFOAMWindTunnel,
   OpenFOAMCavity,
   OpenFOAMCavityTest,
-  OpenFOAMHelmholtz,
-  // ...returnComponentTest(),
+  // OpenFOAMHelmholtz,
   PyFr,
   Visualizer,
 };
@@ -36,8 +40,27 @@ export const getNamesFromWorkflows = (workflows) =>
   });
 
 export const getAsyncWorkflows = async () => {
-  console.log('WORKFLOWS ');
-  return Workflows;
+  console.log('asyncWORKFLOWS ');
+
+  const asyncComponent = await getAsyncOpenFOAMHelmholtz();
+
+  const asyncWorkflows = {
+    NWChem,
+    NWChemExec,
+    NWChemNeb,
+    OpenFOAMTutorial,
+    OpenFOAMWindTunnel,
+    OpenFOAMCavity,
+    OpenFOAMCavityTest,
+    OpenFOAMHelmholtz: asyncComponent,
+    module,
+    PyFr,
+    Visualizer,
+  };
+
+  console.log('asyncWORKFLOWS list', asyncWorkflows);
+
+  return asyncWorkflows;
 };
 
 export default Workflows;

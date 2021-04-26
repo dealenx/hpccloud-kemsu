@@ -7,13 +7,6 @@ import IconActionList from '../panels/IconActionList';
 
 import wf from '../workflows';
 
-let Workflow;
-if (process.env.NODE_ENV !== 'test') {
-  Workflow = wf;
-} else {
-  Workflow = { test: { name: 'test', logo: 'my-logo' } };
-}
-
 /* eslint-disable new-cap */
 const SHORT_DESCRIPTION_SIZE = 80;
 
@@ -53,6 +46,13 @@ export function userHasAccess(user, objAccess, atLeastAccess) {
 
 export const projectFunctions = {
   getIcon(project) {
+    let Workflow;
+    if (process.env.NODE_ENV !== 'test') {
+      Workflow = wf;
+    } else {
+      Workflow = { test: { name: 'test', logo: 'my-logo' } };
+    }
+
     const ret = {
       image: Workflow[project.type] ? Workflow[project.type].logo : '',
     };
