@@ -196,22 +196,22 @@ export function configure(config = { girderAPI: baseURL }) {
 
 let logDebounce = null;
 
-store.subscribe(() => {
+store.subscribe(async () => {
   const state = store.getState();
   if (state.taskflows.updateLogs.length > 0) {
     if (logDebounce) {
       clearTimeout(logDebounce);
     }
-    logDebounce = setTimeout(() => {
-      const updateLogs = state.taskflows.updateLogs;
-      dispatch(TaskflowActions.clearUpdateLog());
-      updateLogs.forEach((taskflowId) => {
-        // Handle any behavior from taskflow change
-        Behavior.handleTaskflowChange(
-          state,
-          state.taskflows.mapById[taskflowId]
-        );
-      });
-    }, 1500);
+    // logDebounce = setTimeout(() => {
+    const updateLogs = state.taskflows.updateLogs;
+    dispatch(TaskflowActions.clearUpdateLog());
+    updateLogs.forEach(async (taskflowId) => {
+      // Handle any behavior from taskflow change
+      await Behavior.handleTaskflowChange(
+        state,
+        state.taskflows.mapById[taskflowId]
+      );
+    });
+    // }, 1500);
   }
 });

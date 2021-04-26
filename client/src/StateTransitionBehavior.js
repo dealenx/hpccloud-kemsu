@@ -1,5 +1,5 @@
 import equals from 'mout/src/array/equals';
-import Workflows from 'workflows';
+import { getAsyncWorkflows } from 'workflows';
 
 import * as ProjectActions from './redux/actions/projects';
 import * as TaskflowActions from './redux/actions/taskflows';
@@ -26,7 +26,7 @@ function folderItemSize(state, folderId) {
   return 0;
 }
 
-export function handleTaskflowChange(state, taskflow) {
+export const handleTaskflowChange = async (state, taskflow) => {
   if (!taskflow) {
     return;
   }
@@ -86,7 +86,9 @@ export function handleTaskflowChange(state, taskflow) {
     simulationStatus.push(simulation.metadata.status);
     // Update local store to figure out primaryJob of taskflow if not yet available
     if (!primaryJob && taskflow.stepName && project) {
+      const Workflows = await getAsyncWorkflows();
       primaryJob = Workflows[project.type].primaryJobs[taskflow.stepName];
+      console.log('Workflows in StateTransitionBehavior', Workflows);
     }
 
     // Need to update simulation status
@@ -198,4 +200,4 @@ export function handleTaskflowChange(state, taskflow) {
       }
     }
   }
-}
+};
