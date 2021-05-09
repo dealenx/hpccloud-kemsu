@@ -6,7 +6,9 @@ import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 
 import style from 'HPCCloudStyle/PageWithMenu.mcss';
+import rootViewSimulation from '../../../workflows/generic/components/root/ViewSimulation';
 
+import DocumentationHTML from '../../../workflows/generic/components/steps/DocumentationHTML';
 
 import { getAsyncWorkflows } from '../../../workflows';
 import tools from '../../../tools';
@@ -35,7 +37,6 @@ class SimulationView extends React.Component {
       this.props.fetchClusters();
       this.props.fetchVolumes();
       await this.initWorkflows();
-
     }
   }
 
@@ -72,7 +73,7 @@ class SimulationView extends React.Component {
     if (!this.props.simulation || !this.props.project) {
       return <LoadingPanel />;
     }
-    
+
     const { project, simulation, user, location } = this.props;
     const wfModule = this.state.workflows[project.type];
     const query = queryString.parse(location.search);
@@ -80,6 +81,7 @@ class SimulationView extends React.Component {
       this.props.match.params.step ||
       simulation.active ||
       wfModule.steps._order[0];
+    console.log('step', step);
     const taskFlowName =
       wfModule.taskFlows && wfModule.taskFlows[step]
         ? wfModule.taskFlows[step]
@@ -90,9 +92,13 @@ class SimulationView extends React.Component {
         : null;
     const viewName =
       query.view || this.props.simulation.steps[step].view || 'default';
+    // const ChildComponent = tools[viewName]
+    //   ? tools[viewName].view
+    //   : wfModule.components.ViewSimulation;
+
     const ChildComponent = tools[viewName]
       ? tools[viewName].view
-      : wfModule.components.ViewSimulation;
+      : rootViewSimulation;
     const childProvidesToolbar = tools[viewName]
       ? tools[viewName].providesToolbar
       : false;
@@ -128,6 +134,7 @@ class SimulationView extends React.Component {
             location={this.props.location}
             module={wfModule}
             user={user}
+            DocumentationHTML={DocumentationHTML}
           />
         </div>
       );

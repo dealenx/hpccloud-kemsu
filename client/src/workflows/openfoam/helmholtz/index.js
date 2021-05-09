@@ -1,7 +1,6 @@
-import rootViewSimulation from '../../generic/components/root/ViewSimulation';
+// import rootViewSimulation from '../../generic/components/root/ViewSimulation';
 
-import stepIntroduction from './components/steps/Introduction';
-// import stepTime from './components/steps/Time';
+import stepIntroduction from './components/steps/Introduction/es5-index';
 import stepInput from './components/steps/Input';
 import stepSimulationStart from './components/steps/Simulation/Start';
 import stepSimulationView from './components/steps/Simulation/View';
@@ -17,9 +16,9 @@ export default {
     project: [],
     simulation: [],
   },
-  components: {
-    ViewSimulation: rootViewSimulation,
-  },
+  // components: {
+  //   ViewSimulation: rootViewSimulation,
+  // },
   config: {
     cluster: {
       'config.openfoam.enable': {

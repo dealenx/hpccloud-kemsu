@@ -1,5 +1,16 @@
 import React from 'react';
-import DocumentationHTML from '../../../../../generic/components/steps/DocumentationHTML';
+import PropTypes from 'prop-types';
+// import DocumentationHTML from '../../../../../generic/components/steps/DocumentationHTML';
 import staticContent from './content.html';
 
-export default (props) => <DocumentationHTML staticContent={staticContent} />;
+const Introduction = ({ DocumentationHTML }) => (
+  <div>
+    <DocumentationHTML staticContent={staticContent} />
+  </div>
+);
+
+Introduction.propTypes = {
+  DocumentationHTML: PropTypes.elementType.isRequired,
+};
+
+export default Introduction;
