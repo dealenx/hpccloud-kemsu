@@ -12,7 +12,8 @@ import Visualizer from './visualizer';
 
 const getAsyncOpenFOAMHelmholtz = async () => {
   const module = await import('./openfoam/helmholtz');
-  return module.default;
+  const moduleObject = await module.getAsyncModule();
+  return moduleObject;
 };
 
 const Workflows = {
@@ -43,6 +44,8 @@ export const getAsyncWorkflows = async () => {
   console.log('asyncWORKFLOWS ');
 
   const asyncComponent = await getAsyncOpenFOAMHelmholtz();
+
+  console.log('asyncComponent', asyncComponent);
 
   const asyncWorkflows = {
     NWChem,
