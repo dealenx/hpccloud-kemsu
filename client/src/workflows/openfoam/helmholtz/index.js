@@ -2,7 +2,9 @@
 // https://raw.githubusercontent.com/dealenx/hpccloud-kemsu/new-workflow/client/src/workflows/openfoam/helmholtz/components/steps/Introduction/es5-index.js
 import createLoadRemoteModule from '@paciolan/remote-module-loader';
 
-import stepIntroduction from './components/steps/Introduction/es5-index';
+// import stepIntroduction from './components/steps/Introduction/es5-index';
+
+import stepIntroduction from './components/steps/Introduction/dist/index.js';
 import stepInput from './components/steps/Input';
 import stepSimulationStart from './components/steps/Simulation/Start';
 import stepSimulationView from './components/steps/Simulation/View';
@@ -120,10 +122,15 @@ export const getAsyncModule = async () => {
     'https://raw.githubusercontent.com/kvirani/w01d5/master/person.js'
   );
 
-  myModule.then((m) => {
-    const value = m;
-    console.log('value', value);
-  });
+  // myModule.then((m) => {
+  //   const value = m;
+  //   console.log('value', value);
+  // });
+
+  console.log('stepIntroduction', stepIntroduction);
+
+  const value = await myModule;
+  console.log('value', value);
 
   return {
     name: 'OpenFoam - Helmholtz',

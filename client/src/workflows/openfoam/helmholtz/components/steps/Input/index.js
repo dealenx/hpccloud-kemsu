@@ -178,8 +178,6 @@ class InputComponent extends React.Component {
         event.target.value;
     }
 
-    
-
     await this.setState({ date: localState.data });
     this.saveModel();
   }
@@ -283,11 +281,11 @@ class InputComponent extends React.Component {
             />
           </div>
           <small id="emailHelp" className="form-text text-muted">
-            Длина 
+            Длина
           </small>
         </div>
       );
-      
+
       inputFieldHeight = (
         <div className="form-group">
           <label htmlFor="inputNu">fieldHeight</label>
@@ -295,7 +293,6 @@ class InputComponent extends React.Component {
           <div className="input-group input-group-lg">
             <Input
               value={0.1}
-             
               type="number"
               className="form-control"
               id="inputFieldLength"
@@ -305,7 +302,7 @@ class InputComponent extends React.Component {
             />
           </div>
           <small id="emailHelp" className="form-text text-muted">
-            Высота 
+            Высота
           </small>
         </div>
       );
@@ -317,7 +314,6 @@ class InputComponent extends React.Component {
           <div className="input-group input-group-lg">
             <Input
               value={6}
-             
               type="number"
               className="form-control"
               id="inputFieldLength"
@@ -327,7 +323,7 @@ class InputComponent extends React.Component {
             />
           </div>
           <small id="emailHelp" className="form-text text-muted">
-            Ширина 
+            Ширина
           </small>
         </div>
       );
@@ -339,7 +335,6 @@ class InputComponent extends React.Component {
           <div className="input-group input-group-lg">
             <Input
               value={1}
-             
               type="number"
               className="form-control"
               id="inputFieldLength"
@@ -361,7 +356,6 @@ class InputComponent extends React.Component {
           <div className="input-group input-group-lg">
             <Input
               value={2}
-             
               type="number"
               className="form-control"
               id="inputFieldLength"
@@ -383,7 +377,6 @@ class InputComponent extends React.Component {
           <div className="input-group input-group-lg">
             <Input
               value={3}
-             
               type="number"
               className="form-control"
               id="inputFieldLength"
@@ -405,7 +398,6 @@ class InputComponent extends React.Component {
           <div className="input-group input-group-lg">
             <Input
               value={4}
-             
               type="number"
               className="form-control"
               id="inputFieldLength"
@@ -419,9 +411,6 @@ class InputComponent extends React.Component {
           </small>
         </div>
       );
-
-      
-
     }
 
     return (
@@ -438,37 +427,19 @@ class InputComponent extends React.Component {
           />
           <br />
           <Row justify="center" align="top">
-            <Col span={4}>
-              {inputFieldLength}
-            </Col>
-            <Col span={4}>
-              {inputFieldHeight}
-            </Col>
-            <Col span={4}>
-              {inputFieldWidth}
-            </Col>
-            <Col span={2}>
-              
-            </Col>
+            <Col span={4}>{inputFieldLength}</Col>
+            <Col span={4}>{inputFieldHeight}</Col>
+            <Col span={4}>{inputFieldWidth}</Col>
+            <Col span={2}></Col>
 
-            <Col span={4}>
-              {leftY1}
-            </Col>
-            <Col span={4}>
-              {leftY2}
-            </Col>
+            <Col span={4}>{leftY1}</Col>
+            <Col span={4}>{leftY2}</Col>
           </Row>
-
 
           <Row justify="center" align="top">
-            <Col span={4}>
-              {rightY1}
-            </Col>
-            <Col span={4}>
-              {rightY2}
-            </Col>
+            <Col span={4}>{rightY1}</Col>
+            <Col span={4}>{rightY2}</Col>
           </Row>
-
 
           <br />
           <h3>Настройка времени</h3>
