@@ -4,7 +4,7 @@ import createLoadRemoteModule from '@paciolan/remote-module-loader';
 
 // import stepIntroduction from './components/steps/Introduction/es5-index';
 
-import stepIntroduction from './components/steps/Introduction/dist/index.js';
+import stepIntroduction from './components/steps/Introduction';
 import stepInput from './components/steps/Input';
 import stepSimulationStart from './components/steps/Simulation/Start';
 import stepSimulationView from './components/steps/Simulation/View';
@@ -122,15 +122,28 @@ export const getAsyncModule = async () => {
     'https://raw.githubusercontent.com/kvirani/w01d5/master/person.js'
   );
 
-  // myModule.then((m) => {
-  //   const value = m;
-  //   console.log('value', value);
-  // });
-
   console.log('stepIntroduction', stepIntroduction);
 
   const value = await myModule;
   console.log('value', value);
+
+  const loadRemoteComponent = (url) => {
+    return fetch(url)
+      .then((res) => res.text())
+      .then((source) => {
+        const exports = {};
+        function require(name) {
+          if (name == 'react') return React;
+          else
+            throw `You can't use modules other than "react" in remote component.`;
+        }
+        const transformedSource = Babel.transform(source, {
+          presets: ['react', 'es2015', 'stage-2'],
+        }).code;
+        eval(transformedSource);
+        return exports.__esModule ? exports.default : exports;
+      });
+  };
 
   return {
     name: 'OpenFoam - Helmholtz',

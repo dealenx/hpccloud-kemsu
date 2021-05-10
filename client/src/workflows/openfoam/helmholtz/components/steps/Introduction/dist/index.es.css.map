@@ -1,1 +1,0 @@
-{"version":3,"sources":["ExampleComponent.css","export.css"],"names":[],"mappings":"AAAA,MACG,oBAAqB,CACrB,eAAgB,CAChB,qBAAsB,CACtB,aACH,CCLA,QACG,cACH","file":"index.es.css","sourcesContent":[".test {\n   display: inline-block;\n   margin: 2em auto;\n   border: 2px solid #000;\n   font-size: 2em;\n}\n",".header {\n   font-size: 25px;\n}\n"]}

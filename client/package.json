@@ -49,6 +49,7 @@
     "@paciolan/remote-module-loader": "^2.6.2",
     "antd": "^4.7.0",
     "commander": "2.13.0",
+    "fetch": "^1.1.0",
     "font-awesome": "4.7.0",
     "hammerjs": "2.0.8",
     "monologue.js": "0.3.5",
