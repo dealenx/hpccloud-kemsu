@@ -2,7 +2,7 @@
 // https://raw.githubusercontent.com/dealenx/hpccloud-kemsu/new-workflow/client/src/workflows/openfoam/helmholtz/components/steps/Introduction/es5-index.js
 // import createLoadRemoteModule from '@paciolan/remote-module-loader';
 
-// import stepIntroduction from './components/steps/Introduction/es5-index';
+import stepIntroduction from './components/steps/Introduction';
 
 // import stepIntroduction from './components/steps/Introduction';
 // import stepInput from './components/steps/Input';
@@ -46,9 +46,9 @@ export const getAsyncModule = async () => {
       });
   };
 
-  const HelloWorld = await loadRemoteComponent(
-    'https://raw.githubusercontent.com/dealenx/hpccloud-kemsu/new-workflow/client/src/workflows/openfoam/helmholtz/components/steps/Introduction/HelloWorld.js'
-  );
+  // const HelloWorld = await loadRemoteComponent(
+  //   'https://raw.githubusercontent.com/dealenx/hpccloud-kemsu/new-workflow/client/src/workflows/openfoam/helmholtz/components/steps/Introduction/index.js'
+  // );
 
   return {
     name: 'OpenFoam - Helmholtz',
@@ -96,7 +96,7 @@ export const getAsyncModule = async () => {
         // },
       },
       Introduction: {
-        default: HelloWorld,
+        default: stepIntroduction,
       },
       // Input: {
       //   default: stepInput,
