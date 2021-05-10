@@ -1,7 +1,7 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 // import DocumentationHTML from '../../../../../generic/components/steps/DocumentationHTML';
-import staticContent from './content.html';
+// import staticContent from './content.html';
 
 // const Introduction = ({ DocumentationHTML }) => (
 //   <div>
@@ -24,7 +24,8 @@ class Introduction extends React.Component {
     const DocumentationHTML = this.props.DocumentationHTML;
     return (
       <div>
-        <DocumentationHTML staticContent={staticContent} />
+        123
+        <DocumentationHTML />
       </div>
     );
   }

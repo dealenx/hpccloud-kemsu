@@ -46,9 +46,9 @@ export const getAsyncModule = async () => {
       });
   };
 
-  // const HelloWorld = await loadRemoteComponent(
-  //   'https://raw.githubusercontent.com/dealenx/hpccloud-kemsu/new-workflow/client/src/workflows/openfoam/helmholtz/components/steps/Introduction/index.js'
-  // );
+  const HelloWorld = await loadRemoteComponent(
+    'https://raw.githubusercontent.com/dealenx/hpccloud-kemsu/new-workflow/client/src/workflows/openfoam/helmholtz/components/steps/Introduction/HelloWorld.js'
+  );
 
   return {
     name: 'OpenFoam - Helmholtz',
