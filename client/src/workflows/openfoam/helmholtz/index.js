@@ -28,7 +28,7 @@ export const getAsyncModule = async () => {
   // const value = await myModule;
   // console.log('value', value);
 
-  const loadRemoteComponent = (url) => {
+  const loadRemoteComponent = async (url) => {
     return fetch(url)
       .then((res) => res.text())
       .then((source) => {
@@ -47,7 +47,7 @@ export const getAsyncModule = async () => {
   };
 
   const HelloWorld = await loadRemoteComponent(
-    'https://github.com/dealenx/hpccloud-kemsu/blob/112cd2bc55c0ac3ecd20945d9006f245eb9496cd/client/src/workflows/openfoam/helmholtz/components/steps/Introduction/es5-index.js'
+    'https://raw.githubusercontent.com/dealenx/hpccloud-kemsu/new-workflow/client/src/workflows/openfoam/helmholtz/components/steps/Introduction/HelloWorld.js'
   );
 
   return {
