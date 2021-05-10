@@ -7,12 +7,23 @@ import OpenFOAMCavity from './openfoam/cavity';
 import OpenFOAMCavityTest from './openfoam/cavity_test';
 // import OpenFOAMHelmholtz from './openfoam/helmholtz';
 
+import createLoadRemoteModule from '@paciolan/remote-module-loader';
+
 import PyFr from './pyfr';
 import Visualizer from './visualizer';
 
 const getAsyncOpenFOAMHelmholtz = async () => {
-  const module = await import('./openfoam/helmholtz');
-  const moduleObject = await module.getAsyncModule();
+  const loadRemoteModule = createLoadRemoteModule();
+  const myRemoteModule = loadRemoteModule(
+    'https://raw.githubusercontent.com/dealenx/hpccloud-kemsu/new-workflow/client/src/workflows/openfoam/helmholtz/index-es5.js'
+  );
+
+  const myModule = await myRemoteModule;
+
+  console.log('myModule', myModule);
+
+  // const module = await import('./openfoam/helmholtz');
+  const moduleObject = await myModule.getAsyncModule();
   return moduleObject;
 };
 
