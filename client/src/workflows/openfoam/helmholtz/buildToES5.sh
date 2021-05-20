@@ -1,0 +1,1 @@
+ ../../../../node_modules/.bin/babel ./index.js --out-file ./index-es5.js
