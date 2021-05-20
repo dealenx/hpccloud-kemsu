@@ -26,7 +26,7 @@ const getAsyncOpenFOAMHelmholtz = async () => {
   const loadRemoteModule = createLoadRemoteModule();
 
   const myRemoteModule = loadRemoteModule(
-    'https://gist.githubusercontent.com/dealenx/17d9523dc3d10df57689f147bd4411d8/raw/efdad121b081bee2c29a4fb738bdb73f7631d571/helmholtz-es5.js'
+    'https://gist.githubusercontent.com/dealenx/17d9523dc3d10df57689f147bd4411d8/raw/4ad94f1e1f0f5ab42ac3b2d490e5babd9532036b/helmholtz-es5.js'
   );
 
   const myModule = await myRemoteModule;
