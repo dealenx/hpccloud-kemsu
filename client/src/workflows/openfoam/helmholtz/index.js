@@ -1,5 +1,11 @@
+// import Introduction from './components/steps/Introduction';
+import stepInput from './components/steps/Input';
+
 const helmholtzModule = {
   name: 'OpenFoam - Helmholtz',
+  components: {
+    NewSimulation: null,
+  },
   // logo,
   requiredAttachments: {
     project: [],
@@ -85,14 +91,18 @@ const helmholtzModule = {
 
 export const hello = 'Hello world';
 
-export const getAsyncModule = async () => {
+export const getAsyncModule = async ({ components }) => {
+  console.log('components', components);
+  /* REMOTE LOADING OF COMPONENTS  */
   const loadRemoteComponent = async (url) => {
     return fetch(url)
       .then((res) => res.text())
       .then((source) => {
         const exports = {};
         function require(name) {
+          console.log('name', name);
           if (name == 'react') return React;
+          // if (name == 'prop-types') return PropTypes;
           else
             throw `You can't use modules other than "react" in remote component.`;
         }
@@ -104,13 +114,16 @@ export const getAsyncModule = async () => {
       });
   };
 
-  const HelloWorld = await loadRemoteComponent(
-    'https://raw.githubusercontent.com/dealenx/hpccloud-kemsu/new-workflow/client/src/workflows/openfoam/helmholtz/components/steps/Introduction/HelloWorld.js'
+  const Introduction = await loadRemoteComponent(
+    'https://gist.githubusercontent.com/dealenx/17d9523dc3d10df57689f147bd4411d8/raw/29893084a20a3ee05768445abe0b10804468c420/Introduction.js'
   );
 
   const moduleObject = {
     name: 'OpenFoam - Helmholtz',
     // logo,
+    components: {
+      NewSimulation: null,
+    },
     requiredAttachments: {
       project: [],
       simulation: [],
@@ -126,12 +139,7 @@ export const getAsyncModule = async () => {
       },
     },
     steps: {
-      _order: [
-        'Introduction',
-        // 'Input',
-        // 'Simulation',
-        // 'Visualization',
-      ],
+      _order: ['Introduction', 'Input', 'Simulation', 'Visualization'],
       _disabled: ['Visualization'],
       _initial_state: {
         Introduction: {
@@ -140,33 +148,33 @@ export const getAsyncModule = async () => {
             alwaysAvailable: true,
           },
         },
-        // Input: {
-        //   type: 'input',
-        //   metadata: {},
-        // },
-        // Simulation: {
-        //   type: 'output',
-        //   metadata: {},
-        // },
-        // Visualization: {
-        //   type: 'output',
-        //   metadata: {},
-        // },
+        Input: {
+          type: 'input',
+          metadata: {},
+        },
+        Simulation: {
+          type: 'output',
+          metadata: {},
+        },
+        Visualization: {
+          type: 'output',
+          metadata: {},
+        },
       },
       Introduction: {
-        default: HelloWorld,
+        default: Introduction,
       },
-      // Input: {
-      //   default: stepInput,
-      // },
-      // Simulation: {
-      //   default: stepSimulationStart,
-      //   run: stepSimulationView,
-      // },
-      // Visualization: {
-      //   default: stepVisualizationStart,
-      //   run: stepVisualizationView,
-      // },
+      Input: {
+        default: stepInput,
+      },
+      Simulation: {
+        default: components.stepSimulationStart,
+        run: components.stepSimulationView,
+      },
+      Visualization: {
+        default: components.stepVisualizationStart,
+        run: components.stepVisualizationView,
+      },
     },
     taskFlows: {
       Simulation: 'hpccloud.taskflow.openfoam.helmholtz.OpenFOAMTaskFlow',
@@ -180,17 +188,17 @@ export const getAsyncModule = async () => {
       Introduction: {
         default: 'Introduction',
       },
-      // Input: {
-      //   default: 'Dataset selection',
-      // },
-      // Simulation: {
-      //   default: 'Simulation',
-      //   run: 'Simulation (running)',
-      // },
-      // Visualization: {
-      //   default: 'Visualization',
-      //   run: 'Visualization (running)',
-      // },
+      Input: {
+        default: 'Dataset selection',
+      },
+      Simulation: {
+        default: 'Simulation',
+        run: 'Simulation (running)',
+      },
+      Visualization: {
+        default: 'Visualization',
+        run: 'Visualization (running)',
+      },
     },
   };
   return moduleObject;

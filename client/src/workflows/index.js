@@ -7,21 +7,33 @@ import OpenFOAMCavity from './openfoam/cavity';
 import OpenFOAMCavityTest from './openfoam/cavity_test';
 import OpenFOAMHelmholtz from './openfoam/helmholtz';
 
+import stepSimulationStart from './generic/components/steps/Simulation/Start';
+import stepSimulationView from './generic/components/steps/Simulation/View';
+import stepVisualizationStart from './generic/components/steps/Visualization/Start';
+import stepVisualizationView from './generic/components/steps/Visualization/View';
+
 import createLoadRemoteModule from '@paciolan/remote-module-loader';
 
 import PyFr from './pyfr';
 import Visualizer from './visualizer';
 
 const getAsyncOpenFOAMHelmholtz = async () => {
-  // const module = await import('./openfoam/helmholtz/index');
+  const module = await import('./openfoam/helmholtz/index');
 
-  // console.log('module', module);
+  console.log('module', module);
 
-  // const asyncModule = await module.getAsyncModule();
+  const asyncModule = await module.getAsyncModule({
+    components: {
+      stepSimulationStart,
+      stepSimulationView,
+      stepVisualizationStart,
+      stepVisualizationView,
+    },
+  });
 
-  // console.log('asyncModule', asyncModule);
+  console.log('asyncModule', asyncModule);
 
-  // return asyncModule;
+  return asyncModule;
 
   /* ES5 */
   // const module = await import('./openfoam/helmholtz/index-es5');
@@ -36,21 +48,21 @@ const getAsyncOpenFOAMHelmholtz = async () => {
 
   /* REMOTE IMPORTING */
 
-  const loadRemoteModule = createLoadRemoteModule();
+  // const loadRemoteModule = createLoadRemoteModule();
 
-  const myRemoteModule = loadRemoteModule(
-    'https://gist.githubusercontent.com/dealenx/17d9523dc3d10df57689f147bd4411d8/raw/8b8208d9d7cebf48530bdd9f1aaca140bfc70645/helmholtz-es5.js'
-  );
+  // const myRemoteModule = loadRemoteModule(
+  //   'https://gist.githubusercontent.com/dealenx/17d9523dc3d10df57689f147bd4411d8/raw/b3f6fd2e57d57673c99f5515b804641d27465b6e/index.js'
+  // );
 
-  const myModule = await myRemoteModule;
+  // const myModule = await myRemoteModule;
 
-  console.log('myModule', myModule);
+  // console.log('myModule', myModule);
 
-  const asyncTest = await myModule.getAsyncModule();
+  // const asyncTest = await myModule.getAsyncModule();
 
-  console.log('asyncTest', asyncTest);
+  // console.log('asyncTest', asyncTest);
 
-  return asyncTest;
+  // return asyncTest;
 };
 
 const Workflows = {

@@ -33,7 +33,7 @@ class SimulationNew extends React.Component {
   }
 
   async componentDidMount() {
-    this.initWorkflows()
+    await this.initWorkflows();
   }
 
   onAction(action, data, attachments) {
@@ -49,7 +49,6 @@ class SimulationNew extends React.Component {
   }
 
   newSimulation(data, attachments) {
-    
     if (Object.keys(this.state.workflows).length === 0) {
       return;
     }
@@ -61,7 +60,7 @@ class SimulationNew extends React.Component {
     const steps = stepsInfo._initial_state;
     const disabled = stepsInfo._disabled || [];
     const active = stepsInfo._active || stepsInfo._order[0];
-    const simulation = { 
+    const simulation = {
       name,
       description,
       steps,
@@ -77,7 +76,6 @@ class SimulationNew extends React.Component {
       return;
     }
 
-
     // check for requiredAttachments.
     if (
       get(
@@ -85,8 +83,8 @@ class SimulationNew extends React.Component {
         'requiredAttachments.simulation.length'
       )
     ) {
-      const reqAttachments =
-      this.state.workflows[this.props.project.type].requiredAttachments.simulation;
+      const reqAttachments = this.state.workflows[this.props.project.type]
+        .requiredAttachments.simulation;
       if (!attachments || !reqAttachments.every((el) => el in attachments)) {
         // ['this', 'that', 'other'] => '"this", "that" and "other"'
         const reqAttachmentsStr = reqAttachments

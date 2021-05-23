@@ -7,7 +7,11 @@ import { withRouter } from 'react-router-dom';
 import style from 'HPCCloudStyle/ItemEditor.mcss';
 
 import ItemEditor from '../../../panels/ItemEditor';
-import { workflowNames, getNamesFromWorkflows, getAsyncWorkflows } from '../../../workflows';
+import {
+  workflowNames,
+  getNamesFromWorkflows,
+  getAsyncWorkflows,
+} from '../../../workflows';
 import getNetworkError from '../../../utils/getNetworkError';
 
 import { dispatch } from '../../../redux';
@@ -28,7 +32,7 @@ class ProjectNew extends React.Component {
 
   async componentDidMount() {
     this.timeout = null;
-    await this.initWorkflows()
+    await this.initWorkflows();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -55,7 +59,7 @@ class ProjectNew extends React.Component {
     await this.setState({
       workflows: localWorkflows,
       type: workflowNames[0].value,
-      workflowNames: getNamesFromWorkflows(localWorkflows)
+      workflowNames: getNamesFromWorkflows(localWorkflows),
     });
   }
 
