@@ -1,5 +1,6 @@
 // import Introduction from './components/steps/Introduction';
-import stepInput from './components/steps/Input';
+// import stepInput from './components/steps/Input';
+// import { loadRemoteComponent } from '../../generic/components/steps/LoadRemoteComponent';
 
 const helmholtzModule = {
   name: 'OpenFoam - Helmholtz',
@@ -89,34 +90,41 @@ const helmholtzModule = {
   },
 };
 
+// const loadRemoteComponent = async (url) => {
+//   return fetch(url)
+//     .then((res) => res.text())
+//     .then((source) => {
+//       const exports = {};
+//       function require(name) {
+//         console.log('name', name);
+//         if (name == 'react') return React;
+//         if (name == 'prop-types') return PropTypes;
+//         else
+//           throw `You can't use modules other than "react" in remote component.`;
+//       }
+//       const transformedSource = Babel.transform(source, {
+//         presets: ['react', 'es2015', 'stage-2'],
+//       }).code;
+//       eval(transformedSource);
+//       return exports.__esModule ? exports.default : exports;
+//     });
+// };
+
 export const hello = 'Hello world';
 
-export const getAsyncModule = async ({ components }) => {
+export const getAsyncModule = async ({
+  components,
+  loadRemoteComponent,
+  repoURL,
+}) => {
   console.log('components', components);
   /* REMOTE LOADING OF COMPONENTS  */
-  const loadRemoteComponent = async (url) => {
-    return fetch(url)
-      .then((res) => res.text())
-      .then((source) => {
-        const exports = {};
-        function require(name) {
-          console.log('name', name);
-          if (name == 'react') return React;
-          // if (name == 'prop-types') return PropTypes;
-          else
-            throw `You can't use modules other than "react" in remote component.`;
-        }
-        const transformedSource = Babel.transform(source, {
-          presets: ['react', 'es2015', 'stage-2'],
-        }).code;
-        eval(transformedSource);
-        return exports.__esModule ? exports.default : exports;
-      });
-  };
 
-  const Introduction = await loadRemoteComponent(
-    'https://gist.githubusercontent.com/dealenx/17d9523dc3d10df57689f147bd4411d8/raw/29893084a20a3ee05768445abe0b10804468c420/Introduction.js'
-  );
+  const Introduction = await loadRemoteComponent(`${repoURL}/Introduction.js`);
+
+  //
+
+  const stepInput = await loadRemoteComponent(`${repoURL}/Input.js`);
 
   const moduleObject = {
     name: 'OpenFoam - Helmholtz',

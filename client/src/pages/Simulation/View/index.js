@@ -9,6 +9,7 @@ import style from 'HPCCloudStyle/PageWithMenu.mcss';
 import rootViewSimulation from '../../../workflows/generic/components/root/ViewSimulation';
 
 import DocumentationHTML from '../../../workflows/generic/components/steps/DocumentationHTML';
+import SimputReact from '../../../workflows/generic/components/steps/SimputReact';
 
 import { getAsyncWorkflows } from '../../../workflows';
 import tools from '../../../tools';
@@ -21,6 +22,12 @@ import { dispatch } from '../../../redux';
 import * as Actions from '../../../redux/actions/taskflows';
 import { fetchClusters } from '../../../redux/actions/clusters';
 import { fetchVolumes } from '../../../redux/actions/volumes';
+
+import client from '../../../network';
+
+function saveSimulation(simulation) {
+  dispatch(Actions.saveSimulation(simulation));
+}
 
 class SimulationView extends React.Component {
   constructor(props) {
@@ -135,6 +142,9 @@ class SimulationView extends React.Component {
             module={wfModule}
             user={user}
             DocumentationHTML={DocumentationHTML}
+            SimputReact={SimputReact}
+            saveSimulation={saveSimulation}
+            client={client}
           />
         </div>
       );

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const staticContent = `
 <div style='padding: 0 30px;'>
@@ -20,11 +21,20 @@ class Introduction extends React.Component {
     console.log('staticContent', staticContent);
     return (
       <div>
-        123
         <DocumentationHTML staticContent={staticContent} />
       </div>
     );
   }
 }
+
+/* eslint-disable react/no-unused-prop-types */
+Introduction.propTypes = {
+  DocumentationHTML: PropTypes.func,
+};
+/* eslint-enable */
+
+Introduction.defaultProps = {
+  DocumentationHTML: undefined,
+};
 
 export default Introduction;

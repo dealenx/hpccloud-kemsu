@@ -49,6 +49,7 @@ module.exports = {
     'no-underscore-dangle': 0,
     'import/prefer-default-export': 0,
     'prefer-promise-reject-errors': 0,
+    'react/no-multi-comp': [false],
   },
   plugins: ['prettier'],
   globals: {

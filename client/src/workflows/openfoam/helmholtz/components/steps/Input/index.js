@@ -1,41 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import 'antd/dist/antd.css';
 
-import { Input, Row, Col } from 'antd';
+import * as THREE from 'three';
 
-import SimputReact from '../../../../../generic/components/steps/SimputReact';
+import * as Antd from 'antd';
 
-import { dispatch } from '../../../../../../redux';
-import * as Actions from '../../../../../../redux/actions/projects';
+// import Viz from './viz';
 
-import client from '../../../../../../network';
+// import { RemoteComponent } from './RemoteComponent';
 
-import Viz from './viz';
+// const url = "https://raw.githubusercontent.com/Paciolan/remote-component/master/examples/remote-components/HelloWorld.js"; // prettier-ignore
 
-import { RemoteComponent } from './RemoteComponent';
-
-const url = "https://raw.githubusercontent.com/Paciolan/remote-component/master/examples/remote-components/HelloWorld.js"; // prettier-ignore
-
-const HelloWorld = (props) => <RemoteComponent url={url} {...props} />;
-
-// ----------------------------------------------------------------------------
-
-function saveSimulation(simulation) {
-  dispatch(Actions.saveSimulation(simulation));
-}
-
-// ----------------------------------------------------------------------------
-
-function updateSimulation(simulation) {
-  dispatch(Actions.updateSimulation(simulation));
-}
-
-// ----------------------------------------------------------------------------
-
-function patchSimulation(simulation) {
-  dispatch(Actions.patchSimulation(simulation));
-}
+// const HelloWorld = (props) => <RemoteComponent url={url} {...props} />;
 
 function extract(model) {
   if (model) {
@@ -107,10 +83,13 @@ class InputComponent extends React.Component {
 
     const model = JSON.stringify(this.state);
 
+    const saveSimulation = this.props.saveSimulation;
+    const client = this.props.client;
+
     // Push changes right away to prevent invalid data in next step
     const newSim = Object.assign({}, this.props.simulation);
     newSim.steps.Input.metadata.model = model;
-    this.props.saveSimulation(newSim);
+    saveSimulation(newSim);
 
     client
       .updateSimulationStep(this.props.simulation._id, 'Input', {
@@ -183,6 +162,8 @@ class InputComponent extends React.Component {
   }
 
   render() {
+    const SimputReact = this.props.SimputReact;
+
     let inputDeltaT;
     let inputEndTime;
     let inputNu;
@@ -202,7 +183,7 @@ class InputComponent extends React.Component {
           </label> */}
 
           <div className="input-group input-group-lg">
-            <Input
+            <Antd.Input
               value={this.state.data.CavityFields[0].attr1.deltaT.value[0]}
               onChange={this.handleChangeDeltaT}
               type="number"
@@ -225,7 +206,7 @@ class InputComponent extends React.Component {
           <label htmlFor="inputDeltaT">endTime</label>
 
           <div className="input-group input-group-lg">
-            <Input
+            <Antd.Input
               value={this.state.data.CavityFields[0].attr1.endTime.value[0]}
               onChange={this.handleChangeEndTime}
               type="number"
@@ -247,7 +228,7 @@ class InputComponent extends React.Component {
           <label htmlFor="inputNu">nu</label>
 
           <div className="input-group input-group-lg">
-            <Input
+            <Antd.Input
               value={this.state.data.CavityFields[0].attr1.nu.value[0]}
               onChange={this.handleChangeNu}
               type="number"
@@ -269,7 +250,7 @@ class InputComponent extends React.Component {
           <label htmlFor="inputNu">fieldLength</label>
 
           <div className="input-group input-group-lg">
-            <Input
+            <Antd.Input
               value={this.state.data.CavityFields[0].attr1.fieldLength.value[0]}
               onChange={this.handleChangeFieldLength}
               type="number"
@@ -291,7 +272,7 @@ class InputComponent extends React.Component {
           <label htmlFor="inputNu">fieldHeight</label>
 
           <div className="input-group input-group-lg">
-            <Input
+            <Antd.Input
               value={0.1}
               type="number"
               className="form-control"
@@ -312,7 +293,7 @@ class InputComponent extends React.Component {
           <label htmlFor="inputNu">fieldWidth</label>
 
           <div className="input-group input-group-lg">
-            <Input
+            <Antd.Input
               value={6}
               type="number"
               className="form-control"
@@ -333,7 +314,7 @@ class InputComponent extends React.Component {
           <label htmlFor="inputNu">leftY1</label>
 
           <div className="input-group input-group-lg">
-            <Input
+            <Antd.Input
               value={1}
               type="number"
               className="form-control"
@@ -354,7 +335,7 @@ class InputComponent extends React.Component {
           <label htmlFor="inputNu">leftY2</label>
 
           <div className="input-group input-group-lg">
-            <Input
+            <Antd.Input
               value={2}
               type="number"
               className="form-control"
@@ -375,7 +356,7 @@ class InputComponent extends React.Component {
           <label htmlFor="inputNu">rightY1</label>
 
           <div className="input-group input-group-lg">
-            <Input
+            <Antd.Input
               value={3}
               type="number"
               className="form-control"
@@ -396,7 +377,7 @@ class InputComponent extends React.Component {
           <label htmlFor="inputNu">rightY2</label>
 
           <div className="input-group input-group-lg">
-            <Input
+            <Antd.Input
               value={4}
               type="number"
               className="form-control"
@@ -426,20 +407,20 @@ class InputComponent extends React.Component {
             z={0.1}
           />
           <br />
-          <Row justify="center" align="top">
-            <Col span={4}>{inputFieldLength}</Col>
-            <Col span={4}>{inputFieldHeight}</Col>
-            <Col span={4}>{inputFieldWidth}</Col>
-            <Col span={2}></Col>
+          <Antd.Row justify="center" align="top">
+            <Antd.Col span={4}>{inputFieldLength}</Antd.Col>
+            <Antd.Col span={4}>{inputFieldHeight}</Antd.Col>
+            <Antd.Col span={4}>{inputFieldWidth}</Antd.Col>
+            {/* <Antd.Col span={2}></Antd.Col> */}
 
-            <Col span={4}>{leftY1}</Col>
-            <Col span={4}>{leftY2}</Col>
-          </Row>
+            <Antd.Col span={4}>{leftY1}</Antd.Col>
+            <Antd.Col span={4}>{leftY2}</Antd.Col>
+          </Antd.Row>
 
-          <Row justify="center" align="top">
-            <Col span={4}>{rightY1}</Col>
-            <Col span={4}>{rightY2}</Col>
-          </Row>
+          <Antd.Row justify="center" align="top">
+            <Antd.Col span={4}>{rightY1}</Antd.Col>
+            <Antd.Col span={4}>{rightY2}</Antd.Col>
+          </Antd.Row>
 
           <br />
           <h3>Настройка времени</h3>
@@ -484,19 +465,143 @@ InputComponent.propTypes = {
   simulation: PropTypes.object,
   step: PropTypes.string,
   saveSimulation: PropTypes.func,
-  updateSimulation: PropTypes.func,
-  patchSimulation: PropTypes.func,
+  client: PropTypes.object,
+  SimputReact: PropTypes.func,
 };
 /* eslint-enable */
 
 InputComponent.defaultProps = {
-  saveSimulation,
-  updateSimulation,
-  patchSimulation,
-
+  SimputReact: undefined,
+  client: undefined,
+  saveSimulation: undefined,
   project: undefined,
   simulation: undefined,
   step: undefined,
 };
 
 export default InputComponent;
+
+const style = {
+  height: 500, // we can control scene size by setting container dimensions
+};
+
+class Viz extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { boxSizeX: props.x, boxSizeY: props.y, boxSizeZ: props.z };
+
+    this.scene = new THREE.Scene();
+  }
+
+  handleInputChange(e) {
+    const target = e.target;
+    console.log('target', target);
+
+    const value = target.value;
+    const name = target.name;
+    const self = this;
+    this.setState(
+      {
+        [name]: value,
+      },
+      () => {
+        this.syncSceneData();
+      }
+    );
+  }
+
+  syncSceneData() {
+    const { boxSizeX, boxSizeY, boxSizeZ } = this.state;
+
+    this.setSizeToMesh(this.scene.children[0], boxSizeX, boxSizeY, boxSizeZ);
+  }
+
+  syncSceneDataFromProps(x, y, z) {
+    this.setSizeToMesh(this.scene.children[0], x, y, z);
+  }
+
+  setSizeToMesh(myMesh, xSize, ySize, zSize) {
+    const scaleFactorX = xSize / myMesh.geometry.parameters.width;
+    const scaleFactorY = ySize / myMesh.geometry.parameters.height;
+    const scaleFactorZ = zSize / myMesh.geometry.parameters.depth;
+    myMesh.scale.set(scaleFactorX, scaleFactorY, scaleFactorZ);
+  }
+
+  componentDidMount() {
+    const width = this.mount.clientWidth;
+    const height = this.mount.clientHeight;
+
+    const scene = this.scene;
+    const camera = new THREE.PerspectiveCamera(
+      80, // fov = field of view
+      width / height, // aspect ratio
+      0.1, // near plane
+      1000 // far plane
+    );
+
+    window.addEventListener('resize', this.handleWindowResize);
+
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(width, height);
+
+    const { boxSizeX, boxSizeY, boxSizeZ } = this.state;
+
+    const geometry = new THREE.BoxGeometry(boxSizeX, boxSizeY, boxSizeZ);
+    const material = new THREE.MeshPhongMaterial({
+      color: 0x156289,
+      emissive: 0x072534,
+      side: THREE.DoubleSide,
+      flatShading: true,
+    });
+
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    const lights = [];
+    lights[0] = new THREE.PointLight(0xffffff, 1, 0);
+    lights[1] = new THREE.PointLight(0xffffff, 1, 0);
+    lights[2] = new THREE.PointLight(0xffffff, 1, 0);
+
+    lights[0].position.set(0, 200, 0);
+    lights[1].position.set(100, 200, 100);
+    lights[2].position.set(-100, -200, -100);
+
+    scene.add(lights[0]);
+    scene.add(lights[1]);
+    scene.add(lights[2]);
+
+    camera.position.z = 10;
+
+    // Управление камерой
+    // this.controls = new OrbitControls(camera, this.mount);
+
+    this.mount.appendChild(renderer.domElement);
+
+    const animate = function () {
+      requestAnimationFrame(animate);
+
+      cube.rotation.y += 0.001;
+
+      renderer.render(scene, camera);
+    };
+
+    animate();
+  }
+  // componentWillUnmount() {
+  //   window.removeEventListener('resize', this.handleWindowResize);
+  //   this.controls.dispose();
+  // }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('nextProps', nextProps);
+    this.syncSceneDataFromProps(nextProps.x, nextProps.y, nextProps.z);
+  }
+
+  render() {
+    return (
+      <div style={{ position: 'relative' }}>
+        <div style={style} ref={(ref) => (this.mount = ref)} />
+      </div>
+    );
+  }
+}
