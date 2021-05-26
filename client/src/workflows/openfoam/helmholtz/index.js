@@ -1,5 +1,5 @@
-// import Introduction from './components/steps/Introduction';
-// import stepInput from './components/steps/Input';
+// import Introduction from './Introduction';
+// import stepInput from './Input';
 
 export const getAsyncModule = async ({
   components,
@@ -10,8 +10,6 @@ export const getAsyncModule = async ({
   /* REMOTE LOADING OF COMPONENTS  */
 
   const Introduction = await loadRemoteComponent(`${repoURL}/Introduction.js`);
-
-  //
 
   const stepInput = await loadRemoteComponent(`${repoURL}/Input.js`);
 
