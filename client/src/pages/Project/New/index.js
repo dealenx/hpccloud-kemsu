@@ -8,7 +8,7 @@ import style from 'HPCCloudStyle/ItemEditor.mcss';
 
 import ItemEditor from '../../../panels/ItemEditor';
 import {
-  workflowNames,
+  // workflowNames,
   getNamesFromWorkflows,
   getAsyncWorkflows,
 } from '../../../workflows';
@@ -54,11 +54,12 @@ class ProjectNew extends React.Component {
   }
 
   async initWorkflows() {
+    console.log('initWorkflows() TEST TEST');
     const localWorkflows = await getAsyncWorkflows();
 
     await this.setState({
       workflows: localWorkflows,
-      type: workflowNames[0].value,
+      type: localWorkflows[0].value,
       workflowNames: getNamesFromWorkflows(localWorkflows),
     });
   }

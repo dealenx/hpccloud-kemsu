@@ -90,11 +90,6 @@ const Workflows = {
   Visualizer,
 };
 
-export const workflowNames = Object.keys(Workflows).map((value) => {
-  const label = Workflows[value].name;
-  return { value, label };
-});
-
 export const getNamesFromWorkflows = (workflows) =>
   Object.keys(workflows).map((value) => {
     const label = workflows[value].name;
