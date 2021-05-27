@@ -1,17 +1,38 @@
-// import Introduction from './Introduction';
-// import stepInput from './Input';
-
 export const getAsyncModule = async ({
   components,
   loadRemoteComponent,
+  isRemote,
   repoURL,
 }) => {
-  console.log('components', components);
-  /* REMOTE LOADING OF COMPONENTS  */
+  const initCustomComponents = async () => {
+    const Introduction = await import('./Introduction');
+    const Input = await import('./Input');
 
-  const Introduction = await loadRemoteComponent(`${repoURL}/Introduction.js`);
+    return {
+      Introduction: Introduction.default,
+      stepInput: Input.default,
+    };
+  };
 
-  const stepInput = await loadRemoteComponent(`${repoURL}/Input.js`);
+  const initCustomRemoteComponents = async () => {
+    const Introduction = await loadRemoteComponent(
+      `${repoURL}/Introduction.js`
+    );
+    const Input = await loadRemoteComponent(`${repoURL}/Input.js`);
+
+    return {
+      Introduction,
+      Input,
+    };
+  };
+
+  let customComponents = {};
+
+  if (isRemote) {
+    customComponents = await initCustomRemoteComponents();
+  } else {
+    customComponents = await initCustomComponents();
+  }
 
   const moduleObject = {
     name: 'OpenFoam - Helmholtz',
@@ -57,10 +78,10 @@ export const getAsyncModule = async ({
         },
       },
       Introduction: {
-        default: Introduction,
+        default: customComponents.Introduction,
       },
       Input: {
-        default: stepInput,
+        default: customComponents.Input,
       },
       Simulation: {
         default: components.stepSimulationStart,

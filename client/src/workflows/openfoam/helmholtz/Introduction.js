@@ -18,7 +18,6 @@ class Introduction extends React.Component {
 
   render() {
     const DocumentationHTML = this.props.DocumentationHTML;
-    console.log('staticContent', staticContent);
     return (
       <div>
         <DocumentationHTML staticContent={staticContent} />
