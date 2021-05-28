@@ -39,7 +39,10 @@ const asyncForEach = async (array, callback) => {
 };
 
 const remoteModulesList = {
-  OpenFOAMHelmholtz: './openfoam/helmholtz/index',
+  OpenFOAMHelmholtz:
+    'https://gist.github.com/dealenx/17d9523dc3d10df57689f147bd4411d8',
+  // OpenFOAMHelmholtz: './openfoam/helmholtz/index',
+
   OpenFOAMHelmholtzSecond:
     'https://gist.github.com/dealenx/17d9523dc3d10df57689f147bd4411d8',
 };
@@ -125,19 +128,6 @@ export const getNamesFromWorkflows = (workflows) =>
   });
 
 export const getAsyncWorkflows = async () => {
-  // const list = {};
-
-  // console.log('before list');
-
-  // await asyncForEach(Object.keys(remoteModulesList), async (moduleName) => {
-  //   list[moduleName] = await getAsyncRemoteModule(
-  //     remoteModulesList.OpenFOAMHelmholtz
-  //   );
-  //   console.log(remoteModulesList[moduleName]);
-  // });
-  // console.log('Done');
-  // console.log('list', list);
-
   const remoteModule = await import('./openfoam/helmholtz/index');
 
   console.log('remoteModule', remoteModule);

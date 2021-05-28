@@ -4,34 +4,45 @@ export const getAsyncModule = async ({
   isRemote,
   repoURL,
 }) => {
-  const initCustomComponents = async () => {
-    const Introduction = await import('./Introduction');
-    const Input = await import('./Input');
+  const asyncForEach = async (array, callback) => {
+    for (let index = 0; index < array.length; index++) {
+      await callback(array[index], index, array);
+    }
+  };
+  const initCustomComponents = async (componentsName) => {
+    const list = {};
+
+    await asyncForEach(componentsName, async (compName) => {
+      const comp = await import(`./${compName}`);
+      list[compName] = comp.default;
+    });
 
     return {
-      Introduction: Introduction.default,
-      stepInput: Input.default,
+      ...list,
     };
   };
 
-  const initCustomRemoteComponents = async () => {
-    const Introduction = await loadRemoteComponent(
-      `${repoURL}/Introduction.js`
-    );
-    const Input = await loadRemoteComponent(`${repoURL}/Input.js`);
+  const initCustomRemoteComponents = async (componentsName) => {
+    const list = {};
+
+    await asyncForEach(componentsName, async (compName) => {
+      const comp = await loadRemoteComponent(`${repoURL}/${compName}`);
+      list[compName] = comp;
+    });
 
     return {
-      Introduction,
-      Input,
+      ...list,
     };
   };
 
   let customComponents = {};
 
+  const compNames = ['Input', 'Introduction'];
+
   if (isRemote) {
-    customComponents = await initCustomRemoteComponents();
+    customComponents = await initCustomRemoteComponents(compNames);
   } else {
-    customComponents = await initCustomComponents();
+    customComponents = await initCustomComponents(compNames);
   }
 
   const moduleObject = {
