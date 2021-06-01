@@ -84,11 +84,13 @@ class InputComponent extends React.Component {
     const model = JSON.stringify(this.state);
 
     const saveSimulation = this.props.saveSimulation;
+
     const client = this.props.client;
 
     // Push changes right away to prevent invalid data in next step
     const newSim = Object.assign({}, this.props.simulation);
     newSim.steps.Input.metadata.model = model;
+    console.log('before saveSimulation');
     saveSimulation(newSim);
 
     client

@@ -20,13 +20,14 @@ import { primaryBreadCrumbs } from '../../../utils/Constants';
 
 import { dispatch } from '../../../redux';
 import * as Actions from '../../../redux/actions/taskflows';
+import * as ProjectActions from '../../../redux/actions/projects';
 import { fetchClusters } from '../../../redux/actions/clusters';
 import { fetchVolumes } from '../../../redux/actions/volumes';
 
 import client from '../../../network';
 
 function saveSimulation(simulation) {
-  dispatch(Actions.saveSimulation(simulation));
+  dispatch(ProjectActions.saveSimulation(simulation));
 }
 
 class SimulationView extends React.Component {
@@ -36,6 +37,9 @@ class SimulationView extends React.Component {
     this.state = {
       workflows: {},
     };
+
+    console.log('Actions from View: ', Actions);
+    console.log('Actions.saveSimulation from View', Actions.saveSimulation);
   }
 
   async componentDidMount() {
@@ -145,6 +149,8 @@ class SimulationView extends React.Component {
             SimputReact={SimputReact}
             saveSimulation={saveSimulation}
             client={client}
+            Actions={Actions}
+            dispatch={dispatch}
           />
         </div>
       );
