@@ -13,9 +13,9 @@ function includeInHead(file = '', text = '') {
 }
 
 includeInHead('simput-pyfr.js');
-includeInHead(
-  'https://gitcdn.link/repo/dealenx/17d9523dc3d10df57689f147bd4411d8/raw/647d63b8ffe27bd077595d71773a5727ddbb397f/simput-openfoam_helmholtz.js'
-);
+// includeInHead(
+//   'https://gitcdn.link/repo/dealenx/17d9523dc3d10df57689f147bd4411d8/raw/647d63b8ffe27bd077595d71773a5727ddbb397f/simput-openfoam_helmholtz.js'
+// );
 includeInHead('./simput-nwchem.js');
 includeInHead('./simput-nwchem-neb.js');
 includeInHead('./simput-openfoam-tutorials.js');
