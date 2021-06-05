@@ -7,7 +7,7 @@ import OpenFOAMTutorial from './openfoam/tutorials';
 import OpenFOAMWindTunnel from './openfoam/windtunnel';
 import OpenFOAMCavity from './openfoam/cavity';
 import OpenFOAMCavityTest from './openfoam/cavity_test';
-import OpenFOAMHelmholtz from './openfoam/helmholtz';
+// import OpenFOAMHelmholtz from './openfoam/helmholtz';
 
 import stepSimulationStart from './generic/components/steps/Simulation/Start';
 import stepSimulationView from './generic/components/steps/Simulation/View';
@@ -19,11 +19,11 @@ import { loadRemoteComponent } from './generic/components/steps/LoadRemoteCompon
 import PyFr from './pyfr';
 import Visualizer from './visualizer';
 
-const remoteModulesList = {
-  // OpenFOAMHelmholtz:
-  //   'https://gist.github.com/dealenx/17d9523dc3d10df57689f147bd4411d8',
-  OpenFOAMHelmholtz: './openfoam/helmholtz',
-};
+const json = `{
+  
+}`;
+
+const remoteModulesList = JSON.parse(json);
 
 const loadScript = ({ src = null, text = '', isAsync = true }) => {
   const s = document.createElement('script');
@@ -38,9 +38,9 @@ const loadScript = ({ src = null, text = '', isAsync = true }) => {
         reject(err, s);
       };
       /* eslint-disable */
-      s.onload = s.onreadystatechange = () => {
+      s.onload = s.onreadystatechange = function () {
         /* eslint-enable */
-        // console.log(this.readyState); // uncomment this line to see which ready states are called.
+        console.log(this.readyState); // uncomment this line to see which ready states are called.
         if (!r && (!this.readyState || this.readyState === 'complete')) {
           r = true;
           resolve();
@@ -58,9 +58,24 @@ const getGistRepoIDByURL = (stringURL) => {
   return pathNames[2];
 };
 
+const getRepoUsernameByURL = (stringURL) => {
+  const url = new URL(stringURL);
+  const pathNames = url.pathname.split('/');
+  return pathNames[1];
+};
+
 const formRawURLfromGistGithubURL = (stringURL) => {
+  const user = getRepoUsernameByURL(stringURL);
   const id = getGistRepoIDByURL(stringURL);
-  const url = `https://gist.githubusercontent.com/dealenx/${id}/raw`;
+  const url = `https://gist.githubusercontent.com/${user}/${id}/raw`;
+
+  return url;
+};
+
+const formCNDfromGistGithubURL = (stringURL) => {
+  const user = getRepoUsernameByURL(stringURL);
+  const id = getGistRepoIDByURL(stringURL);
+  const url = `https://gitcdn.link/repo/${user}/${id}/raw`;
 
   return url;
 };
@@ -83,21 +98,6 @@ const isValidHttpUrl = (string) => {
   }
 
   return url.protocol === 'http:' || url.protocol === 'https:';
-};
-
-const loadRemoteSimputTypes = async () => {
-  // await loadScript({
-  //   src:
-  //     'https://gitcdn.link/repo/dealenx/17d9523dc3d10df57689f147bd4411d8/raw/647d63b8ffe27bd077595d71773a5727ddbb397f/simput-openfoam_helmholtz.js',
-  // });
-
-  /* eslint-disable */
-  const someTextContent = require('./openfoam/helmholtz/simput-openfoam_helmholtz.js.txt')
-    .default;
-  /* eslint-enable */
-
-  console.log('someTextContent', someTextContent);
-  loadScript({ text: someTextContent });
 };
 
 const getAsyncRemoteModule = async (modulePath) => {
@@ -128,7 +128,7 @@ const getAsyncRemoteModule = async (modulePath) => {
 
     console.log('asyncModule', asyncModule);
   } else {
-    const remoteModule = await import('./openfoam/helmholtz/index');
+    const remoteModule = await import(`${modulePath}/index`);
 
     console.log('remoteModule', remoteModule);
 
@@ -146,6 +146,20 @@ const getAsyncRemoteModule = async (modulePath) => {
     console.log('asyncModule', asyncModule);
   }
 
+  if (isValidHttpUrl(modulePath)) {
+    const formedURL = formCNDfromGistGithubURL(modulePath);
+    await loadScript({
+      src: `${formedURL}/${asyncModule.simputTypeFile}`,
+    });
+  } else {
+    /* eslint-disable */
+    const rawImportedFile = require(`${modulePath}/${asyncModule.simputTypeFile}`)
+      .default;
+    /* eslint-enable */
+
+    loadScript({ text: rawImportedFile });
+  }
+
   return asyncModule;
 };
 
@@ -157,7 +171,7 @@ const Workflows = {
   OpenFOAMWindTunnel,
   OpenFOAMCavity,
   OpenFOAMCavityTest,
-  OpenFOAMHelmholtz,
+  // OpenFOAMHelmholtz,
   PyFr,
   Visualizer,
 };
@@ -169,33 +183,13 @@ export const getNamesFromWorkflows = (workflows) =>
   });
 
 export const getAsyncWorkflows = async () => {
-  // const remoteModule = await import('./openfoam/helmholtz/index');
-
-  // console.log('remoteModule', remoteModule);
-
-  // loadRemoteSimputTypes();
-
-  // const OpenFOAMHelmholtz = await remoteModule.getAsyncModule({
-  //   components: {
-  //     stepSimulationStart,
-  //     stepSimulationView,
-  //     stepVisualizationStart,
-  //     stepVisualizationView,
-  //   },
-  //   loadRemoteComponent,
-  //   repoURL: '',
-  // });
-  // console.log('OpenFOAMHelmholtz', OpenFOAMHelmholtz);
-
-  loadRemoteSimputTypes();
-
   const list = {};
 
   console.log('before list');
 
   await asyncForEach(Object.keys(remoteModulesList), async (moduleName) => {
     list[moduleName] = await getAsyncRemoteModule(
-      remoteModulesList.OpenFOAMHelmholtz
+      remoteModulesList[moduleName]
     );
     console.log(remoteModulesList[moduleName]);
   });
@@ -212,7 +206,6 @@ export const getAsyncWorkflows = async () => {
     OpenFOAMCavityTest,
     PyFr,
     Visualizer,
-    // OpenFOAMHelmholtz,
     ...list,
   };
 

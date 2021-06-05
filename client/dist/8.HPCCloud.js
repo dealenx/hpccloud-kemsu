@@ -1,26 +1,13 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[8],{
 
-/***/ "./src/workflows/openfoam/helmholtz/lib/RemoteComponent.js":
-/*!*****************************************************************!*\
-  !*** ./src/workflows/openfoam/helmholtz/lib/RemoteComponent.js ***!
-  \*****************************************************************/
+/***/ "./src/workflows/openfoam/helmholtz/build.sh":
+/*!***************************************************!*\
+  !*** ./src/workflows/openfoam/helmholtz/build.sh ***!
+  \***************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.RemoteComponent = void 0;\n\nvar _remoteComponent = __webpack_require__(/*! @paciolan/remote-component */ \"./node_modules/@paciolan/remote-component/dist/index.js\");\n\nvar _remoteComponentConfig = __webpack_require__(/*! ./remote-component.config.js */ \"./src/workflows/openfoam/helmholtz/lib/remote-component.config.js\");\n\nvar requires = (0, _remoteComponent.createRequires)(_remoteComponentConfig.resolve);\nvar RemoteComponent = (0, _remoteComponent.createRemoteComponent)({\n  requires: requires\n});\nexports.RemoteComponent = RemoteComponent;\n\n//# sourceURL=webpack:///./src/workflows/openfoam/helmholtz/lib/RemoteComponent.js?");
-
-/***/ }),
-
-/***/ "./src/workflows/openfoam/helmholtz/lib/remote-component.config.js":
-/*!*************************************************************************!*\
-  !*** ./src/workflows/openfoam/helmholtz/lib/remote-component.config.js ***!
-  \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-eval("\n/**\n * Dependencies for Remote Components\n */\n\nmodule.exports = {\n  resolve: {\n    react: __webpack_require__(/*! react */ \"./node_modules/react/index.js\")\n  }\n};\n\n//# sourceURL=webpack:///./src/workflows/openfoam/helmholtz/lib/remote-component.config.js?");
+eval("throw new Error(\"Module parse failed: Unexpected token (1:0)\\nYou may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders\\n> ../../../../node_modules/.bin/babel ./ --out-dir ./lib --config-file ./.babelrc\\n| \\n| \");\n\n//# sourceURL=webpack:///./src/workflows/openfoam/helmholtz/build.sh?");
 
 /***/ })
 

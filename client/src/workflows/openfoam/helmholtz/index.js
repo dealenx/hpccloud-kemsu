@@ -28,7 +28,7 @@ export const getAsyncModule = async ({
     const list = {};
 
     await asyncForEach(componentsName, async (compName) => {
-      const comp = await loadRemoteComponent(`${repoURL}/${compName}`);
+      const comp = await loadRemoteComponent(`${repoURL}/${compName}.js`);
       list[compName] = comp;
     });
 
@@ -49,6 +49,7 @@ export const getAsyncModule = async ({
 
   const moduleObject = {
     name: 'OpenFoam - Helmholtz',
+    simputTypeFile: 'simput-openfoam_helmholtz.js',
     // logo,
     components: {
       NewSimulation: null,
