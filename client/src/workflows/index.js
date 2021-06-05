@@ -19,19 +19,38 @@ import { loadRemoteComponent } from './generic/components/steps/LoadRemoteCompon
 import PyFr from './pyfr';
 import Visualizer from './visualizer';
 
-function includeInBody(file = '', text = '') {
-  const script = document.createElement('script');
-  if (file !== null) {
-    script.src = file;
-  }
+const remoteModulesList = {
+  // OpenFOAMHelmholtz:
+  //   'https://gist.github.com/dealenx/17d9523dc3d10df57689f147bd4411d8',
+  OpenFOAMHelmholtz: './openfoam/helmholtz',
+};
 
-  script.type = 'text/javascript';
-  script.async = false;
-  script.defer = true;
-  script.text = text;
+const loadScript = ({ src = null, text = '', isAsync = true }) => {
+  const s = document.createElement('script');
+  return new Promise((resolve, reject) => {
+    let r = false;
+    s.type = 'text/javascript';
+    s.text = text;
+    s.async = isAsync;
+    if (src !== null) {
+      s.src = src;
+      s.onerror = (err) => {
+        reject(err, s);
+      };
+      /* eslint-disable */
+      s.onload = s.onreadystatechange = () => {
+        /* eslint-enable */
+        // console.log(this.readyState); // uncomment this line to see which ready states are called.
+        if (!r && (!this.readyState || this.readyState === 'complete')) {
+          r = true;
+          resolve();
+        }
+      };
+    }
 
-  document.getElementsByTagName('body').item(0).appendChild(script);
-}
+    document.getElementsByTagName('body').item(0).appendChild(s);
+  });
+};
 
 const getGistRepoIDByURL = (stringURL) => {
   const url = new URL(stringURL);
@@ -48,17 +67,10 @@ const formRawURLfromGistGithubURL = (stringURL) => {
 
 const asyncForEach = async (array, callback) => {
   for (let index = 0; index < array.length; index++) {
+    /* eslint-disable */
     await callback(array[index], index, array);
+    /* eslint-enable */
   }
-};
-
-const remoteModulesList = {
-  // OpenFOAMHelmholtz:
-  //   'https://gist.github.com/dealenx/17d9523dc3d10df57689f147bd4411d8',
-  OpenFOAMHelmholtz: './openfoam/helmholtz/index',
-
-  OpenFOAMHelmholtzSecond:
-    'https://gist.github.com/dealenx/17d9523dc3d10df57689f147bd4411d8',
 };
 
 const isValidHttpUrl = (string) => {
@@ -73,9 +85,20 @@ const isValidHttpUrl = (string) => {
   return url.protocol === 'http:' || url.protocol === 'https:';
 };
 
-includeInBody(
-  'https://gitcdn.link/repo/dealenx/17d9523dc3d10df57689f147bd4411d8/raw/647d63b8ffe27bd077595d71773a5727ddbb397f/simput-openfoam_helmholtz.js'
-);
+const loadRemoteSimputTypes = async () => {
+  // await loadScript({
+  //   src:
+  //     'https://gitcdn.link/repo/dealenx/17d9523dc3d10df57689f147bd4411d8/raw/647d63b8ffe27bd077595d71773a5727ddbb397f/simput-openfoam_helmholtz.js',
+  // });
+
+  /* eslint-disable */
+  const someTextContent = require('./openfoam/helmholtz/simput-openfoam_helmholtz.js.txt')
+    .default;
+  /* eslint-enable */
+
+  console.log('someTextContent', someTextContent);
+  loadScript({ text: someTextContent });
+};
 
 const getAsyncRemoteModule = async (modulePath) => {
   let asyncModule = {};
@@ -146,23 +169,38 @@ export const getNamesFromWorkflows = (workflows) =>
   });
 
 export const getAsyncWorkflows = async () => {
-  const remoteModule = await import('./openfoam/helmholtz/index');
+  // const remoteModule = await import('./openfoam/helmholtz/index');
 
-  console.log('remoteModule', remoteModule);
+  // console.log('remoteModule', remoteModule);
 
-  
+  // loadRemoteSimputTypes();
 
-  const OpenFOAMHelmholtz = await remoteModule.getAsyncModule({
-    components: {
-      stepSimulationStart,
-      stepSimulationView,
-      stepVisualizationStart,
-      stepVisualizationView,
-    },
-    loadRemoteComponent,
-    repoURL: '',
+  // const OpenFOAMHelmholtz = await remoteModule.getAsyncModule({
+  //   components: {
+  //     stepSimulationStart,
+  //     stepSimulationView,
+  //     stepVisualizationStart,
+  //     stepVisualizationView,
+  //   },
+  //   loadRemoteComponent,
+  //   repoURL: '',
+  // });
+  // console.log('OpenFOAMHelmholtz', OpenFOAMHelmholtz);
+
+  loadRemoteSimputTypes();
+
+  const list = {};
+
+  console.log('before list');
+
+  await asyncForEach(Object.keys(remoteModulesList), async (moduleName) => {
+    list[moduleName] = await getAsyncRemoteModule(
+      remoteModulesList.OpenFOAMHelmholtz
+    );
+    console.log(remoteModulesList[moduleName]);
   });
-  console.log('OpenFOAMHelmholtz', OpenFOAMHelmholtz);
+  console.log('Done');
+  console.log('list', list);
 
   const asyncWorkflows = {
     NWChem,
@@ -174,8 +212,8 @@ export const getAsyncWorkflows = async () => {
     OpenFOAMCavityTest,
     PyFr,
     Visualizer,
-    OpenFOAMHelmholtz,
-    // ...list,
+    // OpenFOAMHelmholtz,
+    ...list,
   };
 
   console.log('asyncWORKFLOWS list', asyncWorkflows);

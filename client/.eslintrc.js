@@ -57,12 +57,7 @@ module.exports = {
     VRFrameData: true,
   },
   settings: {
-    'import/resolver': {
-      node: {
-        paths: ['src'],
-        extensions: ['.js', '.ts', '.d.ts'],
-      },
-    },
+    'import/resolver': 'webpack',
   },
   env: {
     browser: true,

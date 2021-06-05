@@ -9,7 +9,7 @@ import breadCrumbStyle from 'HPCCloudStyle/Theme.mcss';
 import ItemEditor from '../../../panels/ItemEditor';
 import SharePanel from '../../../panels/SharePanel';
 import { userHasAccess } from '../../../utils/AccessHelper';
-import  { getAsyncWorkflows } from '../../../workflows';
+import { getAsyncWorkflows } from '../../../workflows';
 
 import getNetworkError from '../../../utils/getNetworkError';
 

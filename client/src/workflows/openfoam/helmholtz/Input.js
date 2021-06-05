@@ -490,45 +490,12 @@ const style = {
 class Viz extends Component {
   constructor(props) {
     super(props);
+    /* eslint-disable */
     this.state = { boxSizeX: props.x, boxSizeY: props.y, boxSizeZ: props.z };
+    /* eslint-enable */
 
     this.scene = new THREE.Scene();
   }
-
-  handleInputChange(e) {
-    const target = e.target;
-    console.log('target', target);
-
-    const value = target.value;
-    const name = target.name;
-    const self = this;
-    this.setState(
-      {
-        [name]: value,
-      },
-      () => {
-        this.syncSceneData();
-      }
-    );
-  }
-
-  syncSceneData() {
-    const { boxSizeX, boxSizeY, boxSizeZ } = this.state;
-
-    this.setSizeToMesh(this.scene.children[0], boxSizeX, boxSizeY, boxSizeZ);
-  }
-
-  syncSceneDataFromProps(x, y, z) {
-    this.setSizeToMesh(this.scene.children[0], x, y, z);
-  }
-
-  setSizeToMesh(myMesh, xSize, ySize, zSize) {
-    const scaleFactorX = xSize / myMesh.geometry.parameters.width;
-    const scaleFactorY = ySize / myMesh.geometry.parameters.height;
-    const scaleFactorZ = zSize / myMesh.geometry.parameters.depth;
-    myMesh.scale.set(scaleFactorX, scaleFactorY, scaleFactorZ);
-  }
-
   componentDidMount() {
     const width = this.mount.clientWidth;
     const height = this.mount.clientHeight;
@@ -589,20 +556,58 @@ class Viz extends Component {
 
     animate();
   }
-  // componentWillUnmount() {
-  //   window.removeEventListener('resize', this.handleWindowResize);
-  //   this.controls.dispose();
-  // }
 
   componentWillReceiveProps(nextProps) {
     console.log('nextProps', nextProps);
     this.syncSceneDataFromProps(nextProps.x, nextProps.y, nextProps.z);
   }
 
+  /* eslint-disable */
+  setSizeToMesh(myMesh, xSize, ySize, zSize) {
+    const scaleFactorX = xSize / myMesh.geometry.parameters.width;
+    const scaleFactorY = ySize / myMesh.geometry.parameters.height;
+    const scaleFactorZ = zSize / myMesh.geometry.parameters.depth;
+    myMesh.scale.set(scaleFactorX, scaleFactorY, scaleFactorZ);
+  }
+  /* eslint-enable */
+
+  syncSceneData() {
+    const { boxSizeX, boxSizeY, boxSizeZ } = this.state;
+
+    this.setSizeToMesh(this.scene.children[0], boxSizeX, boxSizeY, boxSizeZ);
+  }
+
+  handleInputChange(e) {
+    const target = e.target;
+    console.log('target', target);
+
+    const value = target.value;
+    const name = target.name;
+    this.setState(
+      {
+        [name]: value,
+      },
+      () => {
+        this.syncSceneData();
+      }
+    );
+  }
+
+  syncSceneDataFromProps(x, y, z) {
+    this.setSizeToMesh(this.scene.children[0], x, y, z);
+  }
+
+  // componentWillUnmount() {
+  //   window.removeEventListener('resize', this.handleWindowResize);
+  //   this.controls.dispose();
+  // }
+
   render() {
     return (
       <div style={{ position: 'relative' }}>
+        {/* eslint-disable */}
         <div style={style} ref={(ref) => (this.mount = ref)} />
+        {/* eslint-enable */}
       </div>
     );
   }

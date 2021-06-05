@@ -46,6 +46,10 @@ module.exports = {
         loader: 'expose-loader?HPCCloud',
       },
       {
+        test: /\.txt$/i,
+        use: 'raw-loader',
+      },
+      {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',

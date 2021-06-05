@@ -96,7 +96,6 @@ export default class ClusterForm extends React.Component {
     if (Object.keys(this.state.workflows).length === 0) {
       return null;
     }
-    
     if (!this.props.data) {
       return null;
     }

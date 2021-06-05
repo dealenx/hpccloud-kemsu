@@ -194,7 +194,7 @@ export function configure(config = { girderAPI: baseURL }) {
   );
 }
 
-let logDebounce = null;
+const logDebounce = null;
 
 store.subscribe(async () => {
   const state = store.getState();

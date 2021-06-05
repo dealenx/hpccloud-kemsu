@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as THREE from 'three';
 import * as Antd from 'antd';
-
+/* eslint-disable */
 export const loadRemoteComponent = async (url) => {
   return fetch(url)
     .then((res) => res.text())
@@ -24,3 +24,4 @@ export const loadRemoteComponent = async (url) => {
       return exports.__esModule ? exports.default : exports;
     });
 };
+/* eslint-enable */

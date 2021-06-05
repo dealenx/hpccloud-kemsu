@@ -6,7 +6,9 @@ export const getAsyncModule = async ({
 }) => {
   const asyncForEach = async (array, callback) => {
     for (let index = 0; index < array.length; index++) {
+      /* eslint-disable */
       await callback(array[index], index, array);
+      /* eslint-enable */
     }
   };
   const initCustomComponents = async (componentsName) => {
