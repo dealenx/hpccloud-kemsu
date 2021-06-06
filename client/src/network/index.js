@@ -15,6 +15,7 @@ import taskflows from './remote/taskflows';
 import tasks from './remote/tasks';
 import user from './remote/user';
 import volumes from './remote/volumes';
+import userModule from './remote/user-module';
 
 import ClientBuilder from './remote/GirderClient';
 
@@ -36,6 +37,7 @@ const endpoints = [
   tasks,
   user,
   volumes,
+  userModule,
 ];
 
 let url;

@@ -11,6 +11,7 @@ import progress from './progress';
 import projects from './projects';
 import simulations from './simulations';
 import taskflows from './taskflows';
+import userModules from './user-modules';
 
 export default combineReducers({
   auth,
@@ -23,4 +24,5 @@ export default combineReducers({
   simulations,
   taskflows,
   visualizer,
+  userModules,
 });
