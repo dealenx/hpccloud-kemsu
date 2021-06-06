@@ -16,14 +16,16 @@ import stepVisualizationView from './generic/components/steps/Visualization/View
 
 import { loadRemoteComponent } from './generic/components/steps/LoadRemoteComponent';
 
+import client from '../network';
+
 import PyFr from './pyfr';
 import Visualizer from './visualizer';
 
-const json = `{
-  
-}`;
+// const json = `{
 
-const remoteModulesList = JSON.parse(json);
+// }`;
+
+// const remoteModulesList = JSON.parse(json);
 
 const loadScript = ({ src = null, text = '', isAsync = true }) => {
   const s = document.createElement('script');
@@ -183,15 +185,18 @@ export const getNamesFromWorkflows = (workflows) =>
   });
 
 export const getAsyncWorkflows = async () => {
+  console.log('client.listUserModules()', await client.listUserModules());
+
+  const responseListUserModules = await client.listUserModules();
+
+  console.log('responseListUserModules.data', responseListUserModules.data);
   const list = {};
 
   console.log('before list');
 
-  await asyncForEach(Object.keys(remoteModulesList), async (moduleName) => {
-    list[moduleName] = await getAsyncRemoteModule(
-      remoteModulesList[moduleName]
-    );
-    console.log(remoteModulesList[moduleName]);
+  await asyncForEach(responseListUserModules.data, async (item) => {
+    list[item.name] = await getAsyncRemoteModule(item.url);
+    console.log(list[item.name]);
   });
   console.log('Done');
   console.log('list', list);
