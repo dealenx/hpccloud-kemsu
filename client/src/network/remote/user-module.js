@@ -26,9 +26,14 @@ export default function ({
       const expected = ['name', 'url'];
       const params = filterQuery(userModule, ...expected);
       const { missingKeys, promise } = mustContain(params, ...expected);
-      console.log("userModule values", userModule)
+      console.log('userModule values', userModule);
       return missingKeys
-      ? promise : busy(client._.post(`/user_module${encodeQueryAsString(params)}`));
+        ? promise
+        : busy(client._.post(`/user_module${encodeQueryAsString(params)}`));
+    },
+
+    deleteUserModule(id) {
+      return busy(client._.delete(`/user_module/${id}`));
     },
   };
 }
