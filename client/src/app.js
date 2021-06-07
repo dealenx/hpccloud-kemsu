@@ -41,6 +41,7 @@ import PreferencesUser from './pages/Preferences/User';
 import PreferencesGroups from './pages/Preferences/Groups';
 import PreferencesStatus from './pages/Preferences/ServerStatus';
 import PreferencesNetwork from './pages/Preferences/Network';
+import PreferencesUserModules from './pages/Preferences/UserModules';
 import ProjectAll from './pages/Project/All';
 import ProjectEdit from './pages/Project/Edit';
 import ProjectNew from './pages/Project/New';
@@ -180,6 +181,10 @@ export function configure(config = { girderAPI: baseURL }) {
                     <AuthRoute
                       path="/Preferences/Network"
                       component={PreferencesNetwork}
+                    />
+                    <AuthRoute
+                      path="/Preferences/UserModules"
+                      component={PreferencesUserModules}
                     />
                   </Switch>
                 </Preferences>

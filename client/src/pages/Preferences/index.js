@@ -9,22 +9,24 @@ export const breadcrumb = (user, page) => {
     '/Preferences/Cluster',
     '/Preferences/AWS',
     '/Preferences/Status',
-  ]; // '/Preferences/Network', ];
+    '/Preferences/UserModules', 
+  ];
   const icons = [
     style.userIcon,
     style.clusterIcon,
     style.ec2Icon,
     style.statusIcon,
-  ]; // style.networkIcon, ],;
-  const titles = ['User preferences', 'Cluster', 'EC2', 'Server status'];
-  const labels = ['User', 'Cluster', 'EC2', 'Status'];
+    style.networkIcon, 
+];
+  const titles = ['User preferences', 'Cluster', 'EC2', 'Server status', 'UserModules'];
+  const labels = ['User', 'Cluster', 'EC2', 'Status', 'UserModules'];
   if (user && user.admin) {
     paths.splice(1, 0, '/Preferences/Groups');
     icons.splice(1, 0, style.groupIcon);
     titles.splice(1, 0, 'Groups');
     labels.splice(1, 0, 'Groups');
   }
-  return {
+  return { 
     paths,
     icons,
     titles,

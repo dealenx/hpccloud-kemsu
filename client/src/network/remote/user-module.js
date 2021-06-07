@@ -21,5 +21,14 @@ export default function ({
     getUserModule(id) {
       return busy(client._.get(`/user_module/${id}`));
     },
+
+    createUserModule(userModule) {
+      const expected = ['name', 'url'];
+      const params = filterQuery(userModule, ...expected);
+      const { missingKeys, promise } = mustContain(params, ...expected);
+      console.log("userModule values", userModule)
+      return missingKeys
+      ? promise : busy(client._.post(`/user_module${encodeQueryAsString(params)}`));
+    },
   };
 }
