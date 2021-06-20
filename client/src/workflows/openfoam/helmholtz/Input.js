@@ -30,8 +30,13 @@ class InputComponent extends React.Component {
     this.handleChangeEndTime = this.handleChangeEndTime.bind(this);
     this.handleChangeNu = this.handleChangeNu.bind(this);
     this.handleChangeFieldLength = this.handleChangeFieldLength.bind(this);
+    this.handleChangeFieldHeight = this.handleChangeFieldHeight.bind(this);
+    this.handleChangeFieldWidth = this.handleChangeFieldWidth.bind(this);
 
-    console.log('this.props', this.props);
+    this.handleChangeFieldLeftY1 = this.handleChangeFieldLeftY1.bind(this);
+    this.handleChangeFieldLeftY2 = this.handleChangeFieldLeftY2.bind(this);
+    this.handleChangeFieldRightY1 = this.handleChangeFieldRightY1.bind(this);
+    this.handleChangeFieldRightY2 = this.handleChangeFieldRightY2.bind(this);
 
     this.state = extract(props.simulation.steps.Input.metadata.model) || {
       data: {
@@ -57,6 +62,14 @@ class InputComponent extends React.Component {
       type: 'openfoam_helmholtz',
       hideViews: [],
       external: {},
+      geometry: {
+        fieldHeight: 0.1,
+        fieldWidth: 6,
+        fieldLeftY1: 0,
+        fieldLeftY2: 2,
+        fieldRightY1: 3,
+        fieldRightY2: 4,
+      },
     };
 
     this.simputKey = 0;
@@ -157,6 +170,66 @@ class InputComponent extends React.Component {
     if (localState.data.CavityFields[0]) {
       localState.data.CavityFields[0].attr1.fieldLength.value[0] =
         event.target.value;
+    }
+
+    await this.setState({ date: localState.data });
+    this.saveModel();
+  }
+
+  async handleChangeFieldHeight(event) {
+    const localState = this.state;
+    if (localState.data.CavityFields[0]) {
+      localState.geometry.fieldHeight = event.target.value;
+    }
+
+    await this.setState({ date: localState.data });
+    this.saveModel();
+  }
+
+  async handleChangeFieldWidth(event) {
+    const localState = this.state;
+    if (localState.data.CavityFields[0]) {
+      localState.geometry.fieldWidth = event.target.value;
+    }
+
+    await this.setState({ date: localState.data });
+    this.saveModel();
+  }
+
+  async handleChangeFieldLeftY1(event) {
+    const localState = this.state;
+    if (localState.data.CavityFields[0]) {
+      localState.geometry.fieldLeftY1 = event.target.value;
+    }
+
+    await this.setState({ date: localState.data });
+    this.saveModel();
+  }
+
+  async handleChangeFieldLeftY2(event) {
+    const localState = this.state;
+    if (localState.data.CavityFields[0]) {
+      localState.geometry.fieldLeftY2 = event.target.value;
+    }
+
+    await this.setState({ date: localState.data });
+    this.saveModel();
+  }
+
+  async handleChangeFieldRightY1(event) {
+    const localState = this.state;
+    if (localState.data.CavityFields[0]) {
+      localState.geometry.fieldRightY1 = event.target.value;
+    }
+
+    await this.setState({ date: localState.data });
+    this.saveModel();
+  }
+
+  async handleChangeFieldRightY2(event) {
+    const localState = this.state;
+    if (localState.data.CavityFields[0]) {
+      localState.geometry.fieldRightY2 = event.target.value;
     }
 
     await this.setState({ date: localState.data });
@@ -275,7 +348,8 @@ class InputComponent extends React.Component {
 
           <div className="input-group input-group-lg">
             <Antd.Input
-              value={0.1}
+              value={this.state.geometry.fieldHeight}
+              onChange={this.handleChangeFieldHeight}
               type="number"
               className="form-control"
               id="inputFieldLength"
@@ -296,7 +370,8 @@ class InputComponent extends React.Component {
 
           <div className="input-group input-group-lg">
             <Antd.Input
-              value={6}
+              value={this.state.geometry.fieldWidth}
+              onChange={this.handleChangeFieldWidth}
               type="number"
               className="form-control"
               id="inputFieldLength"
@@ -317,7 +392,8 @@ class InputComponent extends React.Component {
 
           <div className="input-group input-group-lg">
             <Antd.Input
-              value={1}
+              value={this.state.geometry.fieldLeftY1}
+              onChange={this.handleChangeFieldLeftY1}
               type="number"
               className="form-control"
               id="inputFieldLength"
@@ -338,7 +414,8 @@ class InputComponent extends React.Component {
 
           <div className="input-group input-group-lg">
             <Antd.Input
-              value={2}
+              value={this.state.geometry.fieldLeftY2}
+              onChange={this.handleChangeFieldLeftY2}
               type="number"
               className="form-control"
               id="inputFieldLength"
@@ -359,7 +436,8 @@ class InputComponent extends React.Component {
 
           <div className="input-group input-group-lg">
             <Antd.Input
-              value={3}
+              value={this.state.geometry.fieldRightY1}
+              onChange={this.handleChangeFieldRightY1}
               type="number"
               className="form-control"
               id="inputFieldLength"
@@ -380,7 +458,8 @@ class InputComponent extends React.Component {
 
           <div className="input-group input-group-lg">
             <Antd.Input
-              value={4}
+              value={this.state.geometry.fieldRightY2}
+              onChange={this.handleChangeFieldRightY2}
               type="number"
               className="form-control"
               id="inputFieldLength"
@@ -405,8 +484,12 @@ class InputComponent extends React.Component {
           <h3>Редактор сетки</h3>
           <Viz
             x={this.state.data.CavityFields[0].attr1.fieldLength.value[0]}
-            y={6}
-            z={0.1}
+            y={this.state.geometry.fieldWidth}
+            z={this.state.geometry.fieldHeight}
+            y1={this.state.geometry.fieldLeftY1}
+            y2={this.state.geometry.fieldLeftY2}
+            y3={this.state.geometry.fieldRightY1}
+            y4={this.state.geometry.fieldRightY2}
           />
           <br />
           <Antd.Row justify="center" align="top">
@@ -487,11 +570,31 @@ const style = {
   height: 500, // we can control scene size by setting container dimensions
 };
 
+const getDistanceXForSecondCube = (x) => -x / 2 - 0.1;
+const getDistanceXForThirdCube = (x) => x / 2 - 0.1;
+
+const getDistanceYForCube = (y, y1, y2) => {
+  const l = Math.abs(y2 - y1);
+  const first = -(y / 2);
+  const second = y2 - l / 2;
+  const res = first + second;
+
+  return res;
+};
+
 class Viz extends Component {
   constructor(props) {
     super(props);
     /* eslint-disable */
-    this.state = { boxSizeX: props.x, boxSizeY: props.y, boxSizeZ: props.z };
+    this.state = {
+      boxSizeX: props.x,
+      boxSizeY: props.y,
+      boxSizeZ: props.z,
+      y1: props.y1,
+      y2: props.y2,
+      y3: props.y3,
+      y4: props.y4,
+    };
     /* eslint-enable */
 
     this.scene = new THREE.Scene();
@@ -513,18 +616,44 @@ class Viz extends Component {
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(width, height);
 
-    const { boxSizeX, boxSizeY, boxSizeZ } = this.state;
+    const { boxSizeX, boxSizeY, boxSizeZ, y1, y2, y3, y4 } = this.state;
 
     const geometry = new THREE.BoxGeometry(boxSizeX, boxSizeY, boxSizeZ);
+    const l1 = Math.abs(y2 - y1);
+    const l2 = Math.abs(y3 - y4);
+    const geometrySecond = new THREE.BoxGeometry(0.5, l1, 0.1);
+    const geometryThird = new THREE.BoxGeometry(0.5, l2, 0.1);
     const material = new THREE.MeshPhongMaterial({
       color: 0x156289,
       emissive: 0x072534,
       side: THREE.DoubleSide,
       flatShading: true,
     });
+    const materialSecond = new THREE.MeshPhongMaterial({
+      color: 0xffffff,
+      emissive: 0x072534,
+      side: THREE.DoubleSide,
+      flatShading: true,
+    });
 
     const cube = new THREE.Mesh(geometry, material);
+    const cubeSecond = new THREE.Mesh(geometrySecond, materialSecond);
+    const cubeThird = new THREE.Mesh(geometryThird, materialSecond);
+
     scene.add(cube);
+    scene.add(cubeSecond);
+    scene.add(cubeThird);
+
+    cubeSecond.position.set(
+      getDistanceXForSecondCube(boxSizeX),
+      getDistanceYForCube(boxSizeY, y1, y2),
+      0.01
+    );
+    cubeThird.position.set(
+      getDistanceXForThirdCube(boxSizeX),
+      getDistanceYForCube(boxSizeY, y3, y4),
+      0.01
+    );
 
     const lights = [];
     lights[0] = new THREE.PointLight(0xffffff, 1, 0);
@@ -548,9 +677,7 @@ class Viz extends Component {
 
     const animate = function () {
       requestAnimationFrame(animate);
-
-      cube.rotation.y += 0.001;
-
+      // cube.rotation.y += 0.001;
       renderer.render(scene, camera);
     };
 
@@ -559,7 +686,15 @@ class Viz extends Component {
 
   componentWillReceiveProps(nextProps) {
     console.log('nextProps', nextProps);
-    this.syncSceneDataFromProps(nextProps.x, nextProps.y, nextProps.z);
+    this.syncSceneDataFromProps(
+      nextProps.x,
+      nextProps.y,
+      nextProps.z,
+      nextProps.y1,
+      nextProps.y2,
+      nextProps.y3,
+      nextProps.y4
+    );
   }
 
   /* eslint-disable */
@@ -571,30 +706,39 @@ class Viz extends Component {
   }
   /* eslint-enable */
 
-  syncSceneData() {
-    const { boxSizeX, boxSizeY, boxSizeZ } = this.state;
-
-    this.setSizeToMesh(this.scene.children[0], boxSizeX, boxSizeY, boxSizeZ);
+  /* eslint-disable */
+  setPoisitionToMesh(myMesh, x, y, z) {
+    // const scaleFactorX = xSize / myMesh.geometry.parameters.width;
+    // const scaleFactorY = ySize / myMesh.geometry.parameters.height;
+    // const scaleFactorZ = zSize / myMesh.geometry.parameters.depth;
+    // myMesh.scale.set(scaleFactorX, scaleFactorY, scaleFactorZ);
+    myMesh.position.set(x, y, z);
   }
+  /* eslint-enable */
 
-  handleInputChange(e) {
-    const target = e.target;
-    console.log('target', target);
+  syncSceneDataFromProps(x, y, z, y1, y2, y3, y4) {
+    const l1 = Math.abs(y2 - y1);
+    const l2 = Math.abs(y3 - y4);
 
-    const value = target.value;
-    const name = target.name;
-    this.setState(
-      {
-        [name]: value,
-      },
-      () => {
-        this.syncSceneData();
-      }
-    );
-  }
-
-  syncSceneDataFromProps(x, y, z) {
     this.setSizeToMesh(this.scene.children[0], x, y, z);
+
+    this.setPoisitionToMesh(
+      this.scene.children[1],
+      getDistanceXForSecondCube(x),
+      getDistanceYForCube(y, y1, y2),
+      0.01
+    );
+
+    this.setSizeToMesh(this.scene.children[1], 0.5, l1, 0.1);
+
+    this.setPoisitionToMesh(
+      this.scene.children[2],
+      getDistanceXForThirdCube(x),
+      getDistanceYForCube(y, y3, y4),
+      0.01
+    );
+
+    this.setSizeToMesh(this.scene.children[2], 0.5, l2, 0.1);
   }
 
   // componentWillUnmount() {

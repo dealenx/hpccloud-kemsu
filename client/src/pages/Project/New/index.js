@@ -56,10 +56,12 @@ class ProjectNew extends React.Component {
   async initWorkflows() {
     console.log('initWorkflows() TEST TEST');
     const localWorkflows = await getAsyncWorkflows();
+    console.log('localWorkflows', localWorkflows);
+    const workflowsNames = getNamesFromWorkflows(localWorkflows);
 
     await this.setState({
       workflows: localWorkflows,
-      type: localWorkflows[0].value,
+      type: workflowsNames[0].value,
       workflowNames: getNamesFromWorkflows(localWorkflows),
     });
   }
