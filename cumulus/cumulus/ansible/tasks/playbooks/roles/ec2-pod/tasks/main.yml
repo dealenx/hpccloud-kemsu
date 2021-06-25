@@ -1,0 +1,6 @@
+---
+- include: terminate.yml
+  when: cluster_state == 'absent'
+
+- include: launch.yml
+  when: cluster_state == 'running'

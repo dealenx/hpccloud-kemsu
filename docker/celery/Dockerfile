@@ -6,10 +6,10 @@ LABEL maintainer="patrick.oleary@kitware.com" \
 
 RUN adduser --system celery
 
-# Install cumulus
-RUN git clone https://github.com/Kitware/cumulus.git /cumulus && \
-  cd /cumulus && \
-  # git checkout v1.0.0 && \
+COPY ./cumulus /cumulus
+
+
+RUN cd /cumulus && \
   cd / && \
   pip3 install --no-cache-dir -r /cumulus/requirements.txt && \
   pip3 install --no-cache-dir -e /cumulus && \

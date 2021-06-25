@@ -1,120 +1,136 @@
 module.exports = {
-  base: '/hpccloud-kemsu/',
-  head: [['link', { rel: 'icon', href: '/icon/favicon-196x196.png' }]],
+  base: "/hpccloud-kemsu/",
+  head: [["link", { rel: "icon", href: "/icon/favicon-196x196.png" }]],
 
   locales: {
     // The key is the path for the locale to be nested under.
     // As a special case, the default locale can use '/' as its path.
-    '/': {
-      lang: 'ru-RU',
-      title: 'HPCCloud Kemsu',
-      description: 'Документация по веб-платформе HPCCloud',
+    "/": {
+      lang: "ru-RU",
+      title: "HPCCloud Kemsu",
+      description: "Документация по веб-платформе HPCCloud"
     },
-    '/en/': {
-      lang: 'en-US', // this will be set as the lang attribute on <html>
-      title: 'HPCCloud Kemsu',
-      description: 'Simplify HPC workflows and infrastructure management',
-    },
+    "/en/": {
+      lang: "en-US", // this will be set as the lang attribute on <html>
+      title: "HPCCloud Kemsu",
+      description: "Simplify HPC workflows and infrastructure management"
+    }
   },
 
   themeConfig: {
     locales: {
-      '/': {
+      "/": {
         // text for the language dropdown
-        selectText: 'Языки',
+        selectText: "Языки",
         // label for this locale in the language dropdown
-        label: 'Русский',
+        label: "Русский",
 
         // Aria Label for locale in the dropdown
-        ariaLabel: 'Языки',
-        lastUpdated: 'Последнее обновление', // string | boolean
+        ariaLabel: "Языки",
+        lastUpdated: "Последнее обновление", // string | boolean
         nav: [
-          { text: 'Документация', link: '/general/introduction' },
+          { text: "Документация", link: "/general/introduction" },
           {
-            text: 'Github',
-            link: 'https://github.com/dealenx/hpccloud-kemsu',
-          },
+            text: "Github",
+            link: "https://github.com/dealenx/hpccloud-kemsu"
+          }
         ],
         sidebar: [
           {
-            title: 'Основы',
+            title: "Основы",
             collapsable: false,
             children: [
-              '/general/introduction',
-              '/general/installation',
-              '/general/getting-started',
-              '/general/troubleshooting',
-              '/general/glossary',
-            ],
+              "/general/introduction",
+              "/general/installation",
+              "/general/getting-started",
+              "/general/troubleshooting",
+              "/general/glossary"
+            ]
           },
           {
-            title: 'Руководство пользователя',
+            title: "Руководство пользователя",
             collapsable: false,
             children: [
-              '/usage/create-account',
-              '/usage/trad-cluster',
+              "/usage/create-account",
+              "/usage/trad-cluster",
               /*'/usage/aws-profiles',*/
               /*'/usage/ebs-volumes',*/
-              '/usage/creating',
+              "/usage/creating",
               /*'/usage/simput',*/
-              '/usage/running',
-              '/usage/sharing',
-            ],
+              "/usage/running",
+              "/usage/sharing"
+            ]
           },
           {
-            title: 'Научно-исследовательский раздел',
+            title: "Научно-исследовательский раздел",
+            collapsable: false,
+            children: ["/research/introduction", "/research/work"]
+          },
+          {
+            title: "Разработка клиентской части",
             collapsable: false,
             children: [
-              '/research/introduction',
-              '/research/cloud-computing',
-              '/research/web-platform',
-              '/research/reference',
-            ],
+              "/dev/introduction",
+              "/dev/panels",
+              "/dev/redux",
+              "/dev/tools"
+            ]
           },
-        ],
+          {
+            title: "Разработка рабочих процессов (Workflows)",
+            collapsable: false,
+            children: [
+              "/workflow/introduction",
+              "/workflow/defining",
+              "/workflow/pages",
+              "/workflow/getting-started",
+              "/workflow/simput-cavity"
+            ]
+          }
+        ]
       },
-      '/en/': {
+      "/en/": {
         // text for the language dropdown
-        selectText: 'Languages',
+        selectText: "Languages",
         // label for this locale in the language dropdown
-        label: 'English',
+        label: "English",
 
         // Aria Label for locale in the dropdown
-        ariaLabel: 'Languages',
-        lastUpdated: 'Last updated', // string | boolean
+        ariaLabel: "Languages",
+        lastUpdated: "Last updated", // string | boolean
 
         nav: [
-          { text: 'Documentation', link: '/en/general/introduction' },
+          { text: "Documentation", link: "/en/general/introduction" },
           {
-            text: 'Github',
-            link: 'https://github.com/dealenx/hpccloud-kemsu',
-          },
+            text: "Github",
+            link: "https://github.com/dealenx/hpccloud-kemsu"
+          }
         ],
         sidebar: [
           {
-            title: 'Basics',
+            title: "Basics",
             collapsable: false,
             children: [
-              '/en/general/introduction',
-              '/en/general/getting-started',
-              '/en/general/troubleshooting',
-              '/en/general/glossary',
-            ],
+              "/en/general/introduction",
+              "/en/general/getting-started",
+              "/en/general/troubleshooting",
+              "/en/general/glossary"
+            ]
           },
           {
-            title: 'Usage',
+            title: "Usage",
             collapsable: false,
             children: [
-              '/en/usage/create-account',
-              '/en/usage/trad-cluster',
-              '/en/usage/aws-profiles',
-              '/en/usage/ebs-volumes',
-              '/en/usage/creating',
-              '/en/usage/simput',
-              '/en/usage/running',
-              '/en/usage/sharing',
-            ],
-          },
+              "/en/usage/create-account",
+              "/en/usage/trad-cluster",
+              "/en/usage/aws-profiles",
+              "/en/usage/ebs-volumes",
+              "/en/usage/creating",
+              "/en/usage/simput",
+              "/en/usage/running",
+              "/en/usage/sharing"
+            ]
+          }
           /*{
             title: 'Development',
             collapsable: false,
@@ -134,8 +150,8 @@ module.exports = {
               '/en/workflows/pages',
             ],
           },*/
-        ],
-      },
-    },
-  },
+        ]
+      }
+    }
+  }
 };

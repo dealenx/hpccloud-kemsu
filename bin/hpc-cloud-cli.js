@@ -1,9 +1,9 @@
 #! /usr/bin/env node
 
 var fs = require('fs'),
-    path = require('path'),
-    program = require('commander'),
-    paraview = process.env.PARAVIEW_HOME;
+  path = require('path'),
+  program = require('commander'),
+  paraview = process.env.PARAVIEW_HOME;
 
 require('shelljs/global');
 
@@ -15,9 +15,6 @@ program
   .parse(process.argv);
 
 if (!process.argv.slice(2).length) {
-    program.outputHelp();
-    process.exit(0);
+  program.outputHelp();
+  process.exit(0);
 }
-
-
-
