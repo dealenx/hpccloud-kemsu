@@ -7,7 +7,7 @@ setup(
     packages=find_packages(),
     install_requires=[
       'girder>=3.0.0a5',
-      'celery==3.1.20'
+      'celery==5.2.2'
     ],
     entry_points={
       'girder.plugin': [
