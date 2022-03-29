@@ -11,7 +11,7 @@ Jinja2==2.10.1
 jsonpath-rw==1.4.0
 jsonpickle==1.2
 jsonschema==3.0.1
-paramiko==2.6.0
+paramiko==2.10.1
 pymongo>=3.6
 requests==2.22.0
 six==1.12.0
